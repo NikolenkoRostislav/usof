@@ -1,4 +1,4 @@
-const { randomUUID } = require("node:crypto");
+const { randomUUID } = require("crypto");
 
 class Like {
     constructor({ id = randomUUID(), authorId = null, publishDate = new Date(), type, postId = null, commentId = null }) {

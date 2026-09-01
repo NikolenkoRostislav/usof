@@ -1,4 +1,4 @@
-const { randomUUID } = require("node:crypto");
+const { randomUUID } = require("crypto");
 
 class Post {
     constructor({ id = randomUUID(), authorId = null, title, publishDate = new Date(), status = "active", content, categories = [] }) {
