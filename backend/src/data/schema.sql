@@ -3,6 +3,7 @@ USE usof;
 CREATE TABLE users (
     id CHAR(36) PRIMARY KEY,
     login VARCHAR(50) NOT NULL UNIQUE,
+    full_name VARCHAR(100) NOT NULL,
     password_hash TEXT NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
     pfp_key TEXT,
