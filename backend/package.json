@@ -1,7 +1,7 @@
 {
   "name": "backend",
   "scripts": {
-    "start": "node index.js"
+    "start": "node --watch index.js"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
