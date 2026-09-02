@@ -26,13 +26,13 @@ const statusByKind = {
 };
 
 function errorHandlingMiddleware(error, req, res, _next) {
-    if (logErrors)
-        console.error("ERROR: ", error);
-
     if (error instanceof AppError) {
         const status = statusByKind[error.kind] ?? 500;
         return res.status(status).json({ message: error.message });
     }
+
+    if (logErrors)
+        console.error("ERROR: ", error);
 
     return res.status(500).json({
         message: "Internal server error"
