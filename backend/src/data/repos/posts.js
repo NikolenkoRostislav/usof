@@ -1,3 +1,5 @@
+const { AppError, Kind } = require("../../errors.js");
+
 Post = require("../../entities/post.js");
 
 class PostsRepo {
@@ -8,7 +10,14 @@ class PostsRepo {
     _fromRows(rows) {
         if (!rows || rows.length === 0) return null;
 
-        return
+        return new Post({
+            id: rows[0].id,
+            authorId: rows[0].author_id,
+            title: rows[0].title,
+            publishDate: rows[0].publish_date,
+            status: rows[0].status,
+            content: rows[0].content
+        });
     }
 
     async findById(id) {
@@ -20,21 +29,39 @@ class PostsRepo {
         return this._fromRows(rows);
     }
 
+    async findByAuthorId(authorId) {
+        const [rows] = await this.connection.query(
+            "SELECT * FROM posts WHERE author_id = ?",
+            [authorId]
+        );
+
+        if (!rows || rows.length === 0) return [];
+
+        return rows.map(row => new Post({
+            id: row.id,
+            authorId: row.author_id,
+            title: row.title,
+            publishDate: row.publish_date,
+            status: row.status,
+            content: row.content
+        }));
+    }
+
     async save(post) {
         try {
             const [result] = await this.connection.query(
                 `UPDATE posts
-                SET 
+                SET author_id = ?, title = ?, publish_date = ?, status = ?, content = ?
                 WHERE id = ?`,
-                [, post.id]
+                [post.authorId, post.title, post.publishDate, post.status, post.content, post.id]
             );
             if (result.affectedRows > 0)
                 return;
 
             await this.connection.query(
-                `INSERT INTO posts (id,)
-                VALUES (?,)`,
-                [post.id,]
+                `INSERT INTO posts (id, author_id, title, publish_date, status, content)
+                VALUES (?, ?, ?, ?, ?, ?)`,
+                [post.id, post.authorId, post.title, post.publishDate, post.status, post.content]
             );
         } catch (error) {
             if (error.code === "ER_DUP_ENTRY") {

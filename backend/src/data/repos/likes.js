@@ -1,3 +1,5 @@
+const { AppError, Kind } = require("../../errors.js");
+
 Like = require("../../entities/like.js");
 
 class LikesRepo {
@@ -8,7 +10,14 @@ class LikesRepo {
     _fromRows(rows) {
         if (!rows || rows.length === 0) return null;
 
-        return
+        return new Like({
+            id: rows[0].id,
+            authorId: rows[0].author_id,
+            publishDate: rows[0].publish_date,
+            type: rows[0].type,
+            postId: rows[0].post_id,
+            commentId: rows[0].comment_id
+        });
     }
 
     async findById(id) {
@@ -20,21 +29,57 @@ class LikesRepo {
         return this._fromRows(rows);
     }
 
+    async findByPostId(postId) {
+        const [rows] = await this.connection.query(
+            "SELECT * FROM likes WHERE post_id = ?",
+            [postId]
+        );
+
+        if (!rows || rows.length === 0) return [];
+
+        return rows.map(row => new Like({
+            id: row.id,
+            authorId: row.author_id,
+            publishDate: row.publish_date,
+            type: row.type,
+            postId: row.post_id,
+            commentId: row.comment_id
+        }));
+    }
+
+    async findByCommentId(commentId) {
+        const [rows] = await this.connection.query(
+            "SELECT * FROM likes WHERE comment_id = ?",
+            [commentId]
+        );
+
+        if (!rows || rows.length === 0) return [];
+
+        return rows.map(row => new Like({
+            id: row.id,
+            authorId: row.author_id,
+            publishDate: row.publish_date,
+            type: row.type,
+            postId: row.post_id,
+            commentId: row.comment_id
+        }));
+    }
+
     async save(like) {
         try {
             const [result] = await this.connection.query(
                 `UPDATE likes
-                SET 
+                SET author_id = ?, publish_date = ?, type = ?, post_id = ?, comment_id = ?
                 WHERE id = ?`,
-                [, like.id]
+                [like.authorId, like.publishDate, like.type, like.postId, like.commentId, like.id]
             );
             if (result.affectedRows > 0)
                 return;
 
             await this.connection.query(
-                `INSERT INTO likes (id,)
-                VALUES (?,)`,
-                [like.id,]
+                `INSERT INTO likes (id, author_id, publish_date, type, post_id, comment_id)
+                VALUES (?, ?, ?, ?, ?, ?)`,
+                [like.id, like.authorId, like.publishDate, like.type, like.postId, like.commentId]
             );
         } catch (error) {
             if (error.code === "ER_DUP_ENTRY") {
