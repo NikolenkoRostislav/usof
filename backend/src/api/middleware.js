@@ -27,7 +27,7 @@ const statusByKind = {
 
 function errorHandlingMiddleware(error, req, res, next) {
     if (logErrors)
-        console.error("ERROR: ", error.message);
+        console.error("ERROR: ", error);
 
     if (error instanceof AppError) {
         const status = statusByKind[error.kind] ?? 500;
