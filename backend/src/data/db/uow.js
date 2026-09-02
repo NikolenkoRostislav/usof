@@ -4,6 +4,7 @@ const CommentsRepo = require('./repos/comments.js');
 const LikesRepo = require('./repos/likes.js');
 const PostsRepo = require('./repos/posts.js');
 const UsersRepo = require('./repos/users.js');
+const RegistrationIntentsRepo = require('./repos/registration_intents.js');
 
 class UoW {
     constructor(connection) {
@@ -42,6 +43,10 @@ class UoW {
 
     users() {
         return new UsersRepo(this.connection);
+    }
+
+    registrationIntents() {
+        return new RegistrationIntentsRepo(this.connection);
     }
 }
 

@@ -1,5 +1,5 @@
 const session = require("express-session");
-const { AppError, Kind } = require("../errors");
+const { AppError, Kind } = require("../domain/errors.js");
 require("dotenv").config();
 
 const secretKey = process.env.SECRET_KEY;
@@ -25,7 +25,7 @@ const statusByKind = {
     [Kind.Internal]: 500
 };
 
-function errorHandlingMiddleware(error, req, res, next) {
+function errorHandlingMiddleware(error, req, res, _next) {
     if (logErrors)
         console.error("ERROR: ", error);
 

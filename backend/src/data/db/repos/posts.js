@@ -1,8 +1,7 @@
-const { AppError, Kind } = require("../../errors.js");
+const { AppError, Kind } = require("../../../domain/errors.js");
+const Post = require("../../../domain/entities/post.js");
 
-Comment = require("../../entities/comment.js");
-
-class CommentsRepo {
+class PostsRepo {
     constructor(connection) {
         this.connection = connection;
     }
@@ -10,73 +9,58 @@ class CommentsRepo {
     _fromRows(rows) {
         if (!rows || rows.length === 0) return null;
 
-        return new Comment({
+        return new Post({
             id: rows[0].id,
             authorId: rows[0].author_id,
-            postId: rows[0].post_id,
+            title: rows[0].title,
             publishDate: rows[0].publish_date,
+            status: rows[0].status,
             content: rows[0].content
         });
     }
 
     async findById(id) {
         const [rows] = await this.connection.query(
-            "SELECT * FROM comments WHERE id = ?",
+            "SELECT * FROM posts WHERE id = ?",
             [id]
         );
 
         return this._fromRows(rows);
     }
 
-    async findByPostId(postId) {
-        const [rows] = await this.connection.query(
-            "SELECT * FROM comments WHERE post_id = ?",
-            [postId]
-        );
-
-        if (!rows || rows.length === 0) return [];
-
-        return rows.map(row => new Comment({
-            id: row.id,
-            authorId: row.author_id,
-            postId: row.post_id,
-            publishDate: row.publish_date,
-            content: row.content
-        }));
-    }
-
     async findByAuthorId(authorId) {
         const [rows] = await this.connection.query(
-            "SELECT * FROM comments WHERE author_id = ?",
+            "SELECT * FROM posts WHERE author_id = ?",
             [authorId]
         );
 
         if (!rows || rows.length === 0) return [];
 
-        return rows.map(row => new Comment({
+        return rows.map(row => new Post({
             id: row.id,
             authorId: row.author_id,
-            postId: row.post_id,
+            title: row.title,
             publishDate: row.publish_date,
+            status: row.status,
             content: row.content
         }));
     }
 
-    async save(comment) {
+    async save(post) {
         try {
             const [result] = await this.connection.query(
-                `UPDATE comments
-                SET author_id = ?, post_id = ?, publish_date = ?, content = ?
+                `UPDATE posts
+                SET author_id = ?, title = ?, publish_date = ?, status = ?, content = ?
                 WHERE id = ?`,
-                [comment.authorId, comment.postId, comment.publishDate, comment.content, comment.id]
+                [post.authorId, post.title, post.publishDate, post.status, post.content, post.id]
             );
             if (result.affectedRows > 0)
                 return;
 
             await this.connection.query(
-                `INSERT INTO comments (id, author_id, post_id, publish_date, content)
-                VALUES (?, ?, ?, ?, ?)`,
-                [comment.id, comment.authorId, comment.postId, comment.publishDate, comment.content]
+                `INSERT INTO posts (id, author_id, title, publish_date, status, content)
+                VALUES (?, ?, ?, ?, ?, ?)`,
+                [post.id, post.authorId, post.title, post.publishDate, post.status, post.content]
             );
         } catch (error) {
             if (error.code === "ER_DUP_ENTRY") {
@@ -92,10 +76,10 @@ class CommentsRepo {
 
     async delete(id) {
         await this.connection.query(
-            "DELETE FROM comments WHERE id = ?",
+            "DELETE FROM posts WHERE id = ?",
             [id]
         );
     }
 }
 
-module.exports = CommentsRepo
+module.exports = PostsRepo

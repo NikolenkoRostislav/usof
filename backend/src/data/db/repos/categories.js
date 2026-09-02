@@ -1,6 +1,5 @@
-const { AppError, Kind } = require("../../errors.js");
-
-Category = require("../../entities/category.js");
+const { AppError, Kind } = require("../../../domain/errors.js");
+const Category = require("../../../domain/entities/category.js");
 
 class CategoriesRepo {
     constructor(connection) {

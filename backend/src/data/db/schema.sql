@@ -64,3 +64,13 @@ CREATE TABLE likes (
     UNIQUE (author_id, post_id),
     UNIQUE (author_id, comment_id)
 );
+
+CREATE TABLE registration_intents (
+    id CHAR(36) PRIMARY KEY,
+    token_hash VARCHAR(255) NOT NULL UNIQUE,
+    login VARCHAR(50) NOT NULL UNIQUE,
+    password_hash TEXT NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    full_name VARCHAR(100),
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);

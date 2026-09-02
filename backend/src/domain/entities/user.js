@@ -1,7 +1,5 @@
 const { randomUUID } = require("crypto");
-const bcrypt = require("bcrypt");
-
-const saltRounds = 10;
+const Password = require("../types/password");
 
 class User {
     constructor({ id = randomUUID(), login, passwordHash, fullName, email, pfpKey = null, role = "user", rating = 0 }) {
@@ -16,11 +14,11 @@ class User {
     }
 
     async setPassword(password) {
-        this.passwordHash = await bcrypt.hash(password, saltRounds);
+        this.passwordHash = await Password.hash(password);
     }
 
     async checkPassword(password) {
-        return bcrypt.compare(password, this.passwordHash);
+        return Password.checkPassword(password, this.passwordHash);
     }
 }
 

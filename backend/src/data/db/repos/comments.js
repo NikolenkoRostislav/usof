@@ -1,8 +1,7 @@
-const { AppError, Kind } = require("../../errors.js");
+const { AppError, Kind } = require("../../../domain/errors.js");
+const Comment = require("../../../domain/entities/comment.js");
 
-Like = require("../../entities/like.js");
-
-class LikesRepo {
+class CommentsRepo {
     constructor(connection) {
         this.connection = connection;
     }
@@ -10,19 +9,18 @@ class LikesRepo {
     _fromRows(rows) {
         if (!rows || rows.length === 0) return null;
 
-        return new Like({
+        return new Comment({
             id: rows[0].id,
             authorId: rows[0].author_id,
-            publishDate: rows[0].publish_date,
-            type: rows[0].type,
             postId: rows[0].post_id,
-            commentId: rows[0].comment_id
+            publishDate: rows[0].publish_date,
+            content: rows[0].content
         });
     }
 
     async findById(id) {
         const [rows] = await this.connection.query(
-            "SELECT * FROM likes WHERE id = ?",
+            "SELECT * FROM comments WHERE id = ?",
             [id]
         );
 
@@ -31,55 +29,53 @@ class LikesRepo {
 
     async findByPostId(postId) {
         const [rows] = await this.connection.query(
-            "SELECT * FROM likes WHERE post_id = ?",
+            "SELECT * FROM comments WHERE post_id = ?",
             [postId]
         );
 
         if (!rows || rows.length === 0) return [];
 
-        return rows.map(row => new Like({
+        return rows.map(row => new Comment({
             id: row.id,
             authorId: row.author_id,
-            publishDate: row.publish_date,
-            type: row.type,
             postId: row.post_id,
-            commentId: row.comment_id
+            publishDate: row.publish_date,
+            content: row.content
         }));
     }
 
-    async findByCommentId(commentId) {
+    async findByAuthorId(authorId) {
         const [rows] = await this.connection.query(
-            "SELECT * FROM likes WHERE comment_id = ?",
-            [commentId]
+            "SELECT * FROM comments WHERE author_id = ?",
+            [authorId]
         );
 
         if (!rows || rows.length === 0) return [];
 
-        return rows.map(row => new Like({
+        return rows.map(row => new Comment({
             id: row.id,
             authorId: row.author_id,
-            publishDate: row.publish_date,
-            type: row.type,
             postId: row.post_id,
-            commentId: row.comment_id
+            publishDate: row.publish_date,
+            content: row.content
         }));
     }
 
-    async save(like) {
+    async save(comment) {
         try {
             const [result] = await this.connection.query(
-                `UPDATE likes
-                SET author_id = ?, publish_date = ?, type = ?, post_id = ?, comment_id = ?
+                `UPDATE comments
+                SET author_id = ?, post_id = ?, publish_date = ?, content = ?
                 WHERE id = ?`,
-                [like.authorId, like.publishDate, like.type, like.postId, like.commentId, like.id]
+                [comment.authorId, comment.postId, comment.publishDate, comment.content, comment.id]
             );
             if (result.affectedRows > 0)
                 return;
 
             await this.connection.query(
-                `INSERT INTO likes (id, author_id, publish_date, type, post_id, comment_id)
-                VALUES (?, ?, ?, ?, ?, ?)`,
-                [like.id, like.authorId, like.publishDate, like.type, like.postId, like.commentId]
+                `INSERT INTO comments (id, author_id, post_id, publish_date, content)
+                VALUES (?, ?, ?, ?, ?)`,
+                [comment.id, comment.authorId, comment.postId, comment.publishDate, comment.content]
             );
         } catch (error) {
             if (error.code === "ER_DUP_ENTRY") {
@@ -95,10 +91,10 @@ class LikesRepo {
 
     async delete(id) {
         await this.connection.query(
-            "DELETE FROM likes WHERE id = ?",
+            "DELETE FROM comments WHERE id = ?",
             [id]
         );
     }
 }
 
-module.exports = LikesRepo
+module.exports = CommentsRepo

@@ -9,5 +9,11 @@
     "express": "^5.2.1",
     "express-session": "^1.19.0",
     "mysql2": "^3.24.2"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.9.1",
+    "eslint-plugin-n": "^18.3.0",
+    "globals": "^17.12.0"
   }
 }
