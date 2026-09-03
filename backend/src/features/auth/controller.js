@@ -36,4 +36,18 @@ function logout(req, res) {
     res.sendStatus(204);
 }
 
-module.exports = { register, confirmRegistration, login, logout };
+async function createPasswordUpdateIntent(req, res) {
+    const { email, new_password } = req.body;
+
+    await authService.createPasswordUpdateIntent(email, new_password);
+    res.sendStatus(204);
+}
+
+async function updatePassword(req, res) {
+    const { email } = req.body;
+    const { confirm_token } = req.params;
+    const user = await authService.updatePassword(email, confirm_token);
+    res.sendStatus(204);
+}
+
+module.exports = { register, confirmRegistration, login, logout, createPasswordUpdateIntent, updatePassword };

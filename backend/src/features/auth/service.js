@@ -1,4 +1,5 @@
 const RegistrationIntent = require("../../domain/entities/registration_intent");
+const PasswordUpdateIntent = require("../../domain/entities/password_update_intent");
 const User = require("../../domain/entities/user");
 const EmailSender = require("../../infra/email_sender/dev");
 const { transactional } = require("../../infra/db/uow");
@@ -6,6 +7,7 @@ const { AppError, Kind } = require("../../domain/errors");
 
 const frontedUrl = process.env.FRONTEND_URL || "http://localhost:3000";
 const registrationTokenExpirationMinutes = 10;
+const passwordUpdateTokenExpirationMinutes = 10;
 
 async function register({ login, password, email, fullName = null }) {
     return await transactional(_register)(login, password, email, fullName);
@@ -100,4 +102,73 @@ async function login(login, email, password) {
     return await transactional(_login)(login, email, password);
 }
 
-module.exports = { register, confirmRegistration, login };
+async function _createPasswordUpdateIntent(uow, email, newPassword) {
+    const usersRepo = uow.users();
+    const passwordUpdateIntentsRepo = uow.passwordUpdateIntents();
+
+    const user = await usersRepo.findByEmail(email);
+    if (!user) {
+        throw new AppError(Kind.NotFound, "User not found");
+    }
+
+    const intent = new PasswordUpdateIntent({ email });
+    await intent.setPassword(newPassword);
+    const token = await intent.generateToken();
+    await passwordUpdateIntentsRepo.save(intent);
+
+    await new EmailSender().sendEmail(
+        email,
+        "Reset your password",
+        `Please confirm your password reset by clicking the following link: ${frontedUrl}/reset-password?token=${token}
+        It will only be active for 10 minutes. If you did not request this, please ignore this email.`
+    );
+}
+
+async function createPasswordUpdateIntent(email, newPassword) {
+    return await transactional(_createPasswordUpdateIntent)(email, newPassword);
+}
+
+async function _updatePassword(uow, email, token) {
+    const usersRepo = uow.users();
+    const passwordUpdateIntentsRepo = uow.passwordUpdateIntents();
+
+    const intent = await passwordUpdateIntentsRepo.findByEmail(email);
+    if (!intent) {
+        throw new AppError(Kind.InvalidEntry, "Invalid token");
+    }
+
+    if (intent.isUsed) {
+        throw new AppError(Kind.InvalidEntry, "Invalid token");
+    }
+
+    const isTokenValid = await intent.verify(token);
+    if (!isTokenValid) {
+        throw new AppError(Kind.InvalidEntry, "Invalid token");
+    }
+
+    const now = new Date();
+    const minutesElapsed = (now - intent.createdAt) / 1000 / 60;
+    if (minutesElapsed > passwordUpdateTokenExpirationMinutes) {
+        throw new AppError(Kind.InvalidEntry, "Token expired");
+    }
+
+    const user = await usersRepo.findByEmail(email);
+    if (!user) {
+        throw new AppError(Kind.NotFound, "User not found");
+    }
+
+    user.passwordHash = intent.passwordHash;
+    await usersRepo.save(user);
+
+    intent.isUsed = true;
+    await passwordUpdateIntentsRepo.save(intent);
+    await passwordUpdateIntentsRepo.delete(intent.id);
+
+    return user;
+}
+
+async function updatePassword(email, token) {
+    return await transactional(_updatePassword)(email, token);
+}
+
+module.exports = { register, confirmRegistration, login, createPasswordUpdateIntent, updatePassword };
