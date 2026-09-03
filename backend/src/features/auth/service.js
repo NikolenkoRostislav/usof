@@ -74,10 +74,17 @@ async function confirmRegistration(email, token) {
     return await transactional(_confirmRegistration)(email, token);
 }
 
-async function _login(uow, login, password) {
+async function _login(uow, login, email, password) {
     const usersRepo = uow.users();
 
-    const user = await usersRepo.findByLogin(login);
+    const userByLogin = await usersRepo.findByLogin(login);
+    const userByEmail = await usersRepo.findByEmail(email);
+
+    if (userByLogin && userByEmail && userByLogin.id !== userByEmail.id) {
+        throw new AppError(Kind.Unauthorized, "Invalid login or password");
+    }
+
+    const user = userByLogin || userByEmail;
     if (!user) {
         throw new AppError(Kind.Unauthorized, "Invalid login or password");
     }
@@ -89,8 +96,8 @@ async function _login(uow, login, password) {
     return user;
 }
 
-async function login(login, password) {
-    return await transactional(_login)(login, password);
+async function login(login, email, password) {
+    return await transactional(_login)(login, email, password);
 }
 
 module.exports = { register, confirmRegistration, login };

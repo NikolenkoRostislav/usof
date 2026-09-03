@@ -1,7 +1,11 @@
 const authService = require("./service");
 
 async function register(req, res) {
-    const { login, password, email, fullName } = req.body;
+    const { login, password, password_confirmation, email, fullName } = req.body;
+    if (password !== password_confirmation) {
+        return res.status(422).json({ message: "Passwords do not match" });
+    }
+
     await authService.register({ login, password, email, fullName });
     res.status(201).json({ message: "Registration successful. Check your email to confirm." });
 }
@@ -18,8 +22,8 @@ async function confirmRegistration(req, res) {
 }
 
 async function login(req, res) {
-    const { login, password } = req.body;
-    const user = await authService.login(login, password);
+    const { login, email, password } = req.body;
+    const user = await authService.login(login, email, password);
     req.session.user = {
         id: user.id,
         role: user.role,
