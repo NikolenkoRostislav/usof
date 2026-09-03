@@ -1,10 +1,10 @@
-const pool = require('./db.js');
-const CategoriesRepo = require('./repos/categories.js');
-const CommentsRepo = require('./repos/comments.js');
-const LikesRepo = require('./repos/likes.js');
-const PostsRepo = require('./repos/posts.js');
-const UsersRepo = require('./repos/users.js');
-const RegistrationIntentsRepo = require('./repos/registration_intents.js');
+const pool = require('./db');
+const CategoriesRepo = require('./repos/categories');
+const CommentsRepo = require('./repos/comments');
+const LikesRepo = require('./repos/likes');
+const PostsRepo = require('./repos/posts');
+const UsersRepo = require('./repos/users');
+const RegistrationIntentsRepo = require('./repos/registration_intents');
 
 class UoW {
     constructor(connection) {

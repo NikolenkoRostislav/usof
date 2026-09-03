@@ -1,5 +1,5 @@
-const { AppError, Kind } = require("../../../domain/errors.js");
-const RegistrationIntent = require("../../../domain/entities/registration_intent.js");
+const { AppError, Kind } = require("../../../domain/errors");
+const RegistrationIntent = require("../../../domain/entities/registration_intent");
 
 class RegistrationIntentsRepo {
     constructor(connection) {

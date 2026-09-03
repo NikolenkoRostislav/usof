@@ -1,5 +1,5 @@
 const session = require("express-session");
-const { AppError, Kind } = require("../domain/errors.js");
+const { AppError, Kind } = require("../domain/errors");
 require("dotenv").config();
 
 const secretKey = process.env.SECRET_KEY;
@@ -39,4 +39,26 @@ function errorHandlingMiddleware(error, req, res, _next) {
     });
 }
 
-module.exports = { sessionMiddleware, errorHandlingMiddleware };
+function authMiddleware(req, res, next) {
+    const userID = req.session.user?.id;
+    if (!userID) {
+        return res.status(401).json({ message: "Not authenticated" });
+    }
+
+    next();
+}
+
+function adminAuthMiddleware(req, res, next) {
+    const userID = req.session.user?.id;
+    if (!userID) {
+        return res.status(401).json({ message: "Not authenticated" });
+    }
+    const userRole = req.session.user.role;
+    if (userRole !== "admin") {
+        return res.status(403).json({ message: "Permission denied" });
+    }
+
+    next();
+}
+
+module.exports = { sessionMiddleware, errorHandlingMiddleware, authMiddleware, adminAuthMiddleware };

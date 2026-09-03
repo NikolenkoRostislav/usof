@@ -1,5 +1,5 @@
-const { register, confirmRegistration, login } = require("./controller");
-
+const { register, confirmRegistration, login, logout } = require("./controller");
+const { authMiddleware } = require("../../api//middleware");
 
 function route(app) {
     app.post("/api/auth/register", register);
@@ -8,7 +8,7 @@ function route(app) {
 
     app.post("/api/auth/login", login);
 
-    app.post("/api/auth/logout", () => { });
+    app.post("/api/auth/logout", authMiddleware, logout);
 
     app.post("/api/auth/password-reset", () => { });
 

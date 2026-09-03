@@ -1,9 +1,9 @@
-const { route: authRoute } = require("../features/auth/routes.js");
-const { route: categoriesRoute } = require("../features/categories/routes.js");
-const { route: commentsRoute } = require("../features/comments/routes.js");
-const { route: likesRoute } = require("../features/likes/routes.js");
-const { route: postsRoute } = require("../features/posts/routes.js");
-const { route: userRoute } = require("../features/users/routes.js");
+const { route: authRoute } = require("../features/auth/routes");
+const { route: categoriesRoute } = require("../features/categories/routes");
+const { route: commentsRoute } = require("../features/comments/routes");
+const { route: likesRoute } = require("../features/likes/routes");
+const { route: postsRoute } = require("../features/posts/routes");
+const { route: userRoute } = require("../features/users/routes");
 
 
 function route(app) {

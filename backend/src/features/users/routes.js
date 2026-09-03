@@ -1,15 +1,20 @@
-function route(app) {
-    app.get("/api/users", () => { });
+const { authMiddleware, adminAuthMiddleware } = require("../../api/middleware");
+const { getById, getSelf } = require("./controller");
 
-    app.post("/api/users", () => { });
+function route(app) {
+    app.get("/api/users", adminAuthMiddleware, () => { });
+
+    app.post("/api/users", adminAuthMiddleware, () => { });
 
     app.patch("/api/user/avatar", () => { });
 
-    app.get("/api/users/:user_id", () => { });
+    app.get("/api/users/:user_id", getById);
 
-    app.patch("/api/user/:user_id", () => { });
+    app.get("/api/user/me", authMiddleware, getSelf);
 
-    app.delete("/api/user/:user_id", () => { });
+    app.patch("/api/user/:user_id", authMiddleware, () => { });
+
+    app.delete("/api/user/:user_id", authMiddleware, () => { });
 }
 
 module.exports = { route };

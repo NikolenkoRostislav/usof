@@ -9,14 +9,27 @@ async function register(req, res) {
 async function confirmRegistration(req, res) {
     const { email } = req.body;
     const { confirm_token } = req.params;
-    await authService.confirmRegistration(email, confirm_token);
-    res.status(200).json({ message: "Registration confirmed successfully." });
+    const user = await authService.confirmRegistration(email, confirm_token);
+    req.session.user = {
+        id: user.id,
+        role: user.role,
+    };
+    res.status(200).json({ user_id: user.id });
 }
 
 async function login(req, res) {
     const { login, password } = req.body;
-    await authService.login(login, password);
-    res.status(200).json({ message: "Login successful." });
+    const user = await authService.login(login, password);
+    req.session.user = {
+        id: user.id,
+        role: user.role,
+    };
+    res.status(200).json({ user_id: user.id });
 }
 
-module.exports = { register, confirmRegistration, login };
+function logout(req, res) {
+    req.session.destroy();
+    res.sendStatus(204);
+}
+
+module.exports = { register, confirmRegistration, login, logout };

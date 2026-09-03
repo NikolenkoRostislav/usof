@@ -66,6 +66,8 @@ async function _confirmRegistration(uow, email, token) {
 
     await usersRepo.save(user);
     await registrationIntentsRepo.delete(intent.id);
+
+    return user;
 }
 
 async function confirmRegistration(email, token) {
@@ -84,7 +86,7 @@ async function _login(uow, login, password) {
         throw new AppError(Kind.Unauthorized, "Invalid login or password");
     }
 
-    console.log(`User ${user.login} logged in successfully`);
+    return user;
 }
 
 async function login(login, password) {

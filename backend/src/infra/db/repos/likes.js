@@ -1,5 +1,5 @@
-const { AppError, Kind } = require("../../../domain/errors.js");
-const Like = require("../../../domain/entities/like.js");
+const { AppError, Kind } = require("../../../domain/errors");
+const Like = require("../../../domain/entities/like");
 
 class LikesRepo {
     constructor(connection) {

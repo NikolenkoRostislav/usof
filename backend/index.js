@@ -1,8 +1,8 @@
 require("dotenv").config();
 const http = require("http");
 const express = require("express");
-const { sessionMiddleware, errorHandlingMiddleware } = require("./src/api/middleware.js");
-const route = require("./src/api/router.js");
+const { sessionMiddleware, errorHandlingMiddleware } = require("./src/api/middleware");
+const route = require("./src/api/router");
 const host = process.env.HOST || "localhost";
 const port = process.env.PORT || 3000;
 
