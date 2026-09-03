@@ -8,13 +8,13 @@ function route(app) {
 
     app.patch("/api/user/avatar", () => { });
 
+    app.get("/api/users/me", authMiddleware, getSelf);
+
     app.get("/api/users/:user_id", getById);
 
-    app.get("/api/user/me", authMiddleware, getSelf);
+    app.patch("/api/users/:user_id", authMiddleware, () => { });
 
-    app.patch("/api/user/:user_id", authMiddleware, () => { });
-
-    app.delete("/api/user/:user_id", authMiddleware, () => { });
+    app.delete("/api/users/:user_id", authMiddleware, () => { });
 }
 
 module.exports = { route };
