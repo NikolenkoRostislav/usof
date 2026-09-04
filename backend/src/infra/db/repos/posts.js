@@ -82,7 +82,7 @@ class PostsRepo {
     }
 
     async findAll(options = {}) {
-        const { sortBy = 'likes', categories = [], fromDate, toDate } = options;
+        const { sortBy = 'likes', categories = [], fromDate, toDate, page = 0, limit = 20 } = options;
 
         let query = `
             SELECT p.*,
@@ -119,6 +119,10 @@ class PostsRepo {
             query += ` ORDER BY p.publish_date DESC`;
         }
 
+        const offset = page * limit;
+        query += ` LIMIT ? OFFSET ?`;
+        params.push(limit, offset);
+
         const [rows] = await this.connection.query(query, params);
 
         if (!rows || rows.length === 0) return [];
@@ -134,7 +138,7 @@ class PostsRepo {
     }
 
     async findByCategory(categoryId, options = {}) {
-        const { sortBy = 'likes' } = options;
+        const { sortBy = 'likes', page = 0, limit = 20 } = options;
 
         let query = `
             SELECT p.*,
@@ -152,7 +156,10 @@ class PostsRepo {
             query += ` ORDER BY p.publish_date DESC`;
         }
 
-        const [rows] = await this.connection.query(query, [categoryId]);
+        const offset = page * limit;
+        query += ` LIMIT ? OFFSET ?`;
+
+        const [rows] = await this.connection.query(query, [categoryId, limit, offset]);
 
         if (!rows || rows.length === 0) return [];
 

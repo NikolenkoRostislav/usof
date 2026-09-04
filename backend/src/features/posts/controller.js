@@ -5,8 +5,10 @@ async function getAll(req, res) {
     const categories = req.query.categories ? req.query.categories.split(',') : [];
     const fromDate = req.query.fromDate;
     const toDate = req.query.toDate;
+    const page = parseInt(req.query.page) || 0;
+    const limit = 20;
 
-    const posts = await postService.getAll({ sortBy, categories, fromDate, toDate });
+    const posts = await postService.getAll({ sortBy, categories, fromDate, toDate, page, limit });
     res.json(posts);
 }
 
@@ -44,8 +46,10 @@ async function deletePost(req, res) {
 async function getByCategory(req, res) {
     const { category_id } = req.params;
     const sortBy = req.query.sortBy || 'likes';
+    const page = parseInt(req.query.page) || 0;
+    const limit = 20;
 
-    const posts = await postService.getByCategory(category_id, { sortBy });
+    const posts = await postService.getByCategory(category_id, { sortBy, page, limit });
     res.json(posts);
 }
 
