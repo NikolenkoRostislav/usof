@@ -14,7 +14,8 @@ class CommentsRepo {
             authorId: rows[0].author_id,
             postId: rows[0].post_id,
             publishDate: rows[0].publish_date,
-            content: rows[0].content
+            content: rows[0].content,
+            status: rows[0].status
         });
     }
 
@@ -40,7 +41,8 @@ class CommentsRepo {
             authorId: row.author_id,
             postId: row.post_id,
             publishDate: row.publish_date,
-            content: row.content
+            content: row.content,
+            status: row.status
         }));
     }
 
@@ -57,7 +59,8 @@ class CommentsRepo {
             authorId: row.author_id,
             postId: row.post_id,
             publishDate: row.publish_date,
-            content: row.content
+            content: row.content,
+            status: row.status
         }));
     }
 
@@ -65,17 +68,17 @@ class CommentsRepo {
         try {
             const [result] = await this.connection.query(
                 `UPDATE comments
-                SET author_id = ?, post_id = ?, publish_date = ?, content = ?
+                SET author_id = ?, post_id = ?, publish_date = ?, content = ?, status = ?
                 WHERE id = ?`,
-                [comment.authorId, comment.postId, comment.publishDate, comment.content, comment.id]
+                [comment.authorId, comment.postId, comment.publishDate, comment.content, comment.status, comment.id]
             );
             if (result.affectedRows > 0)
                 return;
 
             await this.connection.query(
-                `INSERT INTO comments (id, author_id, post_id, publish_date, content)
-                VALUES (?, ?, ?, ?, ?)`,
-                [comment.id, comment.authorId, comment.postId, comment.publishDate, comment.content]
+                `INSERT INTO comments (id, author_id, post_id, publish_date, content, status)
+                VALUES (?, ?, ?, ?, ?, ?)`,
+                [comment.id, comment.authorId, comment.postId, comment.publishDate, comment.content, comment.status]
             );
         } catch (error) {
             if (error.code === "ER_DUP_ENTRY") {

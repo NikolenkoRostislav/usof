@@ -41,6 +41,7 @@ CREATE TABLE comments (
     author_id CHAR(36),
     post_id CHAR(36) NOT NULL,
     publish_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    status ENUM('active', 'inactive') NOT NULL DEFAULT 'active',
     content TEXT NOT NULL,
 
     FOREIGN KEY (author_id) REFERENCES users(id) ON DELETE SET NULL,
