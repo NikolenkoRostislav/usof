@@ -81,6 +81,24 @@ class UsersRepo {
             [id]
         );
     }
+
+    async findAll() {
+        const [rows] = await this.connection.query(
+            "SELECT * FROM users"
+        );
+
+        if (!rows || rows.length === 0) return [];
+
+        return rows.map(row => new User({
+            id: row.id,
+            login: row.login,
+            passwordHash: row.password_hash,
+            fullName: row.full_name,
+            email: row.email,
+            pfpKey: row.pfp_key,
+            role: row.role
+        }));
+    }
 }
 
 module.exports = UsersRepo

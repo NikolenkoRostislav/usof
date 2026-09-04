@@ -17,4 +17,91 @@ async function _getById(uow, userId) {
     return user;
 }
 
-module.exports = { getById };
+async function getAll() {
+    return await transactional(_getAll)();
+}
+
+async function _getAll(uow) {
+    const usersRepo = uow.users();
+    return await usersRepo.findAll();
+}
+
+async function create(login, email, password, fullName, role = "user") {
+    return await transactional(_create)(login, email, password, fullName, role);
+}
+
+async function _create(uow, login, email, password, fullName, role) {
+    if (!['user', 'admin'].includes(role)) {
+        throw new AppError(Kind.InvalidEntry, "Role must be 'user' or 'admin'");
+    }
+
+    const usersRepo = uow.users();
+
+    const existingLogin = await usersRepo.findByLogin(login);
+    if (existingLogin) {
+        throw new AppError(Kind.Conflict, "Login already exists");
+    }
+
+    const existingEmail = await usersRepo.findByEmail(email);
+    if (existingEmail) {
+        throw new AppError(Kind.Conflict, "Email already exists");
+    }
+
+    const user = new User({ login, email, fullName, role });
+    await user.setPassword(password);
+    await usersRepo.save(user);
+    return user;
+}
+
+async function update(userId, requestingUserId, requestingUserRole, updates) {
+    return await transactional(_update)(userId, requestingUserId, requestingUserRole, updates);
+}
+
+async function _update(uow, userId, requestingUserId, requestingUserRole, updates) {
+    const usersRepo = uow.users();
+    const user = await usersRepo.findById(userId);
+
+    if (!user) {
+        throw new AppError(Kind.NotFound, "User not found");
+    }
+
+    if (userId !== requestingUserId && requestingUserRole !== "admin") {
+        throw new AppError(Kind.PermissionDenied, "You cannot update this user");
+    }
+
+    if (updates.login !== undefined) {
+        const existingLogin = await usersRepo.findByLogin(updates.login);
+        if (existingLogin && existingLogin.id !== userId) {
+            throw new AppError(Kind.Conflict, "Login already exists");
+        }
+        user.login = updates.login;
+    }
+
+    if (updates.fullName !== undefined) {
+        user.fullName = updates.fullName;
+    }
+
+    await usersRepo.save(user);
+    return user;
+}
+
+async function deleteUser(userId, requestingUserId, requestingUserRole) {
+    return await transactional(_deleteUser)(userId, requestingUserId, requestingUserRole);
+}
+
+async function _deleteUser(uow, userId, requestingUserId, requestingUserRole) {
+    const usersRepo = uow.users();
+    const user = await usersRepo.findById(userId);
+
+    if (!user) {
+        throw new AppError(Kind.NotFound, "User not found");
+    }
+
+    if (userId !== requestingUserId && requestingUserRole !== "admin") {
+        throw new AppError(Kind.PermissionDenied, "You cannot delete this user");
+    }
+
+    await usersRepo.delete(userId);
+}
+
+module.exports = { getById, getAll, create, update, deleteUser };
