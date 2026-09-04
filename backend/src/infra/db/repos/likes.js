@@ -98,6 +98,26 @@ class LikesRepo {
             [id]
         );
     }
+
+    async findByAuthorAndPost(authorId, postId) {
+        const [rows] = await this.connection.query(
+            "SELECT * FROM likes WHERE author_id = ? AND post_id = ?",
+            [authorId, postId]
+        );
+
+        if (!rows || rows.length === 0) return null;
+        return this._fromRows(rows);
+    }
+
+    async findByAuthorAndComment(authorId, commentId) {
+        const [rows] = await this.connection.query(
+            "SELECT * FROM likes WHERE author_id = ? AND comment_id = ?",
+            [authorId, commentId]
+        );
+
+        if (!rows || rows.length === 0) return null;
+        return this._fromRows(rows);
+    }
 }
 
 module.exports = LikesRepo
