@@ -59,6 +59,20 @@ class CategoriesRepo {
             [id]
         );
     }
+
+    async findAll() {
+        const [rows] = await this.connection.query(
+            "SELECT * FROM categories"
+        );
+
+        if (!rows || rows.length === 0) return [];
+
+        return rows.map(row => new Category({
+            id: row.id,
+            title: row.title,
+            description: row.description
+        }));
+    }
 }
 
 module.exports = CategoriesRepo
