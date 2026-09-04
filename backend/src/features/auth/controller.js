@@ -18,7 +18,7 @@ async function confirmRegistration(req, res) {
         id: user.id,
         role: user.role,
     };
-    res.status(200).json({ user_id: user.id });
+    res.json({ user_id: user.id });
 }
 
 async function login(req, res) {
@@ -28,7 +28,7 @@ async function login(req, res) {
         id: user.id,
         role: user.role,
     };
-    res.status(200).json({ user_id: user.id });
+    res.json({ user_id: user.id });
 }
 
 function logout(req, res) {

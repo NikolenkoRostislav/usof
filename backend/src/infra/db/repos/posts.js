@@ -80,6 +80,81 @@ class PostsRepo {
             [id]
         );
     }
+
+    async findAll() {
+        const [rows] = await this.connection.query(
+            "SELECT * FROM posts WHERE NOT status = 'inactive'"
+        );
+
+        if (!rows || rows.length === 0) return [];
+
+        return rows.map(row => new Post({
+            id: row.id,
+            authorId: row.author_id,
+            title: row.title,
+            publishDate: row.publish_date,
+            status: row.status,
+            content: row.content
+        }));
+    }
+
+    async findByCategory(categoryId) {
+        const [rows] = await this.connection.query(
+            `SELECT p.* FROM posts p
+            JOIN post_categories pc ON p.id = pc.post_id
+            WHERE pc.category_id = ? AND NOT p.status = 'inactive'`,
+            [categoryId]
+        );
+
+        if (!rows || rows.length === 0) return [];
+
+        return rows.map(row => new Post({
+            id: row.id,
+            authorId: row.author_id,
+            title: row.title,
+            publishDate: row.publish_date,
+            status: row.status,
+            content: row.content
+        }));
+    }
+
+    async getCategories(postId) {
+        const [rows] = await this.connection.query(
+            `SELECT c.* FROM categories c
+            JOIN post_categories pc ON c.id = pc.category_id
+            WHERE pc.post_id = ?`,
+            [postId]
+        );
+
+        if (!rows || rows.length === 0) return [];
+
+        return rows.map(row => ({
+            id: row.id,
+            title: row.title,
+            description: row.description
+        }));
+    }
+
+    async addCategories(postId, categoryIds) {
+        for (const categoryId of categoryIds) {
+            await this.connection.query(
+                `INSERT INTO post_categories (post_id, category_id)
+                VALUES (?, ?)`,
+                [postId, categoryId]
+            );
+        }
+    }
+
+    async updateCategories(postId, categoryIds) {
+        await this.connection.query(
+            "DELETE FROM post_categories WHERE post_id = ?",
+            [postId]
+        );
+
+        if (categoryIds && categoryIds.length > 0) {
+            await this.addCategories(postId, categoryIds);
+        }
+    }
 }
 
 module.exports = PostsRepo

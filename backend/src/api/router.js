@@ -8,7 +8,7 @@ const { route: userRoute } = require("../features/users/routes");
 
 function route(app) {
     app.get("/api/health", (req, res) => {
-        res.status(200).json({ message: "OK" });
+        res.json({ message: "OK" });
     });
 
     authRoute(app);
