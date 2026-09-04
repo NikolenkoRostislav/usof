@@ -81,10 +81,45 @@ class PostsRepo {
         );
     }
 
-    async findAll() {
-        const [rows] = await this.connection.query(
-            "SELECT * FROM posts WHERE NOT status = 'inactive'"
-        );
+    async findAll(options = {}) {
+        const { sortBy = 'likes', categories = [], fromDate, toDate } = options;
+
+        let query = `
+            SELECT p.*,
+                    COALESCE(SUM(CASE WHEN l.type = 'like' THEN 1 ELSE 0 END), 0) as like_count
+            FROM posts p
+            LEFT JOIN likes l ON p.id = l.post_id
+        `;
+
+        const params = [];
+        const conditions = ['p.status != \'inactive\''];
+
+        if (categories.length > 0) {
+            query += ` JOIN post_categories pc ON p.id = pc.post_id`;
+            conditions.push(`pc.category_id IN (${categories.map(() => '?').join(',')})`);
+            params.push(...categories);
+        }
+
+        if (fromDate) {
+            conditions.push(`p.publish_date >= ?`);
+            params.push(fromDate);
+        }
+
+        if (toDate) {
+            conditions.push(`p.publish_date <= ?`);
+            params.push(toDate);
+        }
+
+        query += ` WHERE ${conditions.join(' AND ')}`;
+        query += ` GROUP BY p.id`;
+
+        if (sortBy === 'likes') {
+            query += ` ORDER BY like_count DESC, p.publish_date DESC`;
+        } else if (sortBy === 'date') {
+            query += ` ORDER BY p.publish_date DESC`;
+        }
+
+        const [rows] = await this.connection.query(query, params);
 
         if (!rows || rows.length === 0) return [];
 
@@ -98,13 +133,26 @@ class PostsRepo {
         }));
     }
 
-    async findByCategory(categoryId) {
-        const [rows] = await this.connection.query(
-            `SELECT p.* FROM posts p
+    async findByCategory(categoryId, options = {}) {
+        const { sortBy = 'likes' } = options;
+
+        let query = `
+            SELECT p.*,
+                    COALESCE(SUM(CASE WHEN l.type = 'like' THEN 1 ELSE 0 END), 0) as like_count
+            FROM posts p
             JOIN post_categories pc ON p.id = pc.post_id
-            WHERE pc.category_id = ? AND NOT p.status = 'inactive'`,
-            [categoryId]
-        );
+            LEFT JOIN likes l ON p.id = l.post_id
+            WHERE pc.category_id = ? AND NOT p.status = 'inactive'
+            GROUP BY p.id
+        `;
+
+        if (sortBy === 'likes') {
+            query += ` ORDER BY like_count DESC, p.publish_date DESC`;
+        } else if (sortBy === 'date') {
+            query += ` ORDER BY p.publish_date DESC`;
+        }
+
+        const [rows] = await this.connection.query(query, [categoryId]);
 
         if (!rows || rows.length === 0) return [];
 

@@ -2,13 +2,13 @@ const Post = require("../../domain/entities/post");
 const { transactional } = require("../../infra/db/uow");
 const { AppError, Kind } = require("../../domain/errors");
 
-async function getAll() {
-    return await transactional(_getAll)();
+async function getAll(options = {}) {
+    return await transactional(_getAll)(options);
 }
 
-async function _getAll(uow) {
+async function _getAll(uow, options) {
     const postsRepo = uow.posts();
-    return await postsRepo.findAll();
+    return await postsRepo.findAll(options);
 }
 
 async function create(userId, title, content, categoryIds = []) {
@@ -107,11 +107,11 @@ async function _deletePost(uow, postId, userId) {
     await postsRepo.delete(postId);
 }
 
-async function getByCategory(categoryId) {
-    return await transactional(_getByCategory)(categoryId);
+async function getByCategory(categoryId, options = {}) {
+    return await transactional(_getByCategory)(categoryId, options);
 }
 
-async function _getByCategory(uow, categoryId) {
+async function _getByCategory(uow, categoryId, options) {
     const categoriesRepo = uow.categories();
     const category = await categoriesRepo.findById(categoryId);
 
@@ -120,7 +120,7 @@ async function _getByCategory(uow, categoryId) {
     }
 
     const postsRepo = uow.posts();
-    return await postsRepo.findByCategory(categoryId);
+    return await postsRepo.findByCategory(categoryId, options);
 }
 
 module.exports = {

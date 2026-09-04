@@ -1,7 +1,12 @@
 const postService = require("./service");
 
 async function getAll(req, res) {
-    const posts = await postService.getAll();
+    const sortBy = req.query.sortBy || 'likes';
+    const categories = req.query.categories ? req.query.categories.split(',') : [];
+    const fromDate = req.query.fromDate;
+    const toDate = req.query.toDate;
+
+    const posts = await postService.getAll({ sortBy, categories, fromDate, toDate });
     res.json(posts);
 }
 
@@ -38,7 +43,9 @@ async function deletePost(req, res) {
 
 async function getByCategory(req, res) {
     const { category_id } = req.params;
-    const posts = await postService.getByCategory(category_id);
+    const sortBy = req.query.sortBy || 'likes';
+
+    const posts = await postService.getByCategory(category_id, { sortBy });
     res.json(posts);
 }
 
