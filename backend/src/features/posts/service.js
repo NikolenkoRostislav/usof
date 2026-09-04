@@ -49,11 +49,11 @@ async function _getById(uow, postId) {
     return post;
 }
 
-async function update(postId, userId, updates) {
-    return await transactional(_update)(postId, userId, updates);
+async function update(postId, userId, userRole, updates) {
+    return await transactional(_update)(postId, userId, userRole, updates);
 }
 
-async function _update(uow, postId, userId, updates) {
+async function _update(uow, postId, userId, userRole, updates) {
     const postsRepo = uow.posts();
     const post = await postsRepo.findById(postId);
 
@@ -61,26 +61,33 @@ async function _update(uow, postId, userId, updates) {
         throw new AppError(Kind.NotFound, "Post not found");
     }
 
-    if (post.authorId !== userId) {
-        throw new AppError(Kind.PermissionDenied, "You cannot modify this post");
-    }
+    if (updates.status !== undefined) {
+        if (userRole !== "admin") {
+            throw new AppError(Kind.PermissionDenied, "Only admins can change post status");
+        }
+        post.status = updates.status;
+    } else {
+        if (post.authorId !== userId) {
+            throw new AppError(Kind.PermissionDenied, "You cannot modify this post");
+        }
 
-    if (updates.title !== undefined) {
-        post.title = updates.title;
-    }
-    if (updates.content !== undefined) {
-        post.content = updates.content;
+        if (updates.title !== undefined) {
+            post.title = updates.title;
+        }
+        if (updates.content !== undefined) {
+            post.content = updates.content;
+        }
+
+        if (updates.categories !== undefined) {
+            await postsRepo.updateCategories(postId, updates.categories);
+            post.categories = updates.categories;
+        }
     }
 
     await postsRepo.save(post);
-
-    if (updates.categories !== undefined) {
-        await postsRepo.updateCategories(postId, updates.categories);
-        post.categories = updates.categories;
-    }
-
     return post;
 }
+
 
 async function deletePost(postId, userId) {
     return await transactional(_deletePost)(postId, userId);
@@ -94,10 +101,6 @@ async function _deletePost(uow, postId, userId) {
 
     if (!post) {
         throw new AppError(Kind.NotFound, "Post not found");
-    }
-
-    if (!user) {
-        throw new AppError(Kind.PermissionDenied, "You cannot delete this post");
     }
 
     if (post.authorId !== userId && user.role !== "admin") {

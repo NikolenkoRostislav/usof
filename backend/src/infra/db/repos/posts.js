@@ -82,7 +82,7 @@ class PostsRepo {
     }
 
     async findAll(options = {}) {
-        const { sortBy = 'likes', categories = [], fromDate, toDate, page = 0, limit = 20 } = options;
+        const { sortBy = 'likes', categories = [], fromDate, toDate, page = 0, limit = 20, isAdmin = false } = options;
 
         let query = `
             SELECT p.*,
@@ -92,7 +92,11 @@ class PostsRepo {
         `;
 
         const params = [];
-        const conditions = ['p.status != \'inactive\''];
+        const conditions = [];
+
+        if (!isAdmin) {
+            conditions.push('p.status != \'inactive\'');
+        }
 
         if (categories.length > 0) {
             query += ` JOIN post_categories pc ON p.id = pc.post_id`;
@@ -110,7 +114,9 @@ class PostsRepo {
             params.push(toDate);
         }
 
-        query += ` WHERE ${conditions.join(' AND ')}`;
+        if (conditions.length > 0) {
+            query += ` WHERE ${conditions.join(' AND ')}`;
+        }
         query += ` GROUP BY p.id`;
 
         if (sortBy === 'likes') {
@@ -138,7 +144,7 @@ class PostsRepo {
     }
 
     async findByCategory(categoryId, options = {}) {
-        const { sortBy = 'likes', page = 0, limit = 20 } = options;
+        const { sortBy = 'likes', page = 0, limit = 20, isAdmin = false } = options;
 
         let query = `
             SELECT p.*,
@@ -146,9 +152,13 @@ class PostsRepo {
             FROM posts p
             JOIN post_categories pc ON p.id = pc.post_id
             LEFT JOIN likes l ON p.id = l.post_id
-            WHERE pc.category_id = ? AND NOT p.status = 'inactive'
-            GROUP BY p.id
-        `;
+            WHERE pc.category_id = ?`;
+
+        if (!isAdmin) {
+            query += ` AND p.status != 'inactive'`;
+        }
+
+        query += ` GROUP BY p.id`;
 
         if (sortBy === 'likes') {
             query += ` ORDER BY like_count DESC, p.publish_date DESC`;
