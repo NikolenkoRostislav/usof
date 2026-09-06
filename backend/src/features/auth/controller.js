@@ -1,19 +1,25 @@
 const authService = require("./service");
+const {
+    RegisterRequest,
+    ConfirmRegistrationRequest,
+    LoginRequest,
+    CreatePasswordUpdateIntentRequest,
+    UpdatePasswordRequest,
+} = require("./requests");
 
 async function register(req, res) {
-    const { login, password, password_confirmation, email, fullName } = req.body;
-    if (password !== password_confirmation) {
+    const registerRequest = new RegisterRequest(req.body.login, req.body.password, req.body.password_confirmation, req.body.email, req.body.fullName);
+    if (registerRequest.password !== registerRequest.password_confirmation) {
         return res.status(422).json({ message: "Passwords do not match" });
     }
 
-    await authService.register({ login, password, email, fullName });
+    await authService.register({ login: registerRequest.login, password: registerRequest.password, email: registerRequest.email, fullName: registerRequest.fullName });
     res.status(201).json({ message: "Registration successful. Check your email to confirm." });
 }
 
 async function confirmRegistration(req, res) {
-    const { email } = req.body;
-    const { confirm_token } = req.params;
-    const user = await authService.confirmRegistration(email, confirm_token);
+    const confirmRequest = new ConfirmRegistrationRequest(req.body.email, req.body.confirm_token);
+    const user = await authService.confirmRegistration(confirmRequest.email, confirmRequest.confirm_token);
     req.session.user = {
         id: user.id,
         role: user.role,
@@ -22,8 +28,8 @@ async function confirmRegistration(req, res) {
 }
 
 async function login(req, res) {
-    const { login, email, password } = req.body;
-    const user = await authService.login(login, email, password);
+    const loginRequest = new LoginRequest(req.body.login, req.body.email, req.body.password);
+    const user = await authService.login(loginRequest.login, loginRequest.email, loginRequest.password);
     req.session.user = {
         id: user.id,
         role: user.role,
@@ -37,16 +43,14 @@ function logout(req, res) {
 }
 
 async function createPasswordUpdateIntent(req, res) {
-    const { email, new_password } = req.body;
-
-    await authService.createPasswordUpdateIntent(email, new_password);
+    const passwordUpdateIntent = new CreatePasswordUpdateIntentRequest(req.body.email, req.body.new_password);
+    await authService.createPasswordUpdateIntent(passwordUpdateIntent.email, passwordUpdateIntent.new_password);
     res.sendStatus(204);
 }
 
 async function updatePassword(req, res) {
-    const { email } = req.body;
-    const { confirm_token } = req.params;
-    await authService.updatePassword(email, confirm_token);
+    const updatePasswordRequest = new UpdatePasswordRequest(req.body.email, req.body.confirm_token);
+    await authService.updatePassword(updatePasswordRequest.email, updatePasswordRequest.confirm_token);
     res.sendStatus(204);
 }
 

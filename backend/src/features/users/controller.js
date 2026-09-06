@@ -1,4 +1,5 @@
 const userService = require("./service");
+const { CreateUserRequest, UpdateUserRequest } = require("./requests");
 
 async function getById(req, res) {
     const { user_id } = req.params;
@@ -18,8 +19,20 @@ async function getAll(req, res) {
 }
 
 async function create(req, res) {
-    const { login, email, password, fullName, role } = req.body;
-    const user = await userService.create(login, email, password, fullName, role);
+    const createRequest = new CreateUserRequest(
+        req.body.login,
+        req.body.email,
+        req.body.password,
+        req.body.fullName,
+        req.body.role
+    );
+    const user = await userService.create(
+        createRequest.login,
+        createRequest.email,
+        createRequest.password,
+        createRequest.fullName,
+        createRequest.role
+    );
     res.status(201).json(user);
 }
 
@@ -27,9 +40,9 @@ async function update(req, res) {
     const { user_id } = req.params;
     const requestingUserId = req.session.user.id;
     const requestingUserRole = req.session.user.role;
-    const updates = req.body;
+    const updateRequest = new UpdateUserRequest(req.body);
 
-    const user = await userService.update(user_id, requestingUserId, requestingUserRole, updates);
+    const user = await userService.update(user_id, requestingUserId, requestingUserRole, updateRequest);
     res.json(user);
 }
 

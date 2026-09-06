@@ -1,20 +1,21 @@
 const likeService = require("./service");
+const { CreatePostLikeRequest, CreateCommentLikeRequest } = require("./requests");
 
 async function createPostLike(req, res) {
     const userId = req.session.user.id;
     const { post_id } = req.params;
-    const { type } = req.query;
+    const likeRequest = new CreatePostLikeRequest(req.body.type);
 
-    const like = await likeService.createPostLike(userId, post_id, type);
+    const like = await likeService.createPostLike(userId, post_id, likeRequest.type);
     res.status(201).json(like);
 }
 
 async function createCommentLike(req, res) {
     const userId = req.session.user.id;
     const { comment_id } = req.params;
-    const { type } = req.query;
+    const likeRequest = new CreateCommentLikeRequest(req.body.type);
 
-    const like = await likeService.createCommentLike(userId, comment_id, type);
+    const like = await likeService.createCommentLike(userId, comment_id, likeRequest.type);
     res.status(201).json(like);
 }
 
@@ -51,14 +52,12 @@ async function getCommentLikes(req, res) {
 }
 
 async function getAllPostLikes(req, res) {
-    const { post_id } = req.params;
-    const likes = await likeService.getAllPostLikes(post_id);
+    const likes = await likeService.getAllPostLikes();
     res.json(likes);
 }
 
 async function getAllCommentLikes(req, res) {
-    const { comment_id } = req.params;
-    const likes = await likeService.getAllCommentLikes(comment_id);
+    const likes = await likeService.getAllCommentLikes();
     res.json(likes);
 }
 

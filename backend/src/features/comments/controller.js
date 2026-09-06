@@ -1,11 +1,12 @@
 const commentService = require("./service");
+const { CreateCommentRequest, UpdateCommentRequest } = require("./requests");
 
 async function create(req, res) {
     const userId = req.session.user.id;
     const { post_id } = req.params;
-    const { content } = req.body;
+    const createRequest = new CreateCommentRequest(req.body.content);
 
-    const comment = await commentService.create(userId, post_id, content);
+    const comment = await commentService.create(userId, post_id, createRequest.content);
     res.status(201).json(comment);
 }
 
@@ -27,9 +28,9 @@ async function update(req, res) {
     const userId = req.session.user.id;
     const isAdmin = req.session.user.role === 'admin';
     const { comment_id } = req.params;
-    const updates = req.body;
+    const updateRequest = new UpdateCommentRequest(req.body.content, req.body.status);
 
-    const comment = await commentService.update(comment_id, userId, isAdmin, updates);
+    const comment = await commentService.update(comment_id, userId, isAdmin, updateRequest);
     res.json(comment);
 }
 

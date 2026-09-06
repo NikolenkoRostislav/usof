@@ -1,4 +1,5 @@
 const categoryService = require("./service");
+const { CreateCategoryRequest, UpdateCategoryRequest } = require("./requests");
 
 async function getAll(req, res) {
     const categories = await categoryService.getAll();
@@ -6,8 +7,8 @@ async function getAll(req, res) {
 }
 
 async function create(req, res) {
-    const { title, description } = req.body;
-    const category = await categoryService.create(title, description);
+    const createRequest = new CreateCategoryRequest(req.body.title, req.body.description);
+    const category = await categoryService.create(createRequest.title, createRequest.description);
     res.status(201).json(category);
 }
 
@@ -19,8 +20,8 @@ async function getById(req, res) {
 
 async function update(req, res) {
     const { category_id } = req.params;
-    const updates = req.body;
-    const category = await categoryService.update(category_id, updates);
+    const updateRequest = new UpdateCategoryRequest(req.body.title, req.body.description);
+    const category = await categoryService.update(category_id, updateRequest);
     res.json(category);
 }
 

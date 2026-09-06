@@ -1,4 +1,5 @@
 const postService = require("./service");
+const { CreatePostRequest, UpdatePostRequest } = require("./requests");
 
 async function getAll(req, res) {
     const sortBy = req.query.sortBy || 'likes';
@@ -16,9 +17,9 @@ async function getAll(req, res) {
 
 async function create(req, res) {
     const userId = req.session.user.id;
-    const { title, content, categories } = req.body;
+    const createRequest = new CreatePostRequest(req.body.title, req.body.content, req.body.categories);
 
-    const post = await postService.create(userId, title, content, categories);
+    const post = await postService.create(userId, createRequest.title, createRequest.content, createRequest.categories);
     res.status(201).json(post);
 }
 
@@ -34,9 +35,14 @@ async function update(req, res) {
     const userId = req.session.user.id;
     const isAdmin = req.session.user.role === 'admin';
     const { post_id } = req.params;
-    const updates = req.body;
+    const updateRequest = new UpdatePostRequest(
+        req.body.status,
+        req.body.title,
+        req.body.content,
+        req.body.categories
+    );
 
-    const post = await postService.update(post_id, userId, isAdmin, updates);
+    const post = await postService.update(post_id, userId, isAdmin, updateRequest);
     res.json(post);
 }
 
