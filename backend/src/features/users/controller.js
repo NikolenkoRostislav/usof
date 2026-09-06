@@ -1,21 +1,25 @@
 const userService = require("./service");
 const { CreateUserRequest, UpdateUserRequest } = require("./requests");
+const { UserResponse, UserFullResponse, UsersListResponse } = require("./responses");
 
 async function getById(req, res) {
     const { user_id } = req.params;
     const user = await userService.getById(user_id);
-    res.json(user);
+    const response = new UserResponse(user);
+    res.json(response);
 }
 
 async function getSelf(req, res) {
     const userId = req.session.user.id;
     const user = await userService.getById(userId);
-    res.json(user);
+    const response = new UserFullResponse(user);
+    res.json(response);
 }
 
 async function getAll(req, res) {
     const users = await userService.getAll();
-    res.json(users);
+    const response = new UsersListResponse(users);
+    res.json(response);
 }
 
 async function create(req, res) {
@@ -33,7 +37,8 @@ async function create(req, res) {
         createRequest.fullName,
         createRequest.role
     );
-    res.status(201).json(user);
+    const response = new UserFullResponse(user);
+    res.status(201).json(response);
 }
 
 async function update(req, res) {
@@ -43,7 +48,8 @@ async function update(req, res) {
     const updateRequest = new UpdateUserRequest(req.body);
 
     const user = await userService.update(user_id, requestingUserId, requestingUserRole, updateRequest);
-    res.json(user);
+    const response = new UserResponse(user);
+    res.json(response);
 }
 
 async function deleteUser(req, res) {

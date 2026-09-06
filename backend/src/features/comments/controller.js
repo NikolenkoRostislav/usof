@@ -1,5 +1,6 @@
 const commentService = require("./service");
 const { CreateCommentRequest, UpdateCommentRequest } = require("./requests");
+const { CommentResponse, CommentsListResponse } = require("./responses");
 
 async function create(req, res) {
     const userId = req.session.user.id;
@@ -7,13 +8,15 @@ async function create(req, res) {
     const createRequest = new CreateCommentRequest(req.body.content);
 
     const comment = await commentService.create(userId, post_id, createRequest.content);
-    res.status(201).json(comment);
+    const response = new CommentResponse(comment);
+    res.status(201).json(response);
 }
 
 async function getById(req, res) {
     const { comment_id } = req.params;
     const comment = await commentService.getById(comment_id);
-    res.json(comment);
+    const response = new CommentResponse(comment);
+    res.json(response);
 }
 
 async function getByPostId(req, res) {
@@ -21,7 +24,8 @@ async function getByPostId(req, res) {
     const isAdmin = req.session?.user?.role === 'admin';
 
     const comments = await commentService.getByPostId(post_id, isAdmin);
-    res.json(comments);
+    const response = new CommentsListResponse(comments);
+    res.json(response);
 }
 
 async function update(req, res) {
@@ -31,7 +35,8 @@ async function update(req, res) {
     const updateRequest = new UpdateCommentRequest(req.body.content, req.body.status);
 
     const comment = await commentService.update(comment_id, userId, isAdmin, updateRequest);
-    res.json(comment);
+    const response = new CommentResponse(comment);
+    res.json(response);
 }
 
 async function deleteComment(req, res) {
@@ -45,7 +50,8 @@ async function deleteComment(req, res) {
 
 async function getAll(req, res) {
     const comments = await commentService.getAll();
-    res.json(comments);
+    const response = new CommentsListResponse(comments);
+    res.json(response);
 }
 
 module.exports = { create, getById, getByPostId, update, deleteComment, getAll };

@@ -1,5 +1,6 @@
 const postService = require("./service");
 const { CreatePostRequest, UpdatePostRequest } = require("./requests");
+const { PostResponse, PostsListResponse } = require("./responses");
 
 async function getAll(req, res) {
     const sortBy = req.query.sortBy || 'likes';
@@ -12,7 +13,8 @@ async function getAll(req, res) {
     const isAdmin = req.session?.user?.role === 'admin';
 
     const posts = await postService.getAll({ sortBy, categories, fromDate, toDate, page, limit }, userId, isAdmin);
-    res.json(posts);
+    const response = new PostsListResponse(posts);
+    res.json(response);
 }
 
 async function create(req, res) {
@@ -20,7 +22,8 @@ async function create(req, res) {
     const createRequest = new CreatePostRequest(req.body.title, req.body.content, req.body.categories);
 
     const post = await postService.create(userId, createRequest.title, createRequest.content, createRequest.categories);
-    res.status(201).json(post);
+    const response = new PostResponse(post);
+    res.status(201).json(response);
 }
 
 async function getById(req, res) {
@@ -28,7 +31,8 @@ async function getById(req, res) {
     const isAdmin = req.session?.user?.role === 'admin';
 
     const post = await postService.getById(post_id, isAdmin);
-    res.json(post);
+    const response = new PostResponse(post);
+    res.json(response);
 }
 
 async function update(req, res) {
@@ -43,7 +47,8 @@ async function update(req, res) {
     );
 
     const post = await postService.update(post_id, userId, isAdmin, updateRequest);
-    res.json(post);
+    const response = new PostResponse(post);
+    res.json(response);
 }
 
 async function deletePost(req, res) {
@@ -64,7 +69,8 @@ async function getByCategory(req, res) {
     const isAdmin = req.session?.user?.role === 'admin';
 
     const posts = await postService.getByCategory(category_id, { sortBy, page, limit }, userId, isAdmin);
-    res.json(posts);
+    const response = new PostsListResponse(posts);
+    res.json(response);
 }
 
 module.exports = { getAll, create, getById, update, deletePost, getByCategory };

@@ -6,6 +6,11 @@ const {
     CreatePasswordUpdateIntentRequest,
     UpdatePasswordRequest,
 } = require("./requests");
+const {
+    RegisterResponse,
+    ConfirmRegistrationResponse,
+    LoginResponse,
+} = require("./responses");
 
 async function register(req, res) {
     const registerRequest = new RegisterRequest(req.body.login, req.body.password, req.body.password_confirmation, req.body.email, req.body.fullName);
@@ -14,7 +19,7 @@ async function register(req, res) {
     }
 
     await authService.register({ login: registerRequest.login, password: registerRequest.password, email: registerRequest.email, fullName: registerRequest.fullName });
-    res.status(201).json({ message: "Registration successful. Check your email to confirm." });
+    res.sendStatus(201);
 }
 
 async function confirmRegistration(req, res) {
@@ -24,7 +29,8 @@ async function confirmRegistration(req, res) {
         id: user.id,
         role: user.role,
     };
-    res.json({ user_id: user.id });
+    const response = new ConfirmRegistrationResponse(user.id);
+    res.json(response);
 }
 
 async function login(req, res) {
@@ -34,7 +40,8 @@ async function login(req, res) {
         id: user.id,
         role: user.role,
     };
-    res.json({ user_id: user.id });
+    const response = new LoginResponse(user.id);
+    res.json(response);
 }
 
 function logout(req, res) {

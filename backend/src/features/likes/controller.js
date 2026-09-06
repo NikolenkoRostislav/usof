@@ -1,5 +1,6 @@
 const likeService = require("./service");
 const { CreatePostLikeRequest, CreateCommentLikeRequest } = require("./requests");
+const { LikeResponse, LikesListResponse } = require("./responses");
 
 async function createPostLike(req, res) {
     const userId = req.session.user.id;
@@ -7,7 +8,8 @@ async function createPostLike(req, res) {
     const likeRequest = new CreatePostLikeRequest(req.body.type);
 
     const like = await likeService.createPostLike(userId, post_id, likeRequest.type);
-    res.status(201).json(like);
+    const response = new LikeResponse(like);
+    res.status(201).json(response);
 }
 
 async function createCommentLike(req, res) {
@@ -16,7 +18,8 @@ async function createCommentLike(req, res) {
     const likeRequest = new CreateCommentLikeRequest(req.body.type);
 
     const like = await likeService.createCommentLike(userId, comment_id, likeRequest.type);
-    res.status(201).json(like);
+    const response = new LikeResponse(like);
+    res.status(201).json(response);
 }
 
 async function deletePostLike(req, res) {
@@ -40,7 +43,8 @@ async function getPostLikes(req, res) {
     const isAdmin = req.session?.user?.role === 'admin';
 
     const likes = await likeService.getPostLikes(post_id, isAdmin);
-    res.json(likes);
+    const response = new LikesListResponse(likes);
+    res.json(response);
 }
 
 async function getCommentLikes(req, res) {
@@ -48,17 +52,20 @@ async function getCommentLikes(req, res) {
     const isAdmin = req.session?.user?.role === 'admin';
 
     const likes = await likeService.getCommentLikes(comment_id, isAdmin);
-    res.json(likes);
+    const response = new LikesListResponse(likes);
+    res.json(response);
 }
 
 async function getAllPostLikes(req, res) {
     const likes = await likeService.getAllPostLikes();
-    res.json(likes);
+    const response = new LikesListResponse(likes);
+    res.json(response);
 }
 
 async function getAllCommentLikes(req, res) {
     const likes = await likeService.getAllCommentLikes();
-    res.json(likes);
+    const response = new LikesListResponse(likes);
+    res.json(response);
 }
 
 async function deleteLike(req, res) {
