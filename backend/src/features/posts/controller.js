@@ -7,9 +7,10 @@ async function getAll(req, res) {
     const toDate = req.query.toDate;
     const page = parseInt(req.query.page) || 0;
     const limit = 20;
+    const userId = req.session?.user?.id;
     const isAdmin = req.session?.user?.role === 'admin';
 
-    const posts = await postService.getAll({ sortBy, categories, fromDate, toDate, page, limit, isAdmin });
+    const posts = await postService.getAll({ sortBy, categories, fromDate, toDate, page, limit }, userId, isAdmin);
     res.json(posts);
 }
 
@@ -53,9 +54,10 @@ async function getByCategory(req, res) {
     const sortBy = req.query.sortBy || 'likes';
     const page = parseInt(req.query.page) || 0;
     const limit = 20;
+    const userId = req.session?.user?.id;
     const isAdmin = req.session?.user?.role === 'admin';
 
-    const posts = await postService.getByCategory(category_id, { sortBy, page, limit, isAdmin });
+    const posts = await postService.getByCategory(category_id, { sortBy, page, limit }, userId, isAdmin);
     res.json(posts);
 }
 

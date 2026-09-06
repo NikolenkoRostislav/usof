@@ -97,12 +97,12 @@ async function _deleteCommentLike(uow, userId, commentId) {
     await likesRepo.delete(like.id);
 }
 
-async function getPostLikes(postId) {
+async function getPostLikes(postId, isAdmin) {
     uow = await getReadOnlyUoW();
     const postsRepo = uow.posts();
     const post = await postsRepo.findById(postId);
 
-    if (!post) {
+    if (!post || (post.status === "inactive" && !isAdmin)) {
         throw new AppError(Kind.NotFound, "Post not found");
     }
 
@@ -110,12 +110,12 @@ async function getPostLikes(postId) {
     return await likesRepo.findByPostId(postId);
 }
 
-async function getCommentLikes(commentId) {
+async function getCommentLikes(commentId, isAdmin) {
     uow = await getReadOnlyUoW();
     const commentsRepo = uow.comments();
     const comment = await commentsRepo.findById(commentId);
 
-    if (!comment) {
+    if (!comment || (comment.status === "inactive" && !isAdmin)) {
         throw new AppError(Kind.NotFound, "Comment not found");
     }
 

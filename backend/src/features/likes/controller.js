@@ -36,13 +36,17 @@ async function deleteCommentLike(req, res) {
 
 async function getPostLikes(req, res) {
     const { post_id } = req.params;
-    const likes = await likeService.getPostLikes(post_id);
+    const isAdmin = req.session?.user?.role === 'admin';
+
+    const likes = await likeService.getPostLikes(post_id, isAdmin);
     res.json(likes);
 }
 
 async function getCommentLikes(req, res) {
     const { comment_id } = req.params;
-    const likes = await likeService.getCommentLikes(comment_id);
+    const isAdmin = req.session?.user?.role === 'admin';
+
+    const likes = await likeService.getCommentLikes(comment_id, isAdmin);
     res.json(likes);
 }
 

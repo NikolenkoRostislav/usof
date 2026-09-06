@@ -82,7 +82,7 @@ class PostsRepo {
     }
 
     async findAll(options = {}) {
-        const { sortBy = 'likes', categories = [], fromDate, toDate, page = 0, limit = 20, isAdmin = false } = options;
+        const { sortBy = 'likes', categories = [], fromDate, toDate, page = 0, limit = 20 } = options;
 
         let query = "SELECT p.* FROM posts p";
         if (sortBy === 'likes') {
@@ -100,10 +100,6 @@ class PostsRepo {
 
         const params = [];
         const conditions = [];
-
-        if (!isAdmin) {
-            conditions.push('p.status != \'inactive\'');
-        }
 
         if (categories.length > 0) {
             query += ` JOIN post_categories pc ON p.id = pc.post_id`;
@@ -151,7 +147,7 @@ class PostsRepo {
     }
 
     async findByCategory(categoryId, options = {}) {
-        const { sortBy = 'likes', page = 0, limit = 20, isAdmin = false } = options;
+        const { sortBy = 'likes', page = 0, limit = 20 } = options;
 
         let query = `
             SELECT p.* FROM posts p
@@ -172,10 +168,6 @@ class PostsRepo {
                 LEFT JOIN likes l ON p.id = l.post_id
                 WHERE pc.category_id = ?
             `;
-        }
-
-        if (!isAdmin) {
-            query += ` AND p.status != 'inactive'`;
         }
 
         query += ` GROUP BY p.id`;

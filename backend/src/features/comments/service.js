@@ -83,7 +83,7 @@ async function _update(uow, commentId, userId, isAdmin, updates) {
     }
 
     if (updates.status !== undefined) {
-        if (!isAdmin) {
+        if (!isAdmin && comment.authorId !== userId) {
             throw new AppError(Kind.PermissionDenied, "You cannot modify this comment's visibility");
         }
         comment.status = updates.status;

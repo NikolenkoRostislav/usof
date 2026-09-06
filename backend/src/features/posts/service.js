@@ -2,10 +2,14 @@ const Post = require("../../domain/entities/post");
 const { transactional } = require("../../infra/db/uow");
 const { AppError, Kind } = require("../../domain/errors");
 
-async function getAll(options) {
+async function getAll(options, userId, isAdmin) {
     const uow = await getReadOnlyUoW();
     const postsRepo = uow.posts();
-    return await postsRepo.findAll(options);
+    const posts = await postsRepo.findAll(options);
+    if (!isAdmin) {
+        posts = posts.filter(p => p.status === "active" || p.authorId === userId);
+    }
+    return posts;
 }
 
 async function create(userId, title, content, categoryIds = []) {
@@ -101,7 +105,7 @@ async function _deletePost(uow, postId, userId, isAdmin) {
     await postsRepo.delete(postId);
 }
 
-async function getByCategory(categoryId, options) {
+async function getByCategory(categoryId, options, userId, isAdmin) {
     const uow = await getReadOnlyUoW();
     const categoriesRepo = uow.categories();
     const category = await categoriesRepo.findById(categoryId);
@@ -111,7 +115,11 @@ async function getByCategory(categoryId, options) {
     }
 
     const postsRepo = uow.posts();
-    return await postsRepo.findByCategory(categoryId, options);
+    const posts = await postsRepo.findByCategory(categoryId, options);
+    if (!isAdmin) {
+        posts = posts.filter(p => p.status === "active" || p.authorId === userId);
+    }
+    return posts;
 }
 
 module.exports = {
