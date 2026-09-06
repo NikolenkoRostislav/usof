@@ -69,4 +69,8 @@ function transactional(fn) {
     };
 }
 
-module.exports = { UoW, transactional };
+async function getReadOnlyUoW() {
+    return await UoW.create();
+}
+
+module.exports = { UoW, transactional, getReadOnlyUoW };

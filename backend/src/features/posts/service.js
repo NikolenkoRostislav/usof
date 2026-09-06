@@ -2,11 +2,8 @@ const Post = require("../../domain/entities/post");
 const { transactional } = require("../../infra/db/uow");
 const { AppError, Kind } = require("../../domain/errors");
 
-async function getAll(options = {}) {
-    return await transactional(_getAll)(options);
-}
-
-async function _getAll(uow, options) {
+async function getAll(options) {
+    const uow = await getReadOnlyUoW();
     const postsRepo = uow.posts();
     return await postsRepo.findAll(options);
 }
@@ -25,23 +22,19 @@ async function _create(uow, userId, title, content, categoryIds) {
     const postsRepo = uow.posts();
     await postsRepo.save(post);
 
-    if (categoryIds && categoryIds.length > 0) {
+    if (categoryIds) {
         await postsRepo.addCategories(post.id, categoryIds);
-        post.categories = categoryIds;
     }
 
     return post;
 }
 
-async function getById(postId) {
-    return await transactional(_getById)(postId);
-}
-
-async function _getById(uow, postId) {
+async function getById(postId, isAdmin) {
+    const uow = await getReadOnlyUoW();
     const postsRepo = uow.posts();
     const post = await postsRepo.findById(postId);
 
-    if (!post || post.status === "inactive") {
+    if (!post || (post.status === "inactive" && !isAdmin)) {
         throw new AppError(Kind.NotFound, "Post not found");
     }
 
@@ -49,11 +42,11 @@ async function _getById(uow, postId) {
     return post;
 }
 
-async function update(postId, userId, userRole, updates) {
-    return await transactional(_update)(postId, userId, userRole, updates);
+async function update(postId, userId, isAdmin, updates) {
+    return await transactional(_update)(postId, userId, isAdmin, updates);
 }
 
-async function _update(uow, postId, userId, userRole, updates) {
+async function _update(uow, postId, userId, isAdmin, updates) {
     const postsRepo = uow.posts();
     const post = await postsRepo.findById(postId);
 
@@ -62,7 +55,7 @@ async function _update(uow, postId, userId, userRole, updates) {
     }
 
     if (updates.status !== undefined) {
-        if (userRole !== "admin") {
+        if (!isAdmin) {
             throw new AppError(Kind.PermissionDenied, "Only admins can change post status");
         }
         post.status = updates.status;
@@ -77,11 +70,11 @@ async function _update(uow, postId, userId, userRole, updates) {
         if (updates.content !== undefined) {
             post.content = updates.content;
         }
+    }
 
-        if (updates.categories !== undefined) {
-            await postsRepo.updateCategories(postId, updates.categories);
-            post.categories = updates.categories;
-        }
+    if (updates.categories !== undefined) {
+        await postsRepo.updateCategories(postId, updates.categories);
+        post.categories = updates.categories;
     }
 
     await postsRepo.save(post);
@@ -89,32 +82,27 @@ async function _update(uow, postId, userId, userRole, updates) {
 }
 
 
-async function deletePost(postId, userId) {
-    return await transactional(_deletePost)(postId, userId);
+async function deletePost(postId, userId, isAdmin) {
+    return await transactional(_deletePost)(postId, userId, isAdmin);
 }
 
-async function _deletePost(uow, postId, userId) {
+async function _deletePost(uow, postId, userId, isAdmin) {
     const postsRepo = uow.posts();
-    const usersRepo = uow.users();
     const post = await postsRepo.findById(postId);
-    const user = await usersRepo.findById(userId)
 
     if (!post) {
         throw new AppError(Kind.NotFound, "Post not found");
     }
 
-    if (post.authorId !== userId && user.role !== "admin") {
+    if (post.authorId !== userId && !isAdmin) {
         throw new AppError(Kind.PermissionDenied, "You cannot delete this post");
     }
 
     await postsRepo.delete(postId);
 }
 
-async function getByCategory(categoryId, options = {}) {
-    return await transactional(_getByCategory)(categoryId, options);
-}
-
-async function _getByCategory(uow, categoryId, options) {
+async function getByCategory(categoryId, options) {
+    const uow = await getReadOnlyUoW();
     const categoriesRepo = uow.categories();
     const category = await categoriesRepo.findById(categoryId);
 

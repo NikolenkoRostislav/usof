@@ -23,25 +23,28 @@ async function create(req, res) {
 
 async function getById(req, res) {
     const { post_id } = req.params;
-    const post = await postService.getById(post_id);
+    const isAdmin = req.session?.user?.role === 'admin';
+
+    const post = await postService.getById(post_id, isAdmin);
     res.json(post);
 }
 
 async function update(req, res) {
     const userId = req.session.user.id;
-    const userRole = req.session.user.role;
+    const isAdmin = req.session.user.role === 'admin';
     const { post_id } = req.params;
     const updates = req.body;
 
-    const post = await postService.update(post_id, userId, userRole, updates);
+    const post = await postService.update(post_id, userId, isAdmin, updates);
     res.json(post);
 }
 
 async function deletePost(req, res) {
     const userId = req.session.user.id;
+    const isAdmin = req.session.user.role === 'admin';
     const { post_id } = req.params;
 
-    await postService.deletePost(post_id, userId);
+    await postService.deletePost(post_id, userId, isAdmin);
     res.sendStatus(204);
 }
 

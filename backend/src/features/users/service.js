@@ -3,10 +3,7 @@ const { transactional } = require("../../infra/db/uow");
 const { AppError, Kind } = require("../../domain/errors");
 
 async function getById(userId) {
-    return await transactional(_getById)(userId);
-}
-
-async function _getById(uow, userId) {
+    const uow = await getReadOnlyUoW();
     const usersRepo = uow.users();
 
     const user = await usersRepo.findById(userId);
@@ -18,10 +15,7 @@ async function _getById(uow, userId) {
 }
 
 async function getAll() {
-    return await transactional(_getAll)();
-}
-
-async function _getAll(uow) {
+    const uow = await getReadOnlyUoW();
     const usersRepo = uow.users();
     return await usersRepo.findAll();
 }

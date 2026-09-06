@@ -46,11 +46,41 @@ class LikesRepo {
         }));
     }
 
+    async findAllForPosts() {
+        const [rows] = await this.connection.query("SELECT * FROM likes WHERE post_id is NOT NULL");
+
+        if (!rows || rows.length === 0) return [];
+
+        return rows.map(row => new Like({
+            id: row.id,
+            authorId: row.author_id,
+            publishDate: row.publish_date,
+            type: row.type,
+            postId: row.post_id,
+            commentId: row.comment_id
+        }));
+    }
+
     async findByCommentId(commentId) {
         const [rows] = await this.connection.query(
             "SELECT * FROM likes WHERE comment_id = ?",
             [commentId]
         );
+
+        if (!rows || rows.length === 0) return [];
+
+        return rows.map(row => new Like({
+            id: row.id,
+            authorId: row.author_id,
+            publishDate: row.publish_date,
+            type: row.type,
+            postId: row.post_id,
+            commentId: row.comment_id
+        }));
+    }
+
+    async findAllForComments() {
+        const [rows] = await this.connection.query("SELECT * FROM likes WHERE comment_id is NOT NULL");
 
         if (!rows || rows.length === 0) return [];
 

@@ -46,11 +46,32 @@ async function getCommentLikes(req, res) {
     res.json(likes);
 }
 
+async function getAllPostLikes(req, res) {
+    const { post_id } = req.params;
+    const likes = await likeService.getAllPostLikes(post_id);
+    res.json(likes);
+}
+
+async function getAllCommentLikes(req, res) {
+    const { comment_id } = req.params;
+    const likes = await likeService.getAllCommentLikes(comment_id);
+    res.json(likes);
+}
+
+async function deleteLike(req, res) {
+    const { post_id } = req.params;
+    await likeService.deleteLike(post_id);
+    res.sendStatus(204);
+}
+
 module.exports = {
     createPostLike,
     createCommentLike,
     deletePostLike,
     deleteCommentLike,
     getPostLikes,
-    getCommentLikes
+    getCommentLikes,
+    getAllPostLikes,
+    getAllCommentLikes,
+    deleteLike
 };

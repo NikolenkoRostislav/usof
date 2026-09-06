@@ -1,16 +1,18 @@
-const { authMiddleware } = require("../../api/middleware");
-const { create, getById, getByPostId, update, deleteComment } = require("./controller");
+const { authMiddleware, adminAuthMiddleware } = require("../../api/middleware");
+const controller = require("./controller");
 
 function route(app) {
-    app.get("/api/posts/:post_id/comments", getByPostId);
+    app.get("/api/comments", adminAuthMiddleware, controller.getAll);
 
-    app.post("/api/posts/:post_id/comments", authMiddleware, create);
+    app.get("/api/posts/:post_id/comments", controller.getByPostId);
 
-    app.get("/api/comments/:comment_id", getById);
+    app.post("/api/posts/:post_id/comments", authMiddleware, controller.create);
 
-    app.patch("/api/comments/:comment_id", authMiddleware, update);
+    app.get("/api/comments/:comment_id", controller.getById);
 
-    app.delete("/api/comments/:comment_id", authMiddleware, deleteComment);
+    app.patch("/api/comments/:comment_id", authMiddleware, controller.update);
+
+    app.delete("/api/comments/:comment_id", authMiddleware, controller.deleteComment);
 }
 
 module.exports = { route };

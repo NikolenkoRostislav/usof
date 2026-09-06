@@ -1,12 +1,9 @@
 const Category = require("../../domain/entities/category");
-const { transactional } = require("../../infra/db/uow");
+const { transactional, getReadOnlyUoW } = require("../../infra/db/uow");
 const { AppError, Kind } = require("../../domain/errors");
 
 async function getAll() {
-    return await transactional(_getAll)();
-}
-
-async function _getAll(uow) {
+    const uow = await getReadOnlyUoW();
     const categoriesRepo = uow.categories();
     return await categoriesRepo.findAll();
 }
@@ -23,10 +20,7 @@ async function _create(uow, title, description) {
 }
 
 async function getById(categoryId) {
-    return await transactional(_getById)(categoryId);
-}
-
-async function _getById(uow, categoryId) {
+    const uow = await getReadOnlyUoW();
     const categoriesRepo = uow.categories();
     const category = await categoriesRepo.findById(categoryId);
 

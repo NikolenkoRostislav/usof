@@ -84,12 +84,19 @@ class PostsRepo {
     async findAll(options = {}) {
         const { sortBy = 'likes', categories = [], fromDate, toDate, page = 0, limit = 20, isAdmin = false } = options;
 
-        let query = `
-            SELECT p.*,
-                    COALESCE(SUM(CASE WHEN l.type = 'like' THEN 1 ELSE 0 END), 0) as like_count
-            FROM posts p
-            LEFT JOIN likes l ON p.id = l.post_id
-        `;
+        let query = "SELECT p.* FROM posts p";
+        if (sortBy === 'likes') {
+            query = `
+                SELECT p.*,
+                    COALESCE(SUM(CASE 
+                        WHEN l.type = 'like' THEN 1 
+                        WHEN l.type = 'dislike' THEN -1
+                        ELSE 0
+                    END), 0) as like_count
+                FROM posts p
+                LEFT JOIN likes l ON p.id = l.post_id
+            `;
+        }
 
         const params = [];
         const conditions = [];
@@ -147,12 +154,25 @@ class PostsRepo {
         const { sortBy = 'likes', page = 0, limit = 20, isAdmin = false } = options;
 
         let query = `
-            SELECT p.*,
-                    COALESCE(SUM(CASE WHEN l.type = 'like' THEN 1 ELSE 0 END), 0) as like_count
-            FROM posts p
+            SELECT p.* FROM posts p
             JOIN post_categories pc ON p.id = pc.post_id
-            LEFT JOIN likes l ON p.id = l.post_id
-            WHERE pc.category_id = ?`;
+            WHERE pc.category_id = ?
+        `;
+
+        if (sortBy === 'likes') {
+            query = `
+                SELECT p.*,
+                    COALESCE(SUM(CASE 
+                        WHEN l.type = 'like' THEN 1 
+                        WHEN l.type = 'dislike' THEN -1
+                        ELSE 0
+                    END), 0) as like_count
+                FROM posts p
+                JOIN post_categories pc ON p.id = pc.post_id
+                LEFT JOIN likes l ON p.id = l.post_id
+                WHERE pc.category_id = ?
+            `;
+        }
 
         if (!isAdmin) {
             query += ` AND p.status != 'inactive'`;

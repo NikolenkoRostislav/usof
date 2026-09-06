@@ -28,6 +28,21 @@ class CommentsRepo {
         return this._fromRows(rows);
     }
 
+    async findAll() {
+        const [rows] = await this.connection.query("SELECT * FROM comments");
+
+        if (!rows || rows.length === 0) return [];
+
+        return rows.map(row => new Comment({
+            id: row.id,
+            authorId: row.author_id,
+            postId: row.post_id,
+            publishDate: row.publish_date,
+            content: row.content,
+            status: row.status
+        }));
+    }
+
     async findByPostId(postId) {
         const [rows] = await this.connection.query(
             "SELECT * FROM comments WHERE post_id = ?",

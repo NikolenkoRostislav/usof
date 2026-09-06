@@ -1,5 +1,5 @@
 const Like = require("../../domain/entities/like");
-const { transactional } = require("../../infra/db/uow");
+const { transactional, getReadOnlyUoW } = require("../../infra/db/uow");
 const { AppError, Kind } = require("../../domain/errors");
 
 async function createPostLike(userId, postId, type) {
@@ -98,10 +98,7 @@ async function _deleteCommentLike(uow, userId, commentId) {
 }
 
 async function getPostLikes(postId) {
-    return await transactional(_getPostLikes)(postId);
-}
-
-async function _getPostLikes(uow, postId) {
+    uow = await getReadOnlyUoW();
     const postsRepo = uow.posts();
     const post = await postsRepo.findById(postId);
 
@@ -114,10 +111,7 @@ async function _getPostLikes(uow, postId) {
 }
 
 async function getCommentLikes(commentId) {
-    return await transactional(_getCommentLikes)(commentId);
-}
-
-async function _getCommentLikes(uow, commentId) {
+    uow = await getReadOnlyUoW();
     const commentsRepo = uow.comments();
     const comment = await commentsRepo.findById(commentId);
 
@@ -129,11 +123,42 @@ async function _getCommentLikes(uow, commentId) {
     return await likesRepo.findByCommentId(commentId);
 }
 
+async function getAllCommentLikes() {
+    uow = await getReadOnlyUoW();
+    const likesRepo = uow.likes();
+    return await likesRepo.findAllForPosts();
+}
+
+async function getAllPostLikes() {
+    uow = await getReadOnlyUoW();
+    const likesRepo = uow.likes();
+    return await likesRepo.findAllForComments();
+}
+
+async function deleteLike(likeId) {
+    return await transactional(_deleteLike)(likeId);
+}
+
+async function _deleteLike(uow, likeId) {
+    const likesRepo = uow.likes();
+    const like = await likesRepo.findById(likeId);
+
+    if (!like) {
+        throw new AppError(Kind.NotFound, "Like not found");
+    }
+
+    await likesRepo.delete(likeId);
+}
+
+
 module.exports = {
     createPostLike,
     createCommentLike,
     deletePostLike,
     deleteCommentLike,
     getPostLikes,
-    getCommentLikes
+    getCommentLikes,
+    getAllPostLikes,
+    getAllCommentLikes,
+    deleteLike
 };

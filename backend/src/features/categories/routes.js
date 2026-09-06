@@ -1,16 +1,16 @@
 const { adminAuthMiddleware, authMiddleware } = require("../../api/middleware");
-const { getAll, create, getById, update, deleteCategory } = require("./controller");
+const controller = require("./controller");
 
 function route(app) {
-    app.get("/api/categories", adminAuthMiddleware, getAll);
+    app.get("/api/categories", adminAuthMiddleware, controller.getAll);
 
-    app.post("/api/categories", adminAuthMiddleware, create);
+    app.post("/api/categories", adminAuthMiddleware, controller.create);
 
-    app.get("/api/categories/:category_id", authMiddleware, getById);
+    app.get("/api/categories/:category_id", authMiddleware, controller.getById);
 
-    app.patch("/api/categories/:category_id", adminAuthMiddleware, update);
+    app.patch("/api/categories/:category_id", adminAuthMiddleware, controller.update);
 
-    app.delete("/api/categories/:category_id", adminAuthMiddleware, deleteCategory);
+    app.delete("/api/categories/:category_id", adminAuthMiddleware, controller.deleteCategory);
 }
 
 module.exports = { route };
