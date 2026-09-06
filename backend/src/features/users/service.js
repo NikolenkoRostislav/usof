@@ -1,5 +1,5 @@
 const User = require("../../domain/entities/user");
-const { transactional } = require("../../infra/db/uow");
+const { transactional, getReadOnlyUoW } = require("../../infra/db/uow");
 const { AppError, Kind } = require("../../domain/errors");
 
 async function getById(userId) {

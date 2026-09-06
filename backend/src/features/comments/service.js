@@ -56,7 +56,7 @@ async function getByPostId(postId, isAdmin) {
     }
 
     const commentsRepo = uow.comments();
-    const comments = await commentsRepo.findByPostId(postId);
+    let comments = await commentsRepo.findByPostId(postId);
     if (!isAdmin) {
         comments = comments.filter(c => c.status === "active");
     }

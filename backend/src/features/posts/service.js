@@ -1,11 +1,12 @@
 const Post = require("../../domain/entities/post");
-const { transactional } = require("../../infra/db/uow");
+const { transactional, getReadOnlyUoW } = require("../../infra/db/uow");
 const { AppError, Kind } = require("../../domain/errors");
 
 async function getAll(options, userId, isAdmin) {
     const uow = await getReadOnlyUoW();
     const postsRepo = uow.posts();
-    const posts = await postsRepo.findAll(options);
+
+    let posts = await postsRepo.findAll(options);
     if (!isAdmin) {
         posts = posts.filter(p => p.status === "active" || p.authorId === userId);
     }
@@ -36,7 +37,8 @@ async function _create(uow, userId, title, content, categoryIds) {
 async function getById(postId, isAdmin) {
     const uow = await getReadOnlyUoW();
     const postsRepo = uow.posts();
-    const post = await postsRepo.findById(postId);
+
+    let post = await postsRepo.findById(postId);
 
     if (!post || (post.status === "inactive" && !isAdmin)) {
         throw new AppError(Kind.NotFound, "Post not found");
@@ -52,7 +54,8 @@ async function update(postId, userId, isAdmin, updates) {
 
 async function _update(uow, postId, userId, isAdmin, updates) {
     const postsRepo = uow.posts();
-    const post = await postsRepo.findById(postId);
+
+    let post = await postsRepo.findById(postId);
 
     if (!post) {
         throw new AppError(Kind.NotFound, "Post not found");
@@ -115,7 +118,7 @@ async function getByCategory(categoryId, options, userId, isAdmin) {
     }
 
     const postsRepo = uow.posts();
-    const posts = await postsRepo.findByCategory(categoryId, options);
+    let posts = await postsRepo.findByCategory(categoryId, options);
     if (!isAdmin) {
         posts = posts.filter(p => p.status === "active" || p.authorId === userId);
     }

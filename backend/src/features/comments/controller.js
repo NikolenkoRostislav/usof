@@ -42,7 +42,7 @@ async function deleteComment(req, res) {
     res.sendStatus(204);
 }
 
-async function getAll() {
+async function getAll(req, res) {
     const comments = await commentService.getAll();
     res.json(comments);
 }

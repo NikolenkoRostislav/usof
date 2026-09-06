@@ -27,9 +27,9 @@ async function _register(uow, login, password, email, fullName = null) {
         throw new AppError(Kind.Conflict, "Email already exists");
     }
 
-    registration = new RegistrationIntent({ login, email, fullName });
+    let registration = new RegistrationIntent({ login, email, fullName });
     registration.setPassword(password);
-    token = await registration.generateToken();
+    const token = await registration.generateToken();
     await registrationIntentsRepo.save(registration);
     await new EmailSender().sendEmail(
         registration.email,

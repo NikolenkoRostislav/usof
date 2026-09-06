@@ -46,7 +46,7 @@ async function createPasswordUpdateIntent(req, res) {
 async function updatePassword(req, res) {
     const { email } = req.body;
     const { confirm_token } = req.params;
-    const user = await authService.updatePassword(email, confirm_token);
+    await authService.updatePassword(email, confirm_token);
     res.sendStatus(204);
 }
 

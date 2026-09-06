@@ -98,7 +98,7 @@ async function _deleteCommentLike(uow, userId, commentId) {
 }
 
 async function getPostLikes(postId, isAdmin) {
-    uow = await getReadOnlyUoW();
+    const uow = await getReadOnlyUoW();
     const postsRepo = uow.posts();
     const post = await postsRepo.findById(postId);
 
@@ -111,7 +111,7 @@ async function getPostLikes(postId, isAdmin) {
 }
 
 async function getCommentLikes(commentId, isAdmin) {
-    uow = await getReadOnlyUoW();
+    const uow = await getReadOnlyUoW();
     const commentsRepo = uow.comments();
     const comment = await commentsRepo.findById(commentId);
 
@@ -124,13 +124,13 @@ async function getCommentLikes(commentId, isAdmin) {
 }
 
 async function getAllCommentLikes() {
-    uow = await getReadOnlyUoW();
+    const uow = await getReadOnlyUoW();
     const likesRepo = uow.likes();
     return await likesRepo.findAllForPosts();
 }
 
 async function getAllPostLikes() {
-    uow = await getReadOnlyUoW();
+    const uow = await getReadOnlyUoW();
     const likesRepo = uow.likes();
     return await likesRepo.findAllForComments();
 }
