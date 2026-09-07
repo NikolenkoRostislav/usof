@@ -2,6 +2,29 @@ const userService = require("./service");
 const { CreateUserRequest, UpdateUserRequest } = require("./requests");
 const { UserResponse, UserFullResponse, UsersListResponse } = require("./responses");
 
+/**
+ * @swagger
+ * /api/users/{user_id}:
+ *   get:
+ *     tags:
+ *       - Users
+ *     parameters:
+ *       - in: path
+ *         name: user_id
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *     responses:
+ *       200:
+ *         description: User details
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ *       404:
+ *         description: User not found
+ */
 async function getById(req, res) {
     const { user_id } = req.params;
     const user = await userService.getById(user_id);
@@ -9,6 +32,24 @@ async function getById(req, res) {
     res.json(response);
 }
 
+/**
+ * @swagger
+ * /api/users/me:
+ *   get:
+ *     tags:
+ *       - Users
+ *     security:
+ *       - sessionAuth: []
+ *     responses:
+ *       200:
+ *         description: Current user details
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/UserFull'
+ *       401:
+ *         description: Unauthorized
+ */
 async function getSelf(req, res) {
     const userId = req.session.user.id;
     const user = await userService.getById(userId);
@@ -16,12 +57,54 @@ async function getSelf(req, res) {
     res.json(response);
 }
 
+/**
+ * @swagger
+ * /api/users:
+ *   get:
+ *     tags:
+ *       - Users
+ *     security:
+ *       - sessionAuth: []
+ *     responses:
+ *       200:
+ *         description: List of all users
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/UsersList'
+ *       403:
+ *         description: Forbidden
+ */
 async function getAll(req, res) {
     const users = await userService.getAll();
     const response = new UsersListResponse(users);
     res.json(response);
 }
 
+/**
+ * @swagger
+ * /api/users:
+ *   post:
+ *     tags:
+ *       - Users
+ *     security:
+ *       - sessionAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/CreateUserRequest'
+ *     responses:
+ *       201:
+ *         description: User created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/UserFull'
+ *       403:
+ *         description: Forbidden
+ */
 async function create(req, res) {
     const createRequest = new CreateUserRequest(
         req.body.login,
@@ -41,6 +124,36 @@ async function create(req, res) {
     res.status(201).json(response);
 }
 
+/**
+ * @swagger
+ * /api/users/{user_id}:
+ *   patch:
+ *     tags:
+ *       - Users
+ *     security:
+ *       - sessionAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: user_id
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/UpdateUserRequest'
+ *     responses:
+ *       200:
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ *       401:
+ *       403:
+ */
 async function update(req, res) {
     const { user_id } = req.params;
     const requestingUserId = req.session.user.id;
@@ -52,6 +165,29 @@ async function update(req, res) {
     res.json(response);
 }
 
+/**
+ * @swagger
+ * /api/users/{user_id}:
+ *   delete:
+ *     tags:
+ *       - Users
+ *     security:
+ *       - sessionAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: user_id
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *     responses:
+ *       204:
+ *         description: User deleted successfully
+ *       401:
+ *         description: Unauthorized
+ *       403:
+ *         description: Forbidden
+ */
 async function deleteUser(req, res) {
     const { user_id } = req.params;
     const requestingUserId = req.session.user.id;
@@ -61,6 +197,28 @@ async function deleteUser(req, res) {
     res.sendStatus(204);
 }
 
+/**
+ * @swagger
+ * /api/users/{user_id}/avatar:
+ *   get:
+ *     tags:
+ *       - Users
+ *     parameters:
+ *       - in: path
+ *         name: user_id
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *     responses:
+ *       200:
+ *         content:
+ *           image/png:
+ *             schema:
+ *               type: string
+ *               format: binary
+ *       404:
+ */
 async function getAvatar(req, res) {
     const { user_id } = req.params;
 
@@ -69,6 +227,29 @@ async function getAvatar(req, res) {
     res.send(avatar);
 }
 
+/**
+ * @swagger
+ * /api/users/{user_id}/avatar:
+ *   delete:
+ *     tags:
+ *       - Users
+ *     security:
+ *       - sessionAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: user_id
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *     responses:
+ *       204:
+ *         description: User deleted successfully
+ *       401:
+ *         description: Unauthorized
+ *       403:
+ *         description: Forbidden
+ */
 async function deleteAvatar(req, res) {
     const { user_id } = req.params;
     const requestingUserId = req.session.user.id;
@@ -78,6 +259,43 @@ async function deleteAvatar(req, res) {
     res.sendStatus(204);
 }
 
+/**
+ * @swagger
+ * /api/users/{user_id}/avatar:
+ *   patch:
+ *     tags:
+ *       - Users
+ *     security:
+ *       - sessionAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: user_id
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - file
+ *             properties:
+ *               file:
+ *                 type: string
+ *                 format: binary
+ *     responses:
+ *       200:
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ *       400:
+ *       401:
+ *       403:
+ */
 async function updateAvatar(req, res) {
     const { user_id } = req.params;
     const requestingUserId = req.session.user.id;

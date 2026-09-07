@@ -1,6 +1,8 @@
 require("dotenv").config();
 const http = require("http");
 const express = require("express");
+const swaggerUi = require("swagger-ui-express");
+const swaggerSpecs = require("./src/api/swagger");
 const { sessionMiddleware, errorHandlingMiddleware } = require("./src/api/middleware");
 const route = require("./src/api/router");
 const host = process.env.HOST || "localhost";
@@ -13,10 +15,15 @@ app.use(express.json());
 
 app.use(sessionMiddleware);
 
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpecs, {
+    swaggerOptions: { persistAuthorization: true },
+}));
+
 route(app);
 
 app.use(errorHandlingMiddleware);
 
 server.listen(port, () => {
     console.log(`Server running on http://${host}:${port}`);
+    console.log(`API Documentation available at http://${host}:${port}/api-docs`);
 });

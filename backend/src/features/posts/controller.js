@@ -2,6 +2,46 @@ const postService = require("./service");
 const { CreatePostRequest, UpdatePostRequest } = require("./requests");
 const { PostResponse, PostsListResponse } = require("./responses");
 
+/**
+ * @swagger
+ * /api/posts:
+ *   get:
+ *     tags:
+ *       - Posts
+ *     parameters:
+ *       - in: query
+ *         name: sortBy
+ *         schema:
+ *           type: string
+ *           enum: [likes, date]
+ *           default: likes
+ *       - in: query
+ *         name: categories
+ *         schema:
+ *           type: string
+ *       - in: query
+ *         name: fromDate
+ *         schema:
+ *           type: string
+ *           format: date-time
+ *       - in: query
+ *         name: toDate
+ *         schema:
+ *           type: string
+ *           format: date-time
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *           default: 0
+ *     responses:
+ *       200:
+ *         description: List of posts
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/PostsList'
+ */
 async function getAll(req, res) {
     const sortBy = req.query.sortBy || 'likes';
     const categories = req.query.categories ? req.query.categories.split(',') : [];
@@ -17,6 +57,30 @@ async function getAll(req, res) {
     res.json(response);
 }
 
+/**
+ * @swagger
+ * /api/posts:
+ *   post:
+ *     tags:
+ *       - Posts
+ *     security:
+ *       - sessionAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/CreatePostRequest'
+ *     responses:
+ *       201:
+ *         description: Post created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Post'
+ *       401:
+ *         description: Unauthorized
+ */
 async function create(req, res) {
     const userId = req.session.user.id;
     const createRequest = new CreatePostRequest(req.body.title, req.body.content, req.body.categories);
@@ -26,6 +90,29 @@ async function create(req, res) {
     res.status(201).json(response);
 }
 
+/**
+ * @swagger
+ * /api/posts/{post_id}:
+ *   get:
+ *     tags:
+ *       - Posts
+ *     parameters:
+ *       - in: path
+ *         name: post_id
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *     responses:
+ *       200:
+ *         description: Post details
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Post'
+ *       404:
+ *         description: Post not found
+ */
 async function getById(req, res) {
     const { post_id } = req.params;
     const isAdmin = req.session?.user?.role === 'admin';
@@ -35,6 +122,41 @@ async function getById(req, res) {
     res.json(response);
 }
 
+/**
+ * @swagger
+ * /api/posts/{post_id}:
+ *   patch:
+ *     tags:
+ *       - Posts
+ *     security:
+ *       - sessionAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: post_id
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/UpdatePostRequest'
+ *     responses:
+ *       200:
+ *         description: Post updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Post'
+ *       401:
+ *         description: Unauthorized
+ *       403:
+ *         description: Forbidden
+ *       404:
+ *         description: Post not found
+ */
 async function update(req, res) {
     const userId = req.session.user.id;
     const isAdmin = req.session.user.role === 'admin';
@@ -51,6 +173,31 @@ async function update(req, res) {
     res.json(response);
 }
 
+/**
+ * @swagger
+ * /api/posts/{post_id}:
+ *   delete:
+ *     tags:
+ *       - Posts
+ *     security:
+ *       - sessionAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: post_id
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *     responses:
+ *       204:
+ *         description: Post deleted successfully
+ *       401:
+ *         description: Unauthorized
+ *       403:
+ *         description: Forbidden
+ *       404:
+ *         description: Post not found
+ */
 async function deletePost(req, res) {
     const userId = req.session.user.id;
     const isAdmin = req.session.user.role === 'admin';
@@ -60,6 +207,39 @@ async function deletePost(req, res) {
     res.sendStatus(204);
 }
 
+/**
+ * @swagger
+ * /api/categories/{category_id}/posts:
+ *   get:
+ *     tags:
+ *       - Posts
+ *     parameters:
+ *       - in: path
+ *         name: category_id
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *       - in: query
+ *         name: sortBy
+ *         schema:
+ *           type: string
+ *           enum: [likes, date]
+ *           default: likes
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *           default: 0
+ *     responses:
+ *       200:
+ *         description: List of posts
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/PostsList'
+ *       404:
+ */
 async function getByCategory(req, res) {
     const { category_id } = req.params;
     const sortBy = req.query.sortBy || 'likes';

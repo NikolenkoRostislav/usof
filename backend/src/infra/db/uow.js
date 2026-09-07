@@ -18,12 +18,20 @@ class UoW {
         return new UoW(connection);
     }
 
+    static async createReadonly() {
+        return new UoW(pool);
+    }
+
     async commit() {
         await this.connection.commit();
     }
 
     async rollback() {
         await this.connection.rollback();
+    }
+
+    release() {
+        this.connection.release();
     }
 
     categories() {
@@ -65,12 +73,14 @@ function transactional(fn) {
         } catch (error) {
             await uow.rollback();
             throw error;
+        } finally {
+            uow.release();
         }
     };
 }
 
 async function getReadOnlyUoW() {
-    return await UoW.create();
+    return await UoW.createReadonly();
 }
 
 module.exports = { UoW, transactional, getReadOnlyUoW };
