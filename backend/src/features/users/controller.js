@@ -79,7 +79,17 @@ async function deleteAvatar(req, res) {
 }
 
 async function updateAvatar(req, res) {
+    const { user_id } = req.params;
+    const requestingUserId = req.session.user.id;
+    const isAdmin = req.session.user.role === 'admin';
 
+    if (!req.file) {
+        return res.status(400).json({ message: "No file uploaded" });
+    }
+
+    const user = await userService.updateAvatar(user_id, requestingUserId, isAdmin, req.file.buffer, req.file.mimetype);
+    const response = new UserResponse(user);
+    res.json(response);
 }
 
 module.exports = { getById, getSelf, getAll, create, update, deleteUser, getAvatar, deleteAvatar, updateAvatar };

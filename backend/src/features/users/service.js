@@ -133,5 +133,40 @@ async function _deleteAvatar(uow, userId, requestingUserId, isAdmin) {
     await usersRepo.save(user);
 }
 
+async function updateAvatar(userId, requestingUserId, isAdmin, fileBuffer, mimetype) {
+    return await transactional(_updateAvatar)(userId, requestingUserId, isAdmin, fileBuffer, mimetype);
+}
 
-module.exports = { getById, getAll, create, update, deleteUser, getAvatar, deleteAvatar };
+async function _updateAvatar(uow, userId, requestingUserId, isAdmin, fileBuffer, mimetype) {
+    if (userId !== requestingUserId && !isAdmin) {
+        throw new AppError(Kind.PermissionDenied, "You cannot update this user's avatar");
+    }
+
+    if (mimetype !== "image/png") {
+        throw new AppError(Kind.InvalidEntry, "Only PNG files are allowed");
+    }
+
+    const maxSizeBytes = 5 * 1024 * 1024;
+    if (fileBuffer.length > maxSizeBytes) {
+        throw new AppError(Kind.InvalidEntry, "File size must not exceed 5MB");
+    }
+
+    const usersRepo = uow.users();
+    const user = await usersRepo.findById(userId);
+    if (!user) {
+        throw new AppError(Kind.NotFound, "User not found");
+    }
+
+    if (user.pfpKey) {
+        await fileHandler.deleteFile(user.pfpKey);
+    }
+
+    const newKey = await fileHandler.saveFile(fileBuffer);
+    user.pfpKey = newKey;
+    await usersRepo.save(user);
+
+    return user;
+}
+
+
+module.exports = { getById, getAll, create, update, deleteUser, getAvatar, deleteAvatar, updateAvatar };
