@@ -6,7 +6,11 @@ function route(app) {
 
     app.post("/api/users", adminAuthMiddleware, controller.create);
 
-    app.patch("/api/user/avatar", () => { });
+    app.get("/api/users/:user_id/avatar", controller.getAvatar);
+
+    app.patch("/api/users/:user_id/avatar", authMiddleware, controller.updateAvatar);
+
+    app.delete("/api/users/:user_id/avatar", authMiddleware, controller.deleteAvatar);
 
     app.get("/api/users/me", authMiddleware, controller.getSelf);
 

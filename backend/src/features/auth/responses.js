@@ -11,7 +11,6 @@ class LoginResponse {
 }
 
 module.exports = {
-    RegisterResponse,
     ConfirmRegistrationResponse,
     LoginResponse,
 };

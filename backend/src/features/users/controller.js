@@ -61,4 +61,25 @@ async function deleteUser(req, res) {
     res.sendStatus(204);
 }
 
-module.exports = { getById, getSelf, getAll, create, update, deleteUser };
+async function getAvatar(req, res) {
+    const { user_id } = req.params;
+
+    const avatar = await userService.getAvatar(user_id);
+    res.set("Content-Type", "image/png");
+    res.send(avatar);
+}
+
+async function deleteAvatar(req, res) {
+    const { user_id } = req.params;
+    const requestingUserId = req.session.user.id;
+    const isAdmin = req.session.user.role === 'admin';
+
+    await userService.deleteAvatar(user_id, requestingUserId, isAdmin);
+    res.sendStatus(204);
+}
+
+async function updateAvatar(req, res) {
+
+}
+
+module.exports = { getById, getSelf, getAll, create, update, deleteUser, getAvatar, deleteAvatar, updateAvatar };

@@ -1,7 +1,7 @@
 const RegistrationIntent = require("../../domain/entities/registration_intent");
 const PasswordUpdateIntent = require("../../domain/entities/password_update_intent");
 const User = require("../../domain/entities/user");
-const EmailSender = require("../../infra/email_sender/dev");
+const emailSender = require("../../infra/email_sender/dev");
 const { transactional } = require("../../infra/db/uow");
 const { AppError, Kind } = require("../../domain/errors");
 
@@ -31,7 +31,7 @@ async function _register(uow, login, password, email, fullName = null) {
     registration.setPassword(password);
     const token = await registration.generateToken();
     await registrationIntentsRepo.save(registration);
-    await new EmailSender().sendEmail(
+    await emailSender.sendEmail(
         registration.email,
         "Confirm your registration",
         `Please confirm your registration by clicking the following link: ${frontedUrl}/confirm-registration?token=${token}
@@ -116,7 +116,7 @@ async function _createPasswordUpdateIntent(uow, email, newPassword) {
     const token = await intent.generateToken();
     await passwordUpdateIntentsRepo.save(intent);
 
-    await new EmailSender().sendEmail(
+    await emailSender.sendEmail(
         email,
         "Reset your password",
         `Please confirm your password reset by clicking the following link: ${frontedUrl}/reset-password?token=${token}

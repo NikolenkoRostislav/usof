@@ -7,7 +7,6 @@ const {
     UpdatePasswordRequest,
 } = require("./requests");
 const {
-    RegisterResponse,
     ConfirmRegistrationResponse,
     LoginResponse,
 } = require("./responses");

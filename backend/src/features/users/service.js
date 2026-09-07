@@ -1,6 +1,8 @@
 const User = require("../../domain/entities/user");
 const { transactional, getReadOnlyUoW } = require("../../infra/db/uow");
 const { AppError, Kind } = require("../../domain/errors");
+const fileHandler = require("../../infra/file_handler/dev");
+
 
 async function getById(userId) {
     const uow = await getReadOnlyUoW();
@@ -98,4 +100,38 @@ async function _deleteUser(uow, userId, requestingUserId, requestingUserRole) {
     await usersRepo.delete(userId);
 }
 
-module.exports = { getById, getAll, create, update, deleteUser };
+async function getAvatar(userId) {
+    const uow = await getReadOnlyUoW();
+    const usersRepo = uow.users();
+    const user = await usersRepo.findById(userId);
+    if (!user) {
+        throw new AppError(Kind.NotFound, "User not found");
+    }
+    const pfpKey = user.pfpKey;
+
+    return fileHandler.getFile(pfpKey);
+}
+
+async function deleteAvatar(userId, requestingUserId, isAdmin) {
+    return await transactional(_deleteAvatar)(userId, requestingUserId, isAdmin);
+}
+
+async function _deleteAvatar(uow, userId, requestingUserId, isAdmin) {
+    if (userId !== requestingUserId && !isAdmin) {
+        throw new AppError(Kind.PermissionDenied, "You cannot delete this user's avatar");
+    }
+
+    const usersRepo = uow.users();
+    const user = await usersRepo.findById(userId);
+    if (!user) {
+        throw new AppError(Kind.NotFound, "User not found");
+    }
+
+    await fileHandler.deleteFile(user.pfpKey);
+
+    user.pfpKey = null;
+    await usersRepo.save(user);
+}
+
+
+module.exports = { getById, getAll, create, update, deleteUser, getAvatar, deleteAvatar };

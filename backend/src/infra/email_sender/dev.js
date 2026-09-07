@@ -6,4 +6,4 @@ class EmailSender {
     }
 }
 
-module.exports = EmailSender;
+module.exports = new EmailSender();
