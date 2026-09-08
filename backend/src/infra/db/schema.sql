@@ -40,12 +40,14 @@ CREATE TABLE comments (
     id CHAR(36) PRIMARY KEY,
     author_id CHAR(36),
     post_id CHAR(36) NOT NULL,
+    quote_id CHAR(36),
     publish_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     status ENUM('active', 'inactive') NOT NULL DEFAULT 'active',
     content TEXT NOT NULL,
 
     FOREIGN KEY (author_id) REFERENCES users(id) ON DELETE SET NULL,
-    FOREIGN KEY (post_id) REFERENCES posts(id) ON DELETE CASCADE
+    FOREIGN KEY (post_id) REFERENCES posts(id) ON DELETE CASCADE,
+    FOREIGN KEY (quote_id) REFERENCES comments(id) ON DELETE SET NULL
 );
 
 CREATE TABLE likes (

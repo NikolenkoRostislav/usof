@@ -2,11 +2,11 @@ const Comment = require("../../domain/entities/comment");
 const { transactional, getReadOnlyUoW } = require("../../infra/db/uow");
 const { AppError, Kind } = require("../../domain/errors");
 
-async function create(userId, postId, content) {
-    return await transactional(_create)(userId, postId, content);
+async function create(userId, postId, content, quoteId = null) {
+    return await transactional(_create)(userId, postId, content, quoteId);
 }
 
-async function _create(uow, userId, postId, content) {
+async function _create(uow, userId, postId, content, quoteId = null) {
     const postsRepo = uow.posts();
     const post = await postsRepo.findById(postId);
 
@@ -17,9 +17,22 @@ async function _create(uow, userId, postId, content) {
         throw new AppError(Kind.PermissionDenied, "Cannot comment on this post");
     }
 
+    if (quoteId) {
+        const commentsRepo = uow.comments();
+        const quotedComment = await commentsRepo.findById(quoteId);
+
+        if (!quotedComment) {
+            throw new AppError(Kind.NotFound, "Quoted comment not found");
+        }
+        if (quotedComment.postId !== postId) {
+            throw new AppError(Kind.InvalidEntry, "Quoted comment must belong to the same post");
+        }
+    }
+
     const comment = new Comment({
         authorId: userId,
         postId,
+        quoteId,
         content
     });
 

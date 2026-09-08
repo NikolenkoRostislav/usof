@@ -13,6 +13,7 @@ class CommentsRepo {
             id: rows[0].id,
             authorId: rows[0].author_id,
             postId: rows[0].post_id,
+            quoteId: rows[0].quote_id,
             publishDate: rows[0].publish_date,
             content: rows[0].content,
             status: rows[0].status
@@ -37,6 +38,7 @@ class CommentsRepo {
             id: row.id,
             authorId: row.author_id,
             postId: row.post_id,
+            quoteId: row.quote_id,
             publishDate: row.publish_date,
             content: row.content,
             status: row.status
@@ -55,6 +57,7 @@ class CommentsRepo {
             id: row.id,
             authorId: row.author_id,
             postId: row.post_id,
+            quoteId: row.quote_id,
             publishDate: row.publish_date,
             content: row.content,
             status: row.status
@@ -73,6 +76,7 @@ class CommentsRepo {
             id: row.id,
             authorId: row.author_id,
             postId: row.post_id,
+            quoteId: row.quote_id,
             publishDate: row.publish_date,
             content: row.content,
             status: row.status
@@ -83,17 +87,17 @@ class CommentsRepo {
         try {
             const [result] = await this.connection.query(
                 `UPDATE comments
-                SET author_id = ?, post_id = ?, publish_date = ?, content = ?, status = ?
+                SET author_id = ?, post_id = ?, quote_id = ?, publish_date = ?, content = ?, status = ?
                 WHERE id = ?`,
-                [comment.authorId, comment.postId, comment.publishDate, comment.content, comment.status, comment.id]
+                [comment.authorId, comment.postId, comment.quoteId, comment.publishDate, comment.content, comment.status, comment.id]
             );
             if (result.affectedRows > 0)
                 return;
 
             await this.connection.query(
-                `INSERT INTO comments (id, author_id, post_id, publish_date, content, status)
-                VALUES (?, ?, ?, ?, ?, ?)`,
-                [comment.id, comment.authorId, comment.postId, comment.publishDate, comment.content, comment.status]
+                `INSERT INTO comments (id, author_id, post_id, quote_id, publish_date, content, status)
+                VALUES (?, ?, ?, ?, ?, ?, ?)`,
+                [comment.id, comment.authorId, comment.postId, comment.quoteId, comment.publishDate, comment.content, comment.status]
             );
         } catch (error) {
             if (error.code === "ER_DUP_ENTRY") {

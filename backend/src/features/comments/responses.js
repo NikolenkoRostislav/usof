@@ -3,6 +3,7 @@ class CommentResponse {
         this.id = comment.id;
         this.authorId = comment.authorId;
         this.postId = comment.postId;
+        this.quoteId = comment.quoteId;
         this.publishDate = comment.publishDate;
         this.content = comment.content;
         this.status = comment.status;

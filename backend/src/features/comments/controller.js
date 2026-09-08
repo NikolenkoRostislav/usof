@@ -33,14 +33,16 @@ const { CommentResponse, CommentsListResponse } = require("./responses");
  *       401:
  *         description: Unauthorized
  *       404:
- *         description: Post not found
+ *         description: Post not found or quoted comment not found
+ *       422:
+ *         description: Quoted comment must belong to the same post
  */
 async function create(req, res) {
     const userId = req.session.user.id;
     const { post_id } = req.params;
-    const createRequest = new CreateCommentRequest(req.body.content);
+    const createRequest = new CreateCommentRequest(req.body.content, req.body.quoteId);
 
-    const comment = await commentService.create(userId, post_id, createRequest.content);
+    const comment = await commentService.create(userId, post_id, createRequest.content, createRequest.quoteId);
     const response = new CommentResponse(comment);
     res.status(201).json(response);
 }

@@ -331,6 +331,7 @@ const options = {
           required: ["content"],
           properties: {
             content: { type: "string" },
+            postId: { type: "string", format: "uuid" },
           },
         },
         UpdateCommentRequest: {

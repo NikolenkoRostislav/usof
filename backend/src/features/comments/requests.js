@@ -1,6 +1,7 @@
 class CreateCommentRequest {
-    constructor(content) {
+    constructor(content, quoteId = null) {
         this.content = content;
+        this.quoteId = quoteId;
     }
 }
 
