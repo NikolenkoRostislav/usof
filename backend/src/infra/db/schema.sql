@@ -86,3 +86,38 @@ CREATE TABLE password_update_intents (
     is_used BOOLEAN NOT NULL DEFAULT FALSE,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE awards (
+    id CHAR(36) PRIMARY KEY,
+    title VARCHAR(100) NOT NULL,
+    description TEXT,
+    rarity ENUM('common', 'rare', 'epic', 'legendary') NOT NULL
+);
+
+CREATE TABLE post_awards (
+    post_id CHAR(36) NOT NULL,
+    award_id CHAR(36) NOT NULL,
+    count INT NOT NULL DEFAULT 1,
+
+    PRIMARY KEY (post_id, award_id),
+    FOREIGN KEY (post_id) REFERENCES posts(id) ON DELETE CASCADE,
+    FOREIGN KEY (award_id) REFERENCES awards(id) ON DELETE CASCADE
+);
+
+CREATE TABLE owned_awards (
+    user_id CHAR(36) NOT NULL,
+    award_id CHAR(36) NOT NULL,
+    count INT NOT NULL DEFAULT 1,
+
+    PRIMARY KEY (user_id, award_id),
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (award_id) REFERENCES awards(id) ON DELETE CASCADE
+);
+
+CREATE TABLE award_gacha (
+    user_id CHAR(36) PRIMARY KEY,
+    last_rolled TIMESTAMP,
+    total_rolls INT,
+
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
