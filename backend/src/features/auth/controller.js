@@ -132,7 +132,7 @@ function logout(req, res) {
  *             $ref: '#/components/schemas/CreatePasswordUpdateIntentRequest'
  *     responses:
  *       204:
- *         description: Logged out successfully
+ *         description: No content
  */
 async function createPasswordUpdateIntent(req, res) {
     const passwordUpdateIntent = new CreatePasswordUpdateIntentRequest(req.body.email, req.body.new_password);
@@ -154,7 +154,7 @@ async function createPasswordUpdateIntent(req, res) {
  *             $ref: '#/components/schemas/UpdatePasswordRequest'
  *     responses:
  *       204:
- *         description: Logged out successfully
+ *         description: No content
  */
 async function updatePassword(req, res) {
     const updatePasswordRequest = new UpdatePasswordRequest(req.body.email, req.body.confirm_token);

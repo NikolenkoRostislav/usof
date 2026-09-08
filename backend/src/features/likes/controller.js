@@ -105,8 +105,11 @@ async function createCommentLike(req, res) {
  *           format: uuid
  *     responses:
  *       204:
+ *          description: Like deleted successfully
  *       401:
- *       404: Post not found
+ *          description: Unauthorized
+ *       404: 
+ *          description: Post not found
  */
 async function deletePostLike(req, res) {
     const userId = req.session.user.id;
@@ -133,8 +136,11 @@ async function deletePostLike(req, res) {
  *           format: uuid
  *     responses:
  *       204:
+ *          description: Like deleted successfully
  *       401:
- *       404: Comment not found
+ *          description: Unauthorized
+ *       404: 
+ *          description: Comment not found
  */
 async function deleteCommentLike(req, res) {
     const userId = req.session.user.id;

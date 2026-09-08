@@ -152,7 +152,9 @@ async function create(req, res) {
  *             schema:
  *               $ref: '#/components/schemas/User'
  *       401:
+ *         description: Unauthorized
  *       403:
+ *         description: Forbidden
  */
 async function update(req, res) {
     const { user_id } = req.params;
@@ -218,6 +220,7 @@ async function deleteUser(req, res) {
  *               type: string
  *               format: binary
  *       404:
+ *         description: User not found
  */
 async function getAvatar(req, res) {
     const { user_id } = req.params;
@@ -293,8 +296,11 @@ async function deleteAvatar(req, res) {
  *             schema:
  *               $ref: '#/components/schemas/User'
  *       400:
+ *         description: No file uploaded
  *       401:
+ *         description: Unauthorized
  *       403:
+ *         description: Forbidden
  */
 async function updateAvatar(req, res) {
     const { user_id } = req.params;

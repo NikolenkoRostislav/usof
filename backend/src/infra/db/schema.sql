@@ -7,7 +7,7 @@ CREATE TABLE users (
     password_hash TEXT NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
     pfp_key TEXT,
-    role ENUM('user', 'admin', 'owner') NOT NULL DEFAULT 'user'
+    role ENUM('user', 'admin') NOT NULL DEFAULT 'user'
 );
 
 CREATE TABLE posts (

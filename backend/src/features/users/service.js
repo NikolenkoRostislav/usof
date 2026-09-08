@@ -108,6 +108,9 @@ async function getAvatar(userId) {
         throw new AppError(Kind.NotFound, "User not found");
     }
     const pfpKey = user.pfpKey;
+    if (!pfpKey) {
+        return null;
+    }
 
     return fileHandler.getFile(pfpKey);
 }

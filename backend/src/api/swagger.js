@@ -79,7 +79,7 @@ const options = {
             },
             status: {
               type: "string",
-              enum: ["pending", "published", "rejected"],
+              enum: ["active", "locked", "inactive"],
             },
             categories: {
               type: "array",
@@ -142,7 +142,7 @@ const options = {
             },
             status: {
               type: "string",
-              enum: ["pending", "published", "rejected"],
+              enum: ["active", "inactive"],
             },
             authorId: {
               type: "string",
@@ -319,7 +319,7 @@ const options = {
           properties: {
             title: { type: "string" },
             content: { type: "string" },
-            status: { type: "string", enum: ["pending", "published", "rejected"] },
+            status: { type: "string", enum: ["active", "locked", "inactive"] },
             categories: {
               type: "array",
               items: { type: "string", format: "uuid" },
@@ -337,7 +337,7 @@ const options = {
           type: "object",
           properties: {
             content: { type: "string" },
-            status: { type: "string", enum: ["pending", "published", "rejected"] },
+            status: { type: "string", enum: ["active", "inactive"] },
           },
         },
         CreatePostLikeRequest: {

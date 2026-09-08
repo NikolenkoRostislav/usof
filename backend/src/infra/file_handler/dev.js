@@ -13,8 +13,10 @@ class FileHandler {
     }
 
     async deleteFile(key) {
-        const filePath = path.join(this.baseDir, key);
-        return fs.unlink(filePath);
+        try {
+            const filePath = path.join(this.baseDir, key);
+            await fs.unlink(filePath);
+        } catch (err) { }
     }
 
     async saveFile(data) {

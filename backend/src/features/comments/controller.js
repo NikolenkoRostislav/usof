@@ -170,11 +170,13 @@ async function update(req, res) {
  *           format: uuid
  *     responses:
  *       204:
+ *         description: Comment deleted successfully
  *       401:
  *         description: Unauthorized
  *       403:
  *         description: Forbidden
  *       404:
+ *         description: Comment not found
  */
 async function deleteComment(req, res) {
     const userId = req.session.user.id;

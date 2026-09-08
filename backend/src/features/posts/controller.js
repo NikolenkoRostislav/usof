@@ -239,6 +239,7 @@ async function deletePost(req, res) {
  *             schema:
  *               $ref: '#/components/schemas/PostsList'
  *       404:
+ *          description: Category not found
  */
 async function getByCategory(req, res) {
     const { category_id } = req.params;

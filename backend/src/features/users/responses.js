@@ -2,7 +2,7 @@ class UserResponse {
     constructor(user) {
         this.id = user.id;
         this.login = user.login;
-        this.role = role;
+        this.role = user.role;
     }
 }
 
