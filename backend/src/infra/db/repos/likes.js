@@ -148,6 +148,28 @@ class LikesRepo {
         if (!rows || rows.length === 0) return null;
         return this._fromRows(rows);
     }
+
+    async calculateUserReputation(userId) {
+        const [rows] = await this.connection.query(
+            `SELECT COALESCE(SUM(CASE
+                WHEN all_likes.type = 'like' THEN 1
+                WHEN all_likes.type = 'dislike' THEN -1
+                ELSE 0
+            END), 0) as reputation
+            FROM (
+                SELECT l.type FROM likes l
+                JOIN posts p ON l.post_id = p.id
+                WHERE p.author_id = ?
+                UNION ALL
+                SELECT l.type FROM likes l
+                JOIN comments c ON l.comment_id = c.id
+                WHERE c.author_id = ?
+            ) as all_likes`,
+            [userId, userId]
+        );
+
+        return rows[0].reputation;
+    }
 }
 
 module.exports = LikesRepo

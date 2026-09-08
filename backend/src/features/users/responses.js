@@ -3,6 +3,7 @@ class UserResponse {
         this.id = user.id;
         this.login = user.login;
         this.role = user.role;
+        this.reputation = user.reputation || 0;
     }
 }
 
@@ -13,6 +14,7 @@ class UserFullResponse {
         this.email = user.email;
         this.fullName = user.fullName;
         this.role = user.role;
+        this.reputation = user.reputation || 0;
     }
 }
 

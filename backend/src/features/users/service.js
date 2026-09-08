@@ -3,15 +3,18 @@ const { transactional, getReadOnlyUoW } = require("../../infra/db/uow");
 const { AppError, Kind } = require("../../domain/errors");
 const fileHandler = require("../../infra/file_handler/dev");
 
-
 async function getById(userId) {
     const uow = await getReadOnlyUoW();
+    const likesRepo = uow.likes();
     const usersRepo = uow.users();
 
     const user = await usersRepo.findById(userId);
     if (!user) {
         throw new AppError(Kind.NotFound, "User not found");
     }
+
+    const reputation = await likesRepo.calculateUserReputation(userId);
+    user.reputation = reputation;
 
     return user;
 }
