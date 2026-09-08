@@ -67,7 +67,7 @@ async function _update(uow, postId, userId, isAdmin, updates) {
         }
         post.status = updates.status;
     } else {
-        if (post.authorId !== userId) {
+        if (post.authorId !== userId || post.status !== "active") {
             throw new AppError(Kind.PermissionDenied, "You cannot modify this post");
         }
 
