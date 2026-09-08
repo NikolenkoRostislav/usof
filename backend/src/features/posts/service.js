@@ -8,7 +8,7 @@ async function getAll(options, userId, isAdmin) {
 
     let posts = await postsRepo.findAll(options);
     if (!isAdmin) {
-        posts = posts.filter(p => p.status === "active" || p.authorId === userId);
+        posts = posts.filter(p => p.status !== "inactive" || p.authorId === userId);
     }
     return posts;
 }
