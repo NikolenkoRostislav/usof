@@ -82,7 +82,7 @@ class PostsRepo {
     }
 
     async findAll(options = {}) {
-        const { sortBy = 'likes', categories = [], fromDate, toDate, page = 0, limit = 20, authorId = null } = options;
+        const { sortBy = 'likes', categories = [], fromDate, toDate, page = 0, limit = 20, authorId, title } = options;
 
         let query = "SELECT p.* FROM posts p";
         if (sortBy === 'likes') {
@@ -120,6 +120,11 @@ class PostsRepo {
         if (authorId) {
             conditions.push(`p.author_id = ?`);
             params.push(authorId);
+        }
+
+        if (title) {
+            conditions.push(`LOWER(p.title) LIKE LOWER(?)`);
+            params.push(`%${title}%`);
         }
 
         if (conditions.length > 0) {

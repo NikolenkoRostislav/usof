@@ -25,6 +25,10 @@ const { PostResponse, PostsListResponse } = require("./responses");
  *           type: string
  *           format: uuid
  *       - in: query
+ *         name: title
+ *         schema:
+ *           type: string
+ *       - in: query
  *         name: fromDate
  *         schema:
  *           type: string
@@ -55,10 +59,11 @@ async function getAll(req, res) {
     const toDate = req.query.toDate;
     const page = parseInt(req.query.page) || 0;
     const limit = 20;
+    const title = req.query.title;
     const userId = req.session?.user?.id;
     const isAdmin = req.session?.user?.role === 'admin';
 
-    const posts = await postService.getAll({ sortBy, categories, fromDate, toDate, page, limit, authorId }, userId, isAdmin);
+    const posts = await postService.getAll({ sortBy, categories, fromDate, toDate, page, limit, authorId, title }, userId, isAdmin);
     const response = new PostsListResponse(posts);
     res.json(response);
 }
