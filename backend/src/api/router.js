@@ -5,6 +5,7 @@ const { route: likesRoute } = require("../features/likes/routes");
 const { route: postsRoute } = require("../features/posts/routes");
 const { route: userRoute } = require("../features/users/routes");
 const { route: rewardsRoute } = require("../features/rewards/routes");
+const { route: gachaRoute } = require("../features/gacha/routes");
 
 
 function route(app) {
@@ -19,6 +20,7 @@ function route(app) {
     postsRoute(app);
     userRoute(app);
     rewardsRoute(app);
+    gachaRoute(app);
 }
 
 module.exports = route;

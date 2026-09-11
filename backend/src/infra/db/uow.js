@@ -9,6 +9,7 @@ const PasswordUpdateIntentsRepo = require('./repos/password_update_intents');
 const AwardsRepo = require('./repos/awards');
 const PostAwardsRepo = require('./repos/post_awards');
 const OwnedAwardsRepo = require('./repos/owned_awards');
+const AwardGachaRepo = require('./repos/award_gacha');
 
 class UoW {
     constructor(connection) {
@@ -75,6 +76,10 @@ class UoW {
 
     ownedAwards() {
         return new OwnedAwardsRepo(this.connection);
+    }
+
+    awardGacha() {
+        return new AwardGachaRepo(this.connection);
     }
 }
 
