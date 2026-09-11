@@ -13,7 +13,17 @@ class PostRewardsListResponse {
     }
 }
 
+class AwardResponse {
+    constructor(award) {
+        this.id = award.id;
+        this.title = award.title;
+        this.description = award.description;
+        this.rarity = award.rarity;
+    }
+}
+
 module.exports = {
     PostRewardResponse,
-    PostRewardsListResponse
+    PostRewardsListResponse,
+    AwardResponse
 };

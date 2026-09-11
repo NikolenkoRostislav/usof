@@ -1,6 +1,6 @@
 const rewardService = require("./service");
-const { GiveRewardRequest } = require("./requests");
-const { PostRewardResponse, PostRewardsListResponse } = require("./responses");
+const { GiveRewardRequest, CreateAwardRequest } = require("./requests");
+const { PostRewardResponse, PostRewardsListResponse, AwardResponse } = require("./responses");
 
 /**
  * @swagger
@@ -103,9 +103,72 @@ async function getMyRewards(req, res) {
     res.json(response);
 }
 
+/**
+ * @swagger
+ * /api/awards:
+ *   post:
+ *     tags:
+ *       - Awards
+ *     security:
+ *       - sessionAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/CreateAwardRequest'
+ *     responses:
+ *       201:
+ *         description: Award created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Award'
+ *       400:
+ *         description: Invalid rarity
+ *       403:
+ *         description: Forbidden
+ */
+async function createAward(req, res) {
+    const { title, description, rarity } = req.body;
+    const award = await rewardService.createAward(title, description, rarity);
+    const response = new AwardResponse(award);
+    res.status(201).json(response);
+}
+
+/**
+ * @swagger
+ * /api/awards/{award_id}:
+ *   delete:
+ *     tags:
+ *       - Awards
+ *     security:
+ *       - sessionAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: award_id
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *     responses:
+ *       204:
+ *         description: Award deleted successfully
+ *       403:
+ *         description: Forbidden
+ *       404:
+ *         description: Award not found
+ */
+async function deleteAward(req, res) {
+    const { award_id } = req.params;
+    await rewardService.deleteAward(award_id);
+    res.sendStatus(204);
+}
 
 module.exports = {
     giveReward,
     getPostRewards,
-    getMyRewards
+    getMyRewards,
+    createAward,
+    deleteAward
 };

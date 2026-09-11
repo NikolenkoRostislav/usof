@@ -4,6 +4,15 @@ class GiveRewardRequest {
     }
 }
 
+class CreateAwardRequest {
+    constructor(title, description, rarity) {
+        this.title = title;
+        this.description = description;
+        this.rarity = rarity;
+    }
+}
+
 module.exports = {
-    GiveRewardRequest
+    GiveRewardRequest,
+    CreateAwardRequest
 };

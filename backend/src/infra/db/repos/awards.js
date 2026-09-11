@@ -37,6 +37,21 @@ class AwardsRepo {
             rarity: row.rarity
         }));
     }
+
+    async save(award) {
+        await this.connection.query(
+            `INSERT INTO awards (id, title, description, rarity)
+            VALUES (?, ?, ?, ?)`,
+            [award.id, award.title, award.description, award.rarity]
+        );
+    }
+
+    async delete(id) {
+        await this.connection.query(
+            "DELETE FROM awards WHERE id = ?",
+            [id]
+        );
+    }
 }
 
 module.exports = AwardsRepo;

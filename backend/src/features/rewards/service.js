@@ -1,5 +1,6 @@
 const { transactional, getReadOnlyUoW } = require("../../infra/db/uow");
 const { AppError, Kind } = require("../../domain/errors");
+const Award = require("../../domain/entities/award");
 
 async function giveRewardToPost(userId, postId, awardId) {
     return await transactional(_giveRewardToPost)(userId, postId, awardId);
@@ -68,8 +69,45 @@ async function getMyRewards(userId) {
     return await ownedAwardsRepo.findByUserId(userId);
 }
 
+async function createAward(title, description, rarity) {
+    return await transactional(_createAward)(title, description, rarity);
+}
+
+async function _createAward(uow, title, description, rarity) {
+    if (!['common', 'rare', 'epic', 'legendary'].includes(rarity)) {
+        throw new AppError(Kind.BadRequest, "Invalid rarity");
+    }
+
+    const award = new Award({
+        title,
+        description,
+        rarity
+    });
+
+    const awardsRepo = uow.awards();
+    await awardsRepo.save(award);
+    return award;
+}
+
+async function deleteAward(awardId) {
+    return await transactional(_deleteAward)(awardId);
+}
+
+async function _deleteAward(uow, awardId) {
+    const awardsRepo = uow.awards();
+    const award = await awardsRepo.findById(awardId);
+
+    if (!award) {
+        throw new AppError(Kind.NotFound, "Award not found");
+    }
+
+    await awardsRepo.delete(awardId);
+}
+
 module.exports = {
     giveRewardToPost,
     getPostRewards,
-    getMyRewards
+    getMyRewards,
+    createAward,
+    deleteAward
 };
