@@ -6,6 +6,9 @@ const PostsRepo = require('./repos/posts');
 const UsersRepo = require('./repos/users');
 const RegistrationIntentsRepo = require('./repos/registration_intents');
 const PasswordUpdateIntentsRepo = require('./repos/password_update_intents');
+const AwardsRepo = require('./repos/awards');
+const PostAwardsRepo = require('./repos/post_awards');
+const OwnedAwardsRepo = require('./repos/owned_awards');
 
 class UoW {
     constructor(connection) {
@@ -60,6 +63,18 @@ class UoW {
 
     passwordUpdateIntents() {
         return new PasswordUpdateIntentsRepo(this.connection);
+    }
+
+    awards() {
+        return new AwardsRepo(this.connection);
+    }
+
+    postAwards() {
+        return new PostAwardsRepo(this.connection);
+    }
+
+    ownedAwards() {
+        return new OwnedAwardsRepo(this.connection);
     }
 }
 
