@@ -370,6 +370,97 @@ const options = {
             description: { type: "string" },
           },
         },
+        Award: {
+          type: "object",
+          properties: {
+            id: {
+              type: "string",
+              format: "uuid",
+            },
+            title: {
+              type: "string",
+            },
+            description: {
+              type: "string",
+              nullable: true,
+            },
+            rarity: {
+              type: "string",
+              enum: ["common", "rare", "epic", "legendary"],
+            },
+          },
+        },
+        PostAward: {
+          type: "object",
+          properties: {
+            postId: {
+              type: "string",
+              format: "uuid",
+            },
+            awardId: {
+              type: "string",
+              format: "uuid",
+            },
+            count: {
+              type: "integer",
+            },
+            award: {
+              $ref: "#/components/schemas/Award",
+            },
+          },
+        },
+        PostAwardsList: {
+          type: "object",
+          properties: {
+            awards: {
+              type: "array",
+              items: {
+                $ref: "#/components/schemas/PostAward",
+              },
+            },
+          },
+        },
+        GiveAwardRequest: {
+          type: "object",
+          required: ["awardId"],
+          properties: {
+            awardId: {
+              type: "string",
+              format: "uuid",
+            },
+          },
+        },
+        CreateAwardRequest: {
+          type: "object",
+          required: ["title", "rarity"],
+          properties: {
+            title: { type: "string" },
+            description: { type: "string" },
+            rarity: {
+              type: "string",
+              enum: ["common", "rare", "epic", "legendary"],
+            },
+          },
+        },
+        GachaStatus: {
+          type: "object",
+          properties: {
+            msUntilNextRoll: {
+              type: "integer",
+            },
+            canRoll: {
+              type: "boolean",
+            },
+          },
+        },
+        GachaRoll: {
+          type: "object",
+          properties: {
+            award: {
+              $ref: "#/components/schemas/Award",
+            },
+          },
+        },
       },
     },
     security: [],
