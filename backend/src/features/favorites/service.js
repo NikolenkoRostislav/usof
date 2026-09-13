@@ -45,8 +45,16 @@ async function getUserFavorites(userId) {
     return await favoritesRepo.findByUserId(userId);
 }
 
+async function isFavorited(userId, postId) {
+    const uow = await getReadOnlyUoW();
+    const favoritesRepo = uow.favorites();
+    const favorite = await favoritesRepo.findByUserAndPost(userId, postId);
+    return favorite !== null;
+}
+
 module.exports = {
     addFavorite,
     removeFavorite,
     getUserFavorites,
+    isFavorited,
 };

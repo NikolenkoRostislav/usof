@@ -252,32 +252,7 @@ async function getAllPostLikes(req, res) {
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 likes:
- *                   type: array
- *                   items:
- *                     type: object
- *                     properties:
- *                       id:
- *                         type: string
- *                         format: uuid
- *                       type:
- *                         type: string
- *                         enum: [like, dislike]
- *                       authorId:
- *                         type: string
- *                         format: uuid
- *                       postId:
- *                         type: string
- *                         format: uuid
- *                         nullable: true
- *                       commentId:
- *                         type: string
- *                         format: uuid
- *                       publishDate:
- *                         type: string
- *                         format: date-time
+ *               $ref: '#/components/schemas/LikesList'
  *       403:
  *         description: Forbidden
  */

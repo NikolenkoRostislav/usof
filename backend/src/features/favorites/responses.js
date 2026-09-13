@@ -11,7 +11,14 @@ class FavoritesListResponse {
     }
 }
 
+class IsFavoritedResponse {
+    constructor(isFavorited) {
+        this.isFavorited = isFavorited;
+    }
+}
+
 module.exports = {
     FavoriteResponse,
     FavoritesListResponse,
+    IsFavoritedResponse,
 };

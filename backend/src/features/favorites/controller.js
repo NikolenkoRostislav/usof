@@ -1,5 +1,5 @@
 const favoriteService = require("./service");
-const { FavoriteResponse, FavoritesListResponse } = require("./responses");
+const { FavoriteResponse, FavoritesListResponse, IsFavoritedResponse } = require("./responses");
 
 /**
  * @swagger
@@ -95,8 +95,43 @@ async function removeFavorite(req, res) {
     res.sendStatus(204);
 }
 
+/**
+ * @swagger
+ * /api/favorites/{post_id}:
+ *   get:
+ *     tags:
+ *       - Favorites
+ *     security:
+ *       - sessionAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: post_id
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *     responses:
+ *       200:
+ *         description: Check if post is favorited
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/IsFavorited'
+ *       401:
+ *         description: Unauthorized
+ */
+async function checkIsFavorited(req, res) {
+    const userId = req.session.user.id;
+    const { post_id } = req.params;
+
+    const isFavorited = await favoriteService.isFavorited(userId, post_id);
+    const response = new IsFavoritedResponse(isFavorited);
+    res.json(response);
+}
+
 module.exports = {
     getUserFavorites,
     addFavorite,
     removeFavorite,
+    checkIsFavorited,
 };

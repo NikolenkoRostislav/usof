@@ -485,6 +485,14 @@ const options = {
             },
           },
         },
+        IsFavorited: {
+          type: "object",
+          properties: {
+            isFavorited: {
+              type: "boolean",
+            },
+          },
+        },
       },
     },
     security: [],
