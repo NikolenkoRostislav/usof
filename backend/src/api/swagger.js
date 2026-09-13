@@ -381,6 +381,8 @@ const options = {
     "./src/features/comments/controller.js",
     "./src/features/likes/controller.js",
     "./src/features/categories/controller.js",
+    "./src/features/gacha/controller.js",
+    "./src/features/awards/controller.js",
   ],
 };
 

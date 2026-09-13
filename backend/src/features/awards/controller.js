@@ -1,13 +1,13 @@
-const rewardService = require("./service");
-const { GiveRewardRequest, CreateAwardRequest } = require("./requests");
-const { PostRewardResponse, PostRewardsListResponse, AwardResponse } = require("./responses");
+const awardService = require("./service");
+const { GiveAwardRequest, CreateAwardRequest } = require("./requests");
+const { PostAwardResponse, PostAwardsListResponse, AwardResponse } = require("./responses");
 
 /**
  * @swagger
- * /api/posts/{post_id}/rewards:
+ * /api/posts/{post_id}/awards:
  *   post:
  *     tags:
- *       - Rewards
+ *       - Awards
  *     security:
  *       - sessionAuth: []
  *     parameters:
@@ -22,14 +22,14 @@ const { PostRewardResponse, PostRewardsListResponse, AwardResponse } = require("
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/GiveRewardRequest'
+ *             $ref: '#/components/schemas/GiveAwardRequest'
  *     responses:
  *       201:
- *         description: Reward given successfully
+ *         description: Award given successfully
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/PostReward'
+ *               $ref: '#/components/schemas/PostAward'
  *       401:
  *         description: Unauthorized
  *       404:
@@ -37,22 +37,22 @@ const { PostRewardResponse, PostRewardsListResponse, AwardResponse } = require("
  *       409:
  *         description: User does not have this award
  */
-async function giveReward(req, res) {
+async function giveAward(req, res) {
     const userId = req.session.user.id;
     const { post_id } = req.params;
-    const { awardId } = req.body;
+    const giveAwardRequest = new GiveAwardRequest(req.body.awardId);
 
-    const reward = await rewardService.giveRewardToPost(userId, post_id, awardId);
-    const response = new PostRewardResponse(reward);
+    const award = await awardService.giveAwardToPost(userId, post_id, giveAwardRequest.awardId);
+    const response = new PostAwardResponse(award);
     res.status(201).json(response);
 }
 
 /**
  * @swagger
- * /api/posts/{post_id}/rewards:
+ * /api/posts/{post_id}/awards:
  *   get:
  *     tags:
- *       - Rewards
+ *       - Awards
  *     parameters:
  *       - in: path
  *         name: post_id
@@ -62,44 +62,44 @@ async function giveReward(req, res) {
  *           format: uuid
  *     responses:
  *       200:
- *         description: List of rewards
+ *         description: List of awards
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/PostRewardsList'
+ *               $ref: '#/components/schemas/PostAwardsList'
  *       404:
  *         description: Post not found
  */
-async function getPostRewards(req, res) {
+async function getPostAwards(req, res) {
     const { post_id } = req.params;
     const isAdmin = req.session?.user?.role === 'admin';
 
-    const rewards = await rewardService.getPostRewards(post_id, isAdmin);
-    const response = new PostRewardsListResponse(rewards);
+    const awards = await awardService.getPostAwards(post_id, isAdmin);
+    const response = new PostAwardsListResponse(awards);
     res.json(response);
 }
 
 /**
  * @swagger
- * /api/rewards/me:
+ * /api/awards/me:
  *   get:
  *     tags:
- *       - Rewards
+ *       - Awards
  *     security:
  *       - sessionAuth: []
  *     responses:
  *       200:
- *         description: List of user's rewards
+ *         description: List of user's awards
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/PostRewardsList'
+ *               $ref: '#/components/schemas/PostAwardsList'
  *       401:
  *         description: Unauthorized
  */
-async function getMyRewards(req, res) {
-    const rewards = await rewardService.getMyRewards(req.session.user.id);
-    const response = new PostRewardsListResponse(rewards);
+async function getMyAwards(req, res) {
+    const awards = await awardService.getMyAwards(req.session.user.id);
+    const response = new PostAwardsListResponse(awards);
     res.json(response);
 }
 
@@ -130,8 +130,8 @@ async function getMyRewards(req, res) {
  *         description: Forbidden
  */
 async function createAward(req, res) {
-    const { title, description, rarity } = req.body;
-    const award = await rewardService.createAward(title, description, rarity);
+    const awardRequest = new CreateAwardRequest(req.body.title, req.body.description, req.body.rarity);
+    const award = await awardService.createAward(awardRequest.title, awardRequest.description, awardRequest.rarity);
     const response = new AwardResponse(award);
     res.status(201).json(response);
 }
@@ -161,14 +161,14 @@ async function createAward(req, res) {
  */
 async function deleteAward(req, res) {
     const { award_id } = req.params;
-    await rewardService.deleteAward(award_id);
+    await awardService.deleteAward(award_id);
     res.sendStatus(204);
 }
 
 module.exports = {
-    giveReward,
-    getPostRewards,
-    getMyRewards,
+    giveAward,
+    getPostAwards,
+    getMyAwards,
     createAward,
     deleteAward
 };

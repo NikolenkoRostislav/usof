@@ -2,11 +2,11 @@ const { transactional, getReadOnlyUoW } = require("../../infra/db/uow");
 const { AppError, Kind } = require("../../domain/errors");
 const Award = require("../../domain/entities/award");
 
-async function giveRewardToPost(userId, postId, awardId) {
-    return await transactional(_giveRewardToPost)(userId, postId, awardId);
+async function giveAwardToPost(userId, postId, awardId) {
+    return await transactional(_giveAwardToPost)(userId, postId, awardId);
 }
 
-async function _giveRewardToPost(uow, userId, postId, awardId) {
+async function _giveAwardToPost(uow, userId, postId, awardId) {
     const postsRepo = uow.posts();
     const post = await postsRepo.findById(postId);
 
@@ -50,7 +50,7 @@ async function _giveRewardToPost(uow, userId, postId, awardId) {
     };
 }
 
-async function getPostRewards(postId, isAdmin) {
+async function getPostAwards(postId, isAdmin) {
     const uow = await getReadOnlyUoW();
     const postsRepo = uow.posts();
     const post = await postsRepo.findById(postId);
@@ -63,7 +63,7 @@ async function getPostRewards(postId, isAdmin) {
     return await postAwardsRepo.findByPostId(postId);
 }
 
-async function getMyRewards(userId) {
+async function getMyAwards(userId) {
     const uow = await getReadOnlyUoW();
     const ownedAwardsRepo = uow.ownedAwards();
     return await ownedAwardsRepo.findByUserId(userId);
@@ -105,9 +105,9 @@ async function _deleteAward(uow, awardId) {
 }
 
 module.exports = {
-    giveRewardToPost,
-    getPostRewards,
-    getMyRewards,
+    giveAwardToPost,
+    getPostAwards,
+    getMyAwards,
     createAward,
     deleteAward
 };

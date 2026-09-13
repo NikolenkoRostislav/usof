@@ -1,4 +1,4 @@
-class GiveRewardRequest {
+class GiveAwardRequest {
     constructor(awardId) {
         this.awardId = awardId;
     }
@@ -13,6 +13,6 @@ class CreateAwardRequest {
 }
 
 module.exports = {
-    GiveRewardRequest,
+    GiveAwardRequest,
     CreateAwardRequest
 };
