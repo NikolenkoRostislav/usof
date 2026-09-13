@@ -16,7 +16,7 @@ class FileHandler {
         try {
             const filePath = path.join(this.baseDir, key);
             await fs.unlink(filePath);
-        } catch (err) { }
+        } catch (err) { console.log(err) }
     }
 
     async saveFile(data) {

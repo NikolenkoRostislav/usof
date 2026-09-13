@@ -1,7 +1,7 @@
 const RegistrationIntent = require("../../domain/entities/registration_intent");
 const PasswordUpdateIntent = require("../../domain/entities/password_update_intent");
 const User = require("../../domain/entities/user");
-const emailSender = require("../../infra/email_sender/dev");
+const emailSender = require("../../infra/email_sender/nodemailer");
 const { transactional } = require("../../infra/db/uow");
 const { AppError, Kind } = require("../../domain/errors");
 

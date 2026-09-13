@@ -1,7 +1,7 @@
 const User = require("../../domain/entities/user");
 const { transactional, getReadOnlyUoW } = require("../../infra/db/uow");
 const { AppError, Kind } = require("../../domain/errors");
-const fileHandler = require("../../infra/file_handler/dev");
+const fileHandler = require("../../infra/file_handler/inmem");
 
 async function getById(userId) {
     const uow = await getReadOnlyUoW();
