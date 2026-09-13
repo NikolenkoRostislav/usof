@@ -6,6 +6,7 @@ const { route: postsRoute } = require("../features/posts/routes");
 const { route: userRoute } = require("../features/users/routes");
 const { route: awardsRoute } = require("../features/awards/routes");
 const { route: gachaRoute } = require("../features/gacha/routes");
+const { route: favoritesRoute } = require("../features/favorites/routes");
 
 
 function route(app) {
@@ -21,6 +22,7 @@ function route(app) {
     userRoute(app);
     awardsRoute(app);
     gachaRoute(app);
+    favoritesRoute(app);
 }
 
 module.exports = route;

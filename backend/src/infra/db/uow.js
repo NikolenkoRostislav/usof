@@ -10,6 +10,7 @@ const AwardsRepo = require('./repos/awards');
 const PostAwardsRepo = require('./repos/post_awards');
 const OwnedAwardsRepo = require('./repos/owned_awards');
 const AwardGachaRepo = require('./repos/award_gacha');
+const FavoritesRepo = require('./repos/favorites');
 
 class UoW {
     constructor(connection) {
@@ -80,6 +81,10 @@ class UoW {
 
     awardGacha() {
         return new AwardGachaRepo(this.connection);
+    }
+
+    favorites() {
+        return new FavoritesRepo(this.connection);
     }
 }
 

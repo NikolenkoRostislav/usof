@@ -461,6 +461,30 @@ const options = {
             },
           },
         },
+        Favorite: {
+          type: "object",
+          properties: {
+            userId: {
+              type: "string",
+              format: "uuid",
+            },
+            postId: {
+              type: "string",
+              format: "uuid",
+            },
+          },
+        },
+        FavoritesList: {
+          type: "object",
+          properties: {
+            favorites: {
+              type: "array",
+              items: {
+                $ref: "#/components/schemas/Favorite",
+              },
+            },
+          },
+        },
       },
     },
     security: [],
@@ -474,6 +498,7 @@ const options = {
     "./src/features/categories/controller.js",
     "./src/features/gacha/controller.js",
     "./src/features/awards/controller.js",
+    "./src/features/favorites/controller.js",
   ],
 };
 
