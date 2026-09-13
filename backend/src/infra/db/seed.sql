@@ -28,7 +28,7 @@ INSERT INTO comments (id, author_id, post_id, status, content) VALUES
 ('550e8400-e29b-41d4-a716-446655440301', '550e8400-e29b-41d4-a716-446655440003', '550e8400-e29b-41d4-a716-446655440201', 'active', 'Great guide! This really helped me understand Node.js basics.'),
 ('550e8400-e29b-41d4-a716-446655440302', '550e8400-e29b-41d4-a716-446655440004', '550e8400-e29b-41d4-a716-446655440201', 'active', 'Could you provide more examples on async/await?'),
 ('550e8400-e29b-41d4-a716-446655440303', '550e8400-e29b-41d4-a716-446655440002', '550e8400-e29b-41d4-a716-446655440202', 'active', 'Design principles are timeless. Well written!'),
-('550e8400-e29b-41d4-a716-446655440304', '550e8400-e29b-41d4-a716-446655440003', '550e8400-e29b-41d4-a716-446655440303', 'active', 'I agree with your point about team building.');
+('550e8400-e29b-41d4-a716-446655440304', '550e8400-e29b-41d4-a716-446655440003', '550e8400-e29b-41d4-a716-446655440203', 'active', 'I agree with your point about team building.');
 
 INSERT INTO comments (id, author_id, post_id, quote_id, status, content) VALUES
 ('550e8400-e29b-41d4-a716-446655440305', '550e8400-e29b-41d4-a716-446655440004', '550e8400-e29b-41d4-a716-446655440201', '550e8400-e29b-41d4-a716-446655440302', 'active', 'Great question! Async/await is very powerful when used correctly.');

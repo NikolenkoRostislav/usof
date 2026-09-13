@@ -126,13 +126,13 @@ async function getCommentLikes(commentId, isAdmin) {
 async function getAllCommentLikes() {
     const uow = await getReadOnlyUoW();
     const likesRepo = uow.likes();
-    return await likesRepo.findAllForPosts();
+    return await likesRepo.findAllForComments();
 }
 
 async function getAllPostLikes() {
     const uow = await getReadOnlyUoW();
     const likesRepo = uow.likes();
-    return await likesRepo.findAllForComments();
+    return await likesRepo.findAllForPosts();
 }
 
 async function deleteLike(likeId) {

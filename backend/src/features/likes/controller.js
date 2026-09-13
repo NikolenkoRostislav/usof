@@ -311,8 +311,8 @@ async function getAllCommentLikes(req, res) {
  *         description: Like not found
  */
 async function deleteLike(req, res) {
-    const { post_id } = req.params;
-    await likeService.deleteLike(post_id);
+    const { like_id } = req.params;
+    await likeService.deleteLike(like_id);
     res.sendStatus(204);
 }
 

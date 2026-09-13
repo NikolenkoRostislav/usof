@@ -15,8 +15,8 @@ function route(app) {
 
     authRoute(app);
     categoriesRoute(app);
-    commentsRoute(app);
     likesRoute(app);
+    commentsRoute(app);
     postsRoute(app);
     userRoute(app);
     awardsRoute(app);
