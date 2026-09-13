@@ -165,10 +165,31 @@ async function deleteAward(req, res) {
     res.sendStatus(204);
 }
 
+/**
+ * @swagger
+ * /api/awards:
+ *   get:
+ *     tags:
+ *       - Awards
+ *     responses:
+ *       200:
+ *         description: List of all awards
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/AwardsList'
+ */
+async function getAwards(req, res) {
+    const awards = await awardService.getAwards();
+    const response = awards.map(award => new AwardResponse(award));
+    res.json({ awards: response });
+}
+
 module.exports = {
     giveAward,
     getPostAwards,
     getMyAwards,
     createAward,
-    deleteAward
+    deleteAward,
+    getAwards
 };

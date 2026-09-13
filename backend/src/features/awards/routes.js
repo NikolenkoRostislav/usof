@@ -6,6 +6,8 @@ function route(app) {
 
     app.get("/api/posts/:post_id/awards", controller.getPostAwards);
 
+    app.get("/api/awards", controller.getAwards);
+
     app.get("/api/awards/me", authMiddleware, controller.getMyAwards);
 
     app.post("/api/awards", adminAuthMiddleware, controller.createAward);

@@ -104,10 +104,17 @@ async function _deleteAward(uow, awardId) {
     await awardsRepo.delete(awardId);
 }
 
+async function getAwards() {
+    const uow = await getReadOnlyUoW();
+    const awardsRepo = uow.awards();
+    return await awardsRepo.findAll();
+}
+
 module.exports = {
     giveAwardToPost,
     getPostAwards,
     getMyAwards,
     createAward,
-    deleteAward
+    deleteAward,
+    getAwards
 };
