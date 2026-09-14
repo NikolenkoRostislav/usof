@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+    <!-- Login Page -->
+    <div class="login-page" id="loginPage">
+        <div class="login-box">
+            <h1>Admin Login</h1>
+            <div class="error-message" id="loginError"></div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="btn">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div class="dashboard" id="dashboard">
+        <div class="dashboard-header">
+            <h1>Admin Dashboard</h1>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('categories')">Categories</button>
+            <button class="tab-btn" onclick="switchTab('awards')">Awards</button>
+            <button class="tab-btn" onclick="switchTab('users')">Users</button>
+            <button class="tab-btn" onclick="switchTab('comments')">Comments</button>
+            <button class="tab-btn" onclick="switchTab('likes')">Likes</button>
+        </div>
+
+        <!-- Categories Tab -->
+        <div class="tab-content active" id="categories">
+            <h2>Categories Management</h2>
+            <div class="success-message" id="categoriesSuccess"></div>
+            <div class="form-container">
+                <h3>Add New Category</h3>
+                <div class="form-row full">
+                    <input type="text" id="categoryName" placeholder="Category Title" required>
+                </div>
+                <div class="form-row full">
+                    <textarea id="categoryDescription" placeholder="Description" style="padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: Arial; resize: vertical; min-height: 80px;"></textarea>
+                </div>
+                <button class="btn btn-success" onclick="createCategory()">Create Category</button>
+            </div>
+            <div id="categoriesList" class="loading">Loading...</div>
+        </div>
+
+        <!-- Awards Tab -->
+        <div class="tab-content" id="awards">
+            <h2>Awards Management</h2>
+            <div class="success-message" id="awardsSuccess"></div>
+            <div class="form-container">
+                <h3>Add New Award</h3>
+                <div class="form-row full">
+                    <input type="text" id="awardName" placeholder="Award Title" required>
+                </div>
+                <div class="form-row full">
+                    <textarea id="awardDescription" placeholder="Description" style="padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: Arial; resize: vertical; min-height: 80px;"></textarea>
+                </div>
+                <div class="form-row full">
+                    <select id="awardRarity" style="padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: Arial;">
+                        <option value="common">Common</option>
+                        <option value="uncommon">Uncommon</option>
+                        <option value="rare">Rare</option>
+                        <option value="epic">Epic</option>
+                        <option value="legendary">Legendary</option>
+                    </select>
+                </div>
+                <button class="btn btn-success" onclick="createAward()">Create Award</button>
+            </div>
+            <div id="awardsList" class="loading">Loading...</div>
+        </div>
+
+        <!-- Users Tab -->
+        <div class="tab-content" id="users">
+            <h2>Users Management</h2>
+            <div class="success-message" id="usersSuccess"></div>
+            <div class="form-container">
+                <h3>Create New User</h3>
+                <div class="form-row">
+                    <input type="email" id="newUserEmail" placeholder="Email" required>
+                    <input type="password" id="newUserPassword" placeholder="Password" required>
+                </div>
+                <div class="form-row">
+                    <input type="text" id="newUserLogin" placeholder="Login" required>
+                    <input type="text" id="newUserFullName" placeholder="Full Name" required>
+                </div>
+                <div class="form-row full">
+                    <button class="btn btn-success" onclick="createUser()">Create User</button>
+                </div>
+            </div>
+            <div id="usersList" class="loading">Loading...</div>
+        </div>
+
+        <!-- Comments Tab -->
+        <div class="tab-content" id="comments">
+            <h2>Comments Management</h2>
+            <div id="commentsList" class="loading">Loading...</div>
+        </div>
+
+        <!-- Likes Tab -->
+        <div class="tab-content" id="likes">
+            <h2>Likes Management</h2>
+            <h3>Post Likes</h3>
+            <div id="postLikesList" class="loading">Loading...</div>
+            <h3 style="margin-top: 30px;">Comment Likes</h3>
+            <div id="commentLikesList" class="loading">Loading...</div>
+        </div>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>

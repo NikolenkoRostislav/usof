@@ -15,6 +15,8 @@ app.use(express.json());
 
 app.use(sessionMiddleware);
 
+app.use(express.static("../admin_panel"));
+
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpecs, {
     swaggerOptions: { persistAuthorization: true },
 }));
