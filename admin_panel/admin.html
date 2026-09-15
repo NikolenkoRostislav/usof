@@ -99,6 +99,12 @@
                     <input type="text" id="newUserFullName" placeholder="Full Name" required>
                 </div>
                 <div class="form-row full">
+                    <select id="newUserRole" style="padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: Arial;">
+                        <option value="user">User</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+                <div class="form-row full">
                     <button class="btn btn-success" onclick="createUser()">Create User</button>
                 </div>
             </div>
@@ -118,6 +124,33 @@
             <div id="postLikesList" class="loading">Loading...</div>
             <h3 style="margin-top: 30px;">Comment Likes</h3>
             <div id="commentLikesList" class="loading">Loading...</div>
+        </div>
+    </div>
+
+    <!-- Edit User Modal -->
+    <div id="editUserModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Edit User</h2>
+                <span class="close" onclick="closeEditUserModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="editUserForm">
+                    <input type="hidden" id="editUserId">
+                    <div class="form-group">
+                        <label for="editUserLogin">Login</label>
+                        <input type="text" id="editUserLogin" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editUserFullName">Full Name</label>
+                        <input type="text" id="editUserFullName" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" onclick="closeEditUserModal()">Cancel</button>
+                <button class="btn btn-success" onclick="updateUser()">Save Changes</button>
+            </div>
         </div>
     </div>
 

@@ -249,7 +249,7 @@ async function loadUsers() {
 
         const data = await response.json();
         const users = data.users || [];
-        let html = '<table><thead><tr><th>Login</th><th>Full Name</th><th>Role</th><th>Reputation</th></tr></thead><tbody>';
+        let html = '<table><thead><tr><th>Login</th><th>Full Name</th><th>Role</th><th>Actions</th></tr></thead><tbody>';
 
         if (users.length === 0) {
             html = '<div class="no-data">No users found</div>';
@@ -259,7 +259,10 @@ async function loadUsers() {
                     <td>${escapeHtml(user.login)}</td>
                     <td>${escapeHtml(user.fullName || '')}</td>
                     <td>${escapeHtml(user.role)}</td>
-                    <td>${user.reputation || 0}</td>
+                    <td class="action-buttons">
+                        <button class="btn-small btn-edit" onclick="openEditUserModal('${user.id}')">Edit</button>
+                        <button class="btn-small btn-delete" onclick="deleteUser('${user.id}')">Delete</button>
+                    </td>
                 </tr>`;
             });
             html += '</tbody></table>';
@@ -276,6 +279,7 @@ async function createUser() {
     const password = document.getElementById('newUserPassword').value.trim();
     const login = document.getElementById('newUserLogin').value.trim();
     const fullName = document.getElementById('newUserFullName').value.trim();
+    const role = document.getElementById('newUserRole')?.value || 'user';
 
     if (!email || !password || !login || !fullName) {
         alert('All fields are required');
@@ -287,7 +291,7 @@ async function createUser() {
             method: 'POST',
             credentials: 'include',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password, login, fullName })
+            body: JSON.stringify({ email, password, login, fullName, role })
         });
 
         if (response.ok) {
@@ -295,10 +299,88 @@ async function createUser() {
             document.getElementById('newUserPassword').value = '';
             document.getElementById('newUserLogin').value = '';
             document.getElementById('newUserFullName').value = '';
+            document.getElementById('newUserRole').value = 'user';
             showMessage('usersSuccess', 'User created successfully');
             loadUsers();
         } else {
-            alert('Failed to create user');
+            const errorData = await response.json();
+            alert('Failed to create user: ' + (errorData.message || 'Unknown error'));
+        }
+    } catch (error) {
+        alert('Error: ' + error.message);
+    }
+}
+
+async function openEditUserModal(userId) {
+    try {
+        const response = await fetch(`${API_URL}/users/${userId}`, {
+            credentials: 'include'
+        });
+
+        if (!response.ok) throw new Error('Failed to load user details');
+
+        const user = await response.json();
+        document.getElementById('editUserId').value = user.id;
+        document.getElementById('editUserLogin').value = user.login;
+        document.getElementById('editUserFullName').value = user.fullName;
+        document.getElementById('editUserModal').style.display = 'block';
+    } catch (error) {
+        alert('Error loading user details: ' + error.message);
+    }
+}
+
+function closeEditUserModal() {
+    document.getElementById('editUserModal').style.display = 'none';
+}
+
+async function updateUser() {
+    const userId = document.getElementById('editUserId').value;
+    const login = document.getElementById('editUserLogin').value.trim();
+    const fullName = document.getElementById('editUserFullName').value.trim();
+
+    if (!login || !fullName) {
+        alert('Login and full name are required');
+        return;
+    }
+
+    try {
+        const updateData = { login, fullName };
+
+        const response = await fetch(`${API_URL}/users/${userId}`, {
+            method: 'PATCH',
+            credentials: 'include',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(updateData)
+        });
+
+        if (response.ok) {
+            showMessage('usersSuccess', 'User updated successfully');
+            closeEditUserModal();
+            loadUsers();
+        } else {
+            const errorData = await response.json();
+            alert('Failed to update user: ' + (errorData.message || 'Unknown error'));
+        }
+    } catch (error) {
+        alert('Error: ' + error.message);
+    }
+}
+
+async function deleteUser(userId) {
+    if (!confirm('Are you sure you want to delete this user? This cannot be undone.')) return;
+
+    try {
+        const response = await fetch(`${API_URL}/users/${userId}`, {
+            method: 'DELETE',
+            credentials: 'include'
+        });
+
+        if (response.ok) {
+            showMessage('usersSuccess', 'User deleted successfully');
+            loadUsers();
+        } else {
+            const errorData = await response.json();
+            alert('Failed to delete user: ' + (errorData.message || 'Unknown error'));
         }
     } catch (error) {
         alert('Error: ' + error.message);
@@ -448,6 +530,14 @@ function escapeHtml(unsafe) {
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#039;");
 }
+
+// Close modal when clicking outside
+window.addEventListener('click', (event) => {
+    const modal = document.getElementById('editUserModal');
+    if (event.target === modal) {
+        closeEditUserModal();
+    }
+});
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {

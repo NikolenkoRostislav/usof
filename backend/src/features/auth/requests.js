@@ -1,26 +1,12 @@
 const { AppError, Kind } = require("../../domain/errors");
-
-function validatePassword(password) {
-    if (password.length < 8) {
-        throw new AppError(Kind.InvalidEntry, 'Password must be at least 8 characters long');
-    }
-    if (!/[a-z]/.test(password)) {
-        throw new AppError(Kind.InvalidEntry, 'Password must contain a lowercase letter');
-    }
-    if (!/[A-Z]/.test(password)) {
-        throw new AppError(Kind.InvalidEntry, 'Password must contain an uppercase letter');
-    }
-    if (!/\d/.test(password)) {
-        throw new AppError(Kind.InvalidEntry, 'Password must contain a digit');
-    }
-}
+const Password = require("../../domain/types/password");
 
 class RegisterRequest {
     constructor(login, password, password_confirmation, email, fullName) {
         if (!email.includes('@')) {
             throw new AppError(Kind.InvalidEntry, 'Invalid email');
         }
-        validatePassword(password);
+        Password.validateComplexity(password);
 
         this.login = login;
         this.password = password;
@@ -53,7 +39,7 @@ class CreatePasswordUpdateIntentRequest {
         if (!email.includes('@')) {
             throw new AppError(Kind.InvalidEntry, 'Invalid email');
         }
-        validatePassword(new_password);
+        Password.validateComplexity(new_password);
         this.email = email;
         this.new_password = new_password;
     }
