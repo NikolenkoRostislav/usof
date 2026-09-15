@@ -18,10 +18,26 @@ function switchTab(tabName) {
     document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
 }
 
+// Check if session is active
+async function checkActiveSession() {
+    try {
+        const response = await fetch(`${API_URL}/users/me`, {
+            credentials: 'include'
+        });
+
+        if (response.ok) {
+            return true;
+        }
+    } catch (error) {
+        console.error('Session check failed:', error);
+    }
+    return false;
+}
+
 // Login
 document.getElementById('loginForm').addEventListener('submit', async (e) => {
     e.preventDefault();
-    const email = document.getElementById('email').value;
+    const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
     const loginError = document.getElementById('loginError');
 
@@ -30,7 +46,7 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
             method: 'POST',
             credentials: 'include',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password })
+            body: JSON.stringify({ login: username, password })
         });
 
         if (response.ok) {
@@ -540,6 +556,11 @@ window.addEventListener('click', (event) => {
 });
 
 // Initialize
-document.addEventListener('DOMContentLoaded', () => {
-    showLoginPage();
+document.addEventListener('DOMContentLoaded', async () => {
+    const isLoggedIn = await checkActiveSession();
+    if (isLoggedIn) {
+        showDashboard();
+    } else {
+        showLoginPage();
+    }
 });
