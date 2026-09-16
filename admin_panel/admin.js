@@ -694,12 +694,12 @@ async function loadPosts() {
         } else {
             posts.forEach(post => {
                 const statusLabel = post.status || 'active';
-                html += `<tr>
+                html += `<tr onclick="openViewPostModal('${post.id}')">
                     <td>${escapeHtml(post.id)}</td>
                     <td>${escapeHtml(post.title)}</td>
                     <td>${escapeHtml(post.authorId)}</td>
                     <td>${escapeHtml(statusLabel)}</td>
-                    <td class="action-buttons">
+                    <td class="action-buttons" onclick="event.stopPropagation()">
                         <button class="btn-small btn-edit" onclick="openEditPostModal('${post.id}')">Edit</button>
                         <button class="btn-small btn-delete" onclick="deletePost('${post.id}')">Delete</button>
                     </td>
@@ -748,6 +748,70 @@ async function createPost() {
 }
 
 let currentPostCategories = [];
+
+async function openViewPostModal(postId) {
+    try {
+        const response = await fetch(`${API_URL}/posts/${postId}`, {
+            credentials: 'include'
+        });
+
+        if (!response.ok) throw new Error('Failed to load post details');
+
+        const post = await response.json();
+        document.getElementById('viewPostId').textContent = post.id;
+        document.getElementById('viewPostTitle').textContent = post.title;
+        document.getElementById('viewPostAuthorId').textContent = post.authorId;
+        document.getElementById('viewPostStatus').textContent = post.status || 'active';
+        document.getElementById('viewPostContent').textContent = post.content;
+
+        // Load likes for this post
+        try {
+            const likesResponse = await fetch(`${API_URL}/posts/${postId}/likes`, {
+                credentials: 'include'
+            });
+            if (likesResponse.ok) {
+                const likesData = await likesResponse.json();
+                const likeCount = (likesData.likes || []).length;
+                document.getElementById('viewPostLikes').textContent = likeCount;
+            } else {
+                document.getElementById('viewPostLikes').textContent = '0';
+            }
+        } catch (error) {
+            document.getElementById('viewPostLikes').textContent = '0';
+        }
+
+        // Load categories
+        const categoriesResponse = await fetch(`${API_URL}/categories`, {
+            credentials: 'include'
+        });
+        if (!categoriesResponse.ok) throw new Error('Failed to load categories');
+
+        const categoriesData = await categoriesResponse.json();
+        const allCats = categoriesData.categories || [];
+
+        // Handle categories - they might be IDs or objects with id property
+        const categoryIds = (post.categories || []).map(cat => {
+            return typeof cat === 'string' ? cat : cat.id;
+        });
+
+        const categoryNames = categoryIds
+            .map(catId => {
+                const cat = allCats.find(c => c.id === catId);
+                return cat ? cat.title : catId;
+            })
+            .join(', ');
+
+        document.getElementById('viewPostCategories').textContent = categoryNames || 'No categories';
+
+        document.getElementById('viewPostModal').style.display = 'block';
+    } catch (error) {
+        alert('Error loading post details: ' + error.message);
+    }
+}
+
+function closeViewPostModal() {
+    document.getElementById('viewPostModal').style.display = 'none';
+}
 
 async function openEditPostModal(postId) {
     try {
@@ -928,6 +992,10 @@ function escapeHtml(unsafe) {
 
 // Close modal when clicking outside
 window.addEventListener('click', (event) => {
+    const viewPostModal = document.getElementById('viewPostModal');
+    if (event.target === viewPostModal) {
+        closeViewPostModal();
+    }
     const postModal = document.getElementById('editPostModal');
     if (event.target === postModal) {
         closeEditPostModal();
