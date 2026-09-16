@@ -127,9 +127,23 @@
         <!-- Likes Tab -->
         <div class="tab-content" id="likes">
             <h2>Likes Management</h2>
-            <h3>Post Likes</h3>
+            <div class="form-container">
+                <h3>Filter Post Likes</h3>
+                <div class="form-row full">
+                    <input type="text" id="postIdFilter" placeholder="Enter Post ID to filter post likes (leave empty for all)" style="padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: Arial;">
+                </div>
+                <button class="btn btn-success" onclick="loadLikes()">Filter</button>
+            </div>
+            <h3>Post Likes <span id="postLikesCount"></span></h3>
             <div id="postLikesList" class="loading">Loading...</div>
-            <h3 style="margin-top: 30px;">Comment Likes</h3>
+            <div class="form-container" style="margin-top: 30px;">
+                <h3>Filter Comment Likes</h3>
+                <div class="form-row full">
+                    <input type="text" id="commentIdFilter" placeholder="Enter Comment ID to filter comment likes (leave empty for all)" style="padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: Arial;">
+                </div>
+                <button class="btn btn-success" onclick="loadLikes()">Filter</button>
+            </div>
+            <h3>Comment Likes <span id="commentLikesCount"></span></h3>
             <div id="commentLikesList" class="loading">Loading...</div>
         </div>
     </div>

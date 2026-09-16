@@ -547,10 +547,23 @@ async function deleteComment(commentId) {
 // Likes
 async function loadLikes() {
     try {
-        const postLikesResponse = await fetch(`${API_URL}/posts/likes`, {
+        const postIdFilter = document.getElementById('postIdFilter')?.value.trim();
+        const commentIdFilter = document.getElementById('commentIdFilter')?.value.trim();
+
+        let postLikesUrl = `${API_URL}/posts/likes`;
+        if (postIdFilter) {
+            postLikesUrl = `${API_URL}/posts/${postIdFilter}/likes`;
+        }
+
+        let commentLikesUrl = `${API_URL}/comments/likes`;
+        if (commentIdFilter) {
+            commentLikesUrl = `${API_URL}/comments/${commentIdFilter}/likes`;
+        }
+
+        const postLikesResponse = await fetch(postLikesUrl, {
             credentials: 'include'
         });
-        const commentLikesResponse = await fetch(`${API_URL}/comments/likes`, {
+        const commentLikesResponse = await fetch(commentLikesUrl, {
             credentials: 'include'
         });
 
@@ -562,6 +575,9 @@ async function loadLikes() {
         const commentLikesData = await commentLikesResponse.json();
         const postLikes = postLikesData.likes || [];
         const commentLikes = commentLikesData.likes || [];
+
+        document.getElementById('postLikesCount').textContent = `(${postLikes.length})`;
+        document.getElementById('commentLikesCount').textContent = `(${commentLikes.length})`;
 
         let postHtml = '<table><thead><tr><th>ID</th><th>Post ID</th><th>Author ID</th><th>Type</th><th>Actions</th></tr></thead><tbody>';
         if (postLikes.length === 0) {
