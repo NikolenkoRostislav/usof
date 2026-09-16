@@ -694,7 +694,7 @@ async function loadPosts() {
         } else {
             posts.forEach(post => {
                 const statusLabel = post.status || 'active';
-                html += `<tr onclick="openViewPostModal('${post.id}')">
+                html += `<tr class="clickable" onclick="openViewPostModal('${post.id}')">
                     <td>${escapeHtml(post.id)}</td>
                     <td>${escapeHtml(post.title)}</td>
                     <td>${escapeHtml(post.authorId)}</td>
