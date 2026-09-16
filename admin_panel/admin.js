@@ -102,6 +102,7 @@ async function loadCategories() {
                     <td>${escapeHtml(cat.title)}</td>
                     <td>${escapeHtml(cat.description || '')}</td>
                     <td class="action-buttons">
+                        <button class="btn-small btn-edit" onclick="openEditCategoryModal('${cat.id}')">Edit</button>
                         <button class="btn-small btn-delete" onclick="deleteCategory('${cat.id}')">Delete</button>
                     </td>
                 </tr>`;
@@ -159,6 +160,61 @@ async function deleteCategory(categoryId) {
             loadCategories();
         } else {
             alert('Failed to delete category');
+        }
+    } catch (error) {
+        alert('Error: ' + error.message);
+    }
+}
+
+async function openEditCategoryModal(categoryId) {
+    try {
+        const response = await fetch(`${API_URL}/categories/${categoryId}`, {
+            credentials: 'include'
+        });
+
+        if (!response.ok) throw new Error('Failed to load category details');
+
+        const category = await response.json();
+        document.getElementById('editCategoryId').value = category.id;
+        document.getElementById('editCategoryTitle').value = category.title;
+        document.getElementById('editCategoryDescription').value = category.description || '';
+        document.getElementById('editCategoryModal').style.display = 'block';
+    } catch (error) {
+        alert('Error loading category details: ' + error.message);
+    }
+}
+
+function closeEditCategoryModal() {
+    document.getElementById('editCategoryModal').style.display = 'none';
+}
+
+async function updateCategory() {
+    const categoryId = document.getElementById('editCategoryId').value;
+    const title = document.getElementById('editCategoryTitle').value.trim();
+    const description = document.getElementById('editCategoryDescription').value.trim();
+
+    if (!title) {
+        alert('Category title is required');
+        return;
+    }
+
+    try {
+        const updateData = { title, description };
+
+        const response = await fetch(`${API_URL}/categories/${categoryId}`, {
+            method: 'PATCH',
+            credentials: 'include',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(updateData)
+        });
+
+        if (response.ok) {
+            showMessage('categoriesSuccess', 'Category updated successfully');
+            closeEditCategoryModal();
+            loadCategories();
+        } else {
+            const errorData = await response.json();
+            alert('Failed to update category: ' + (errorData.message || 'Unknown error'));
         }
     } catch (error) {
         alert('Error: ' + error.message);
@@ -549,9 +605,13 @@ function escapeHtml(unsafe) {
 
 // Close modal when clicking outside
 window.addEventListener('click', (event) => {
-    const modal = document.getElementById('editUserModal');
-    if (event.target === modal) {
+    const userModal = document.getElementById('editUserModal');
+    if (event.target === userModal) {
         closeEditUserModal();
+    }
+    const categoryModal = document.getElementById('editCategoryModal');
+    if (event.target === categoryModal) {
+        closeEditCategoryModal();
     }
 });
 
