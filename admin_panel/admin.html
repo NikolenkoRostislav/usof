@@ -35,6 +35,7 @@
 
         <div class="tabs">
             <button class="tab-btn active" onclick="switchTab('categories')">Categories</button>
+            <button class="tab-btn" onclick="switchTab('posts')">Posts</button>
             <button class="tab-btn" onclick="switchTab('awards')">Awards</button>
             <button class="tab-btn" onclick="switchTab('users')">Users</button>
             <button class="tab-btn" onclick="switchTab('comments')">Comments</button>
@@ -56,6 +57,28 @@
                 <button class="btn btn-success" onclick="createCategory()">Create Category</button>
             </div>
             <div id="categoriesList" class="loading">Loading...</div>
+        </div>
+
+        <!-- Posts Tab -->
+        <div class="tab-content" id="posts">
+            <h2>Posts Management</h2>
+            <div class="success-message" id="postsSuccess"></div>
+            <div class="form-container">
+                <h3>Create New Post</h3>
+                <div class="form-row full">
+                    <input type="text" id="postTitle" placeholder="Post Title" required>
+                </div>
+                <div class="form-row full">
+                    <textarea id="postContent" placeholder="Post Content" style="padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: Arial; resize: vertical; min-height: 100px;"></textarea>
+                </div>
+                <div class="form-row full">
+                    <select id="postCategories" multiple style="padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: Arial; min-height: 80px;">
+                        <option value="" disabled>Select Categories (hold Ctrl/Cmd to select multiple)</option>
+                    </select>
+                </div>
+                <button class="btn btn-success" onclick="createPost()">Create Post</button>
+            </div>
+            <div id="postsList" class="loading">Loading...</div>
         </div>
 
         <!-- Awards Tab -->
@@ -145,6 +168,40 @@
             </div>
             <h3>Comment Likes <span id="commentLikesCount"></span></h3>
             <div id="commentLikesList" class="loading">Loading...</div>
+        </div>
+    </div>
+
+    <!-- Edit Post Modal -->
+    <div id="editPostModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Edit Post</h2>
+                <span class="close" onclick="closeEditPostModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="editPostForm">
+                    <input type="hidden" id="editPostId">
+                    <div class="form-group">
+                        <label for="editPostStatus">Status</label>
+                        <select id="editPostStatus" style="padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: Arial;">
+                            <option value="active">Active</option>
+                            <option value="locked">Locked</option>
+                            <option value="inactive">Inactive</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Categories</label>
+                        <div id="editPostCategoriesList" style="margin-bottom: 10px; padding: 10px; background-color: #f9f9f9; border-radius: 4px; min-height: 40px;"></div>
+                        <select id="editPostCategoryAdd" onchange="addPostCategory()" style="padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: Arial; width: 100%;">
+                            <option value="">Select a category to add</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" onclick="closeEditPostModal()">Cancel</button>
+                <button class="btn btn-success" onclick="updatePost()">Save Changes</button>
+            </div>
         </div>
     </div>
 

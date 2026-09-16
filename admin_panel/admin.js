@@ -82,39 +82,6 @@ async function logout() {
 }
 
 // Categories
-async function loadCategories() {
-    try {
-        const response = await fetch(`${API_URL}/categories`, {
-            credentials: 'include'
-        });
-
-        if (!response.ok) throw new Error('Failed to load categories');
-
-        const data = await response.json();
-        const categories = data.categories || [];
-        let html = '<table><thead><tr><th>Title</th><th>Description</th><th>Actions</th></tr></thead><tbody>';
-
-        if (categories.length === 0) {
-            html = '<div class="no-data">No categories found</div>';
-        } else {
-            categories.forEach(cat => {
-                html += `<tr>
-                    <td>${escapeHtml(cat.title)}</td>
-                    <td>${escapeHtml(cat.description || '')}</td>
-                    <td class="action-buttons">
-                        <button class="btn-small btn-edit" onclick="openEditCategoryModal('${cat.id}')">Edit</button>
-                        <button class="btn-small btn-delete" onclick="deleteCategory('${cat.id}')">Delete</button>
-                    </td>
-                </tr>`;
-            });
-            html += '</tbody></table>';
-        }
-
-        document.getElementById('categoriesList').innerHTML = html;
-    } catch (error) {
-        document.getElementById('categoriesList').innerHTML = '<div class="error-message">' + error.message + '</div>';
-    }
-}
 
 async function createCategory() {
     const title = document.getElementById('categoryName').value.trim();
@@ -642,9 +609,292 @@ async function deleteLike(likeId) {
     }
 }
 
+// Posts
+let allCategories = [];
+
+async function loadCategories() {
+    try {
+        const response = await fetch(`${API_URL}/categories`, {
+            credentials: 'include'
+        });
+
+        if (!response.ok) throw new Error('Failed to load categories');
+
+        const data = await response.json();
+        allCategories = data.categories || [];
+
+        // Populate category dropdown in create form
+        const categorySelect = document.getElementById('postCategories');
+        if (categorySelect) {
+            categorySelect.innerHTML = '<option value="" disabled>Select Categories (hold Ctrl to select multiple)</option>';
+            allCategories.forEach(cat => {
+                const option = document.createElement('option');
+                option.value = cat.id;
+                option.textContent = cat.title;
+                categorySelect.appendChild(option);
+            });
+        }
+
+        loadCategoriesTable();
+    } catch (error) {
+        document.getElementById('categoriesList').innerHTML = '<div class="error-message">' + error.message + '</div>';
+    }
+}
+
+async function loadCategoriesTable() {
+    try {
+        const response = await fetch(`${API_URL}/categories`, {
+            credentials: 'include'
+        });
+
+        if (!response.ok) throw new Error('Failed to load categories');
+
+        const data = await response.json();
+        const categories = data.categories || [];
+        let html = '<table><thead><tr><th>Title</th><th>Description</th><th>Actions</th></tr></thead><tbody>';
+
+        if (categories.length === 0) {
+            html = '<div class="no-data">No categories found</div>';
+        } else {
+            categories.forEach(cat => {
+                html += `<tr>
+                    <td>${escapeHtml(cat.title)}</td>
+                    <td>${escapeHtml(cat.description || '')}</td>
+                    <td class="action-buttons">
+                        <button class="btn-small btn-edit" onclick="openEditCategoryModal('${cat.id}')">Edit</button>
+                        <button class="btn-small btn-delete" onclick="deleteCategory('${cat.id}')">Delete</button>
+                    </td>
+                </tr>`;
+            });
+            html += '</tbody></table>';
+        }
+
+        document.getElementById('categoriesList').innerHTML = html;
+    } catch (error) {
+        document.getElementById('categoriesList').innerHTML = '<div class="error-message">' + error.message + '</div>';
+    }
+}
+
+async function loadPosts() {
+    try {
+        const response = await fetch(`${API_URL}/posts`, {
+            credentials: 'include'
+        });
+
+        if (!response.ok) throw new Error('Failed to load posts');
+
+        const data = await response.json();
+        const posts = data.posts || [];
+        let html = '<table><thead><tr><th>Title</th><th>Author ID</th><th>Status</th><th>Actions</th></tr></thead><tbody>';
+
+        if (posts.length === 0) {
+            html = '<div class="no-data">No posts found</div>';
+        } else {
+            posts.forEach(post => {
+                const statusLabel = post.status || 'active';
+                html += `<tr>
+                    <td>${escapeHtml(post.title)}</td>
+                    <td>${escapeHtml(post.authorId)}</td>
+                    <td>${escapeHtml(statusLabel)}</td>
+                    <td class="action-buttons">
+                        <button class="btn-small btn-edit" onclick="openEditPostModal('${post.id}')">Edit</button>
+                        <button class="btn-small btn-delete" onclick="deletePost('${post.id}')">Delete</button>
+                    </td>
+                </tr>`;
+            });
+            html += '</tbody></table>';
+        }
+
+        document.getElementById('postsList').innerHTML = html;
+    } catch (error) {
+        document.getElementById('postsList').innerHTML = '<div class="error-message">' + error.message + '</div>';
+    }
+}
+
+async function createPost() {
+    const title = document.getElementById('postTitle').value.trim();
+    const content = document.getElementById('postContent').value.trim();
+    const categorySelect = document.getElementById('postCategories');
+    const categories = Array.from(categorySelect.selectedOptions).map(opt => opt.value);
+
+    if (!title || !content) {
+        alert('Post title and content are required');
+        return;
+    }
+
+    try {
+        const response = await fetch(`${API_URL}/posts`, {
+            method: 'POST',
+            credentials: 'include',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ title, content, categories })
+        });
+
+        if (response.ok) {
+            document.getElementById('postTitle').value = '';
+            document.getElementById('postContent').value = '';
+            categorySelect.selectedIndex = 0;
+            showMessage('postsSuccess', 'Post created successfully');
+            loadPosts();
+        } else {
+            alert('Failed to create post');
+        }
+    } catch (error) {
+        alert('Error: ' + error.message);
+    }
+}
+
+let currentPostCategories = [];
+
+async function openEditPostModal(postId) {
+    try {
+        const response = await fetch(`${API_URL}/posts/${postId}`, {
+            credentials: 'include'
+        });
+
+        if (!response.ok) throw new Error('Failed to load post details');
+
+        const post = await response.json();
+        document.getElementById('editPostId').value = post.id;
+        document.getElementById('editPostStatus').value = post.status || 'active';
+
+        // Handle categories - they might be IDs or objects with id property
+        currentPostCategories = (post.categories || []).map(cat => {
+            return typeof cat === 'string' ? cat : cat.id;
+        });
+
+        // Load categories
+        const categoriesResponse = await fetch(`${API_URL}/categories`, {
+            credentials: 'include'
+        });
+        if (!categoriesResponse.ok) throw new Error('Failed to load categories');
+
+        const categoriesData = await categoriesResponse.json();
+        allCategories = categoriesData.categories || [];
+
+        // Populate add category dropdown with categories not yet added
+        const categoryAddSelect = document.getElementById('editPostCategoryAdd');
+        categoryAddSelect.innerHTML = '<option value="">Select a category to add</option>';
+        allCategories.forEach(cat => {
+            if (!currentPostCategories.includes(cat.id)) {
+                const option = document.createElement('option');
+                option.value = cat.id;
+                option.textContent = cat.title;
+                categoryAddSelect.appendChild(option);
+            }
+        });
+
+        // Display current categories
+        displayPostCategories();
+
+        document.getElementById('editPostModal').style.display = 'block';
+    } catch (error) {
+        alert('Error loading post details: ' + error.message);
+    }
+}
+
+function displayPostCategories() {
+    const container = document.getElementById('editPostCategoriesList');
+
+    if (currentPostCategories.length === 0) {
+        container.innerHTML = '<div style="color: #999;">No categories selected</div>';
+        return;
+    }
+
+    const categoryNames = currentPostCategories.map(catId => {
+        const cat = allCategories.find(c => c.id === catId);
+        return { id: catId, title: cat ? cat.title : catId };
+    });
+
+    container.innerHTML = categoryNames.map(cat => `
+        <span style="display: inline-block; background-color: #e8e8e8; padding: 6px 10px; margin: 4px 4px 4px 0; border-radius: 4px; font-size: 14px;">
+            ${escapeHtml(cat.title)}
+            <button type="button" onclick="removePostCategory('${cat.id}')" style="background: none; border: none; margin-left: 6px; cursor: pointer; color: #d32f2f; font-weight: bold; padding: 0;">×</button>
+        </span>
+    `).join('');
+}
+
+function removePostCategory(categoryId) {
+    currentPostCategories = currentPostCategories.filter(id => id !== categoryId);
+
+    // Update the add dropdown to include this category again
+    const categoryAddSelect = document.getElementById('editPostCategoryAdd');
+    const option = document.createElement('option');
+    const cat = allCategories.find(c => c.id === categoryId);
+    option.value = categoryId;
+    option.textContent = cat ? cat.title : categoryId;
+    categoryAddSelect.appendChild(option);
+
+    displayPostCategories();
+}
+
+function addPostCategory() {
+    const categoryAddSelect = document.getElementById('editPostCategoryAdd');
+    const categoryId = categoryAddSelect.value;
+
+    if (categoryId && !currentPostCategories.includes(categoryId)) {
+        currentPostCategories.push(categoryId);
+        categoryAddSelect.remove(categoryAddSelect.selectedIndex);
+        categoryAddSelect.value = '';
+        displayPostCategories();
+    }
+}
+
+function closeEditPostModal() {
+    document.getElementById('editPostModal').style.display = 'none';
+}
+
+async function updatePost() {
+    const postId = document.getElementById('editPostId').value;
+    const status = document.getElementById('editPostStatus').value;
+
+    try {
+        const updateData = { status, categories: currentPostCategories };
+
+        const response = await fetch(`${API_URL}/posts/${postId}`, {
+            method: 'PATCH',
+            credentials: 'include',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(updateData)
+        });
+
+        if (response.ok) {
+            showMessage('postsSuccess', 'Post updated successfully');
+            closeEditPostModal();
+            loadPosts();
+        } else {
+            const errorData = await response.json();
+            alert('Failed to update post: ' + (errorData.message || 'Unknown error'));
+        }
+    } catch (error) {
+        alert('Error: ' + error.message);
+    }
+}
+
+async function deletePost(postId) {
+    if (!confirm('Are you sure you want to delete this post?')) return;
+
+    try {
+        const response = await fetch(`${API_URL}/posts/${postId}`, {
+            method: 'DELETE',
+            credentials: 'include'
+        });
+
+        if (response.ok) {
+            showMessage('postsSuccess', 'Post deleted successfully');
+            loadPosts();
+        } else {
+            alert('Failed to delete post');
+        }
+    } catch (error) {
+        alert('Error: ' + error.message);
+    }
+}
+
 // Load all data
 function loadAllData() {
     loadCategories();
+    loadPosts();
     loadAwards();
     loadUsers();
     loadComments();
@@ -662,6 +912,9 @@ function showMessage(elementId, message) {
 }
 
 function escapeHtml(unsafe) {
+    if (typeof unsafe !== 'string') {
+        unsafe = String(unsafe);
+    }
     return unsafe
         .replace(/&/g, "&amp;")
         .replace(/</g, "&lt;")
@@ -672,6 +925,10 @@ function escapeHtml(unsafe) {
 
 // Close modal when clicking outside
 window.addEventListener('click', (event) => {
+    const postModal = document.getElementById('editPostModal');
+    if (event.target === postModal) {
+        closeEditPostModal();
+    }
     const userModal = document.getElementById('editUserModal');
     if (event.target === userModal) {
         closeEditUserModal();
