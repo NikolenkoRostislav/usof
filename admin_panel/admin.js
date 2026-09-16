@@ -462,7 +462,14 @@ async function deleteUser(userId) {
 // Comments
 async function loadComments() {
     try {
-        const response = await fetch(`${API_URL}/comments`, {
+        const postIdFilter = document.getElementById('commentPostIdFilter')?.value.trim();
+
+        let url = `${API_URL}/comments`;
+        if (postIdFilter) {
+            url = `${API_URL}/posts/${postIdFilter}/comments`;
+        }
+
+        const response = await fetch(url, {
             credentials: 'include'
         });
 
@@ -470,18 +477,24 @@ async function loadComments() {
 
         const data = await response.json();
         const comments = data.comments || [];
-        let html = '<table><thead><tr><th>ID</th><th>Author ID</th><th>Content</th><th>Post ID</th><th>Status</th></tr></thead><tbody>';
+        let html = '<table><thead><tr><th>ID</th><th>Author ID</th><th>Content</th><th>Post ID</th><th>Status</th><th>Actions</th></tr></thead><tbody>';
 
         if (comments.length === 0) {
             html = '<div class="no-data">No comments found</div>';
         } else {
             comments.forEach(comment => {
+                const statusLabel = comment.status || 'active';
+                const toggleStatusLabel = statusLabel === 'active' ? 'Inactive' : 'Active';
                 html += `<tr>
                     <td>${escapeHtml(comment.id)}</td>
                     <td>${escapeHtml(comment.authorId)}</td>
                     <td>${escapeHtml((comment.content || '').substring(0, 50))}...</td>
                     <td>${escapeHtml(comment.postId)}</td>
-                    <td>${escapeHtml(comment.status || 'active')}</td>
+                    <td>${escapeHtml(statusLabel)}</td>
+                    <td class="action-buttons">
+                        <button class="btn-small btn-edit" onclick="toggleCommentStatus('${comment.id}', '${toggleStatusLabel.toLowerCase()}')">Mark ${toggleStatusLabel}</button>
+                        <button class="btn-small btn-delete" onclick="deleteComment('${comment.id}')">Delete</button>
+                    </td>
                 </tr>`;
             });
             html += '</tbody></table>';
@@ -490,6 +503,44 @@ async function loadComments() {
         document.getElementById('commentsList').innerHTML = html;
     } catch (error) {
         document.getElementById('commentsList').innerHTML = '<div class="error-message">' + error.message + '</div>';
+    }
+}
+
+async function toggleCommentStatus(commentId, newStatus) {
+    try {
+        const response = await fetch(`${API_URL}/comments/${commentId}`, {
+            method: 'PATCH',
+            credentials: 'include',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ status: newStatus })
+        });
+
+        if (response.ok) {
+            loadComments();
+        } else {
+            alert('Failed to update comment status');
+        }
+    } catch (error) {
+        alert('Error: ' + error.message);
+    }
+}
+
+async function deleteComment(commentId) {
+    if (!confirm('Are you sure you want to delete this comment?')) return;
+
+    try {
+        const response = await fetch(`${API_URL}/comments/${commentId}`, {
+            method: 'DELETE',
+            credentials: 'include'
+        });
+
+        if (response.ok) {
+            loadComments();
+        } else {
+            alert('Failed to delete comment');
+        }
+    } catch (error) {
+        alert('Error: ' + error.message);
     }
 }
 

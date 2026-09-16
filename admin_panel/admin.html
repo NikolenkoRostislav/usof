@@ -114,6 +114,13 @@
         <!-- Comments Tab -->
         <div class="tab-content" id="comments">
             <h2>Comments Management</h2>
+            <div class="form-container">
+                <h3>Filter Comments</h3>
+                <div class="form-row full">
+                    <input type="text" id="commentPostIdFilter" placeholder="Enter Post ID to filter (leave empty for all)" style="padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: Arial;">
+                </div>
+                <button class="btn btn-success" onclick="loadComments()">Filter</button>
+            </div>
             <div id="commentsList" class="loading">Loading...</div>
         </div>
 
