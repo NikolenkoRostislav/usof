@@ -199,13 +199,14 @@ async function loadAwards() {
 
         const data = await response.json();
         const awards = data.awards || [];
-        let html = '<table><thead><tr><th>Title</th><th>Description</th><th>Rarity</th><th>Actions</th></tr></thead><tbody>';
+        let html = '<table><thead><tr><th>ID</th><th>Title</th><th>Description</th><th>Rarity</th><th>Actions</th></tr></thead><tbody>';
 
         if (awards.length === 0) {
             html = '<div class="no-data">No awards found</div>';
         } else {
             awards.forEach(award => {
                 html += `<tr>
+                    <td>${escapeHtml(award.id)}</td>
                     <td>${escapeHtml(award.title)}</td>
                     <td>${escapeHtml(award.description || '')}</td>
                     <td>${escapeHtml(award.rarity || '')}</td>
@@ -455,7 +456,7 @@ async function loadComments() {
                 html += `<tr>
                     <td>${escapeHtml(comment.id)}</td>
                     <td>${escapeHtml(comment.authorId)}</td>
-                    <td>${escapeHtml((comment.content || '').substring(0, 50))}...</td>
+                    <td>${escapeHtml(comment.content || '')}</td>
                     <td>${escapeHtml(comment.postId)}</td>
                     <td>${escapeHtml(statusLabel)}</td>
                     <td class="action-buttons">
@@ -651,13 +652,14 @@ async function loadCategoriesTable() {
 
         const data = await response.json();
         const categories = data.categories || [];
-        let html = '<table><thead><tr><th>Title</th><th>Description</th><th>Actions</th></tr></thead><tbody>';
+        let html = '<table><thead><tr><th>ID</th><th>Title</th><th>Description</th><th>Actions</th></tr></thead><tbody>';
 
         if (categories.length === 0) {
             html = '<div class="no-data">No categories found</div>';
         } else {
             categories.forEach(cat => {
                 html += `<tr>
+                    <td>${escapeHtml(cat.id)}</td>
                     <td>${escapeHtml(cat.title)}</td>
                     <td>${escapeHtml(cat.description || '')}</td>
                     <td class="action-buttons">
@@ -685,7 +687,7 @@ async function loadPosts() {
 
         const data = await response.json();
         const posts = data.posts || [];
-        let html = '<table><thead><tr><th>Title</th><th>Author ID</th><th>Status</th><th>Actions</th></tr></thead><tbody>';
+        let html = '<table><thead><tr><th>ID</th><th>Title</th><th>Author ID</th><th>Status</th><th>Actions</th></tr></thead><tbody>';
 
         if (posts.length === 0) {
             html = '<div class="no-data">No posts found</div>';
@@ -693,6 +695,7 @@ async function loadPosts() {
             posts.forEach(post => {
                 const statusLabel = post.status || 'active';
                 html += `<tr>
+                    <td>${escapeHtml(post.id)}</td>
                     <td>${escapeHtml(post.title)}</td>
                     <td>${escapeHtml(post.authorId)}</td>
                     <td>${escapeHtml(statusLabel)}</td>
