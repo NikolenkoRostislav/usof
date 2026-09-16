@@ -377,3 +377,22 @@ td.action-buttons {
     width: auto;
     flex: 0 1 auto;
 }
+
+.category-data {
+    display: inline-block;
+    background-color: #e8e8e8;
+    padding: 6px 10px;
+    margin: 4px 4px 4px 0;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.remove-post-category {
+    background: none;
+    border: none;
+    margin-left: 6px;
+    cursor: pointer;
+    color: #d32f2f;
+    font-weight: bold;
+    padding: 0;
+}

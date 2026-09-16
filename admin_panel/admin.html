@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel</title>
     <link rel="stylesheet" href="admin.css">
 </head>
+
 <body>
     <!-- Login Page -->
     <div class="login-page" id="loginPage">
@@ -52,7 +54,8 @@
                     <input type="text" id="categoryName" placeholder="Category Title" required>
                 </div>
                 <div class="form-row full">
-                    <textarea id="categoryDescription" placeholder="Description" style="padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: Arial; resize: vertical; min-height: 80px;"></textarea>
+                    <textarea id="categoryDescription" placeholder="Description"
+                        style="padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: Arial; resize: vertical; min-height: 80px;"></textarea>
                 </div>
                 <button class="btn btn-success" onclick="createCategory()">Create Category</button>
             </div>
@@ -69,10 +72,12 @@
                     <input type="text" id="postTitle" placeholder="Post Title" required>
                 </div>
                 <div class="form-row full">
-                    <textarea id="postContent" placeholder="Post Content" style="padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: Arial; resize: vertical; min-height: 100px;"></textarea>
+                    <textarea id="postContent" placeholder="Post Content"
+                        style="padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: Arial; resize: vertical; min-height: 100px;"></textarea>
                 </div>
                 <div class="form-row full">
-                    <select id="postCategories" multiple style="padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: Arial; min-height: 80px;">
+                    <select id="postCategories" multiple
+                        style="padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: Arial; min-height: 80px;">
                         <option value="" disabled>Select Categories (hold Ctrl/Cmd to select multiple)</option>
                     </select>
                 </div>
@@ -91,10 +96,12 @@
                     <input type="text" id="awardName" placeholder="Award Title" required>
                 </div>
                 <div class="form-row full">
-                    <textarea id="awardDescription" placeholder="Description" style="padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: Arial; resize: vertical; min-height: 80px;"></textarea>
+                    <textarea id="awardDescription" placeholder="Description"
+                        style="padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: Arial; resize: vertical; min-height: 80px;"></textarea>
                 </div>
                 <div class="form-row full">
-                    <select id="awardRarity" style="padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: Arial;">
+                    <select id="awardRarity"
+                        style="padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: Arial;">
                         <option value="common">Common</option>
                         <option value="uncommon">Uncommon</option>
                         <option value="rare">Rare</option>
@@ -122,7 +129,8 @@
                     <input type="text" id="newUserFullName" placeholder="Full Name" required>
                 </div>
                 <div class="form-row full">
-                    <select id="newUserRole" style="padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: Arial;">
+                    <select id="newUserRole"
+                        style="padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: Arial;">
                         <option value="user">User</option>
                         <option value="admin">Admin</option>
                     </select>
@@ -140,7 +148,9 @@
             <div class="form-container">
                 <h3>Filter Comments</h3>
                 <div class="form-row full">
-                    <input type="text" id="commentPostIdFilter" placeholder="Enter Post ID to filter (leave empty for all)" style="padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: Arial;">
+                    <input type="text" id="commentPostIdFilter"
+                        placeholder="Enter Post ID to filter (leave empty for all)"
+                        style="padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: Arial;">
                 </div>
                 <button class="btn btn-success" onclick="loadComments()">Filter</button>
             </div>
@@ -153,7 +163,9 @@
             <div class="form-container">
                 <h3>Filter Post Likes</h3>
                 <div class="form-row full">
-                    <input type="text" id="postIdFilter" placeholder="Enter Post ID to filter post likes (leave empty for all)" style="padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: Arial;">
+                    <input type="text" id="postIdFilter"
+                        placeholder="Enter Post ID to filter post likes (leave empty for all)"
+                        style="padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: Arial;">
                 </div>
                 <button class="btn btn-success" onclick="loadLikes()">Filter</button>
             </div>
@@ -162,7 +174,9 @@
             <div class="form-container" style="margin-top: 30px;">
                 <h3>Filter Comment Likes</h3>
                 <div class="form-row full">
-                    <input type="text" id="commentIdFilter" placeholder="Enter Comment ID to filter comment likes (leave empty for all)" style="padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: Arial;">
+                    <input type="text" id="commentIdFilter"
+                        placeholder="Enter Comment ID to filter comment likes (leave empty for all)"
+                        style="padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: Arial;">
                 </div>
                 <button class="btn btn-success" onclick="loadLikes()">Filter</button>
             </div>
@@ -189,11 +203,13 @@
                 </div>
                 <div class="form-group">
                     <label>Author ID</label>
-                    <div id="viewPostAuthorId" style="padding: 10px; background-color: #f5f5f5; border-radius: 4px;"></div>
+                    <div id="viewPostAuthorId" style="padding: 10px; background-color: #f5f5f5; border-radius: 4px;">
+                    </div>
                 </div>
                 <div class="form-group">
                     <label>Status</label>
-                    <div id="viewPostStatus" style="padding: 10px; background-color: #f5f5f5; border-radius: 4px;"></div>
+                    <div id="viewPostStatus" style="padding: 10px; background-color: #f5f5f5; border-radius: 4px;">
+                    </div>
                 </div>
                 <div class="form-group">
                     <label>Likes</label>
@@ -201,11 +217,14 @@
                 </div>
                 <div class="form-group">
                     <label>Content</label>
-                    <div id="viewPostContent" style="padding: 10px; background-color: #f5f5f5; border-radius: 4px; max-height: 300px; overflow-y: auto; white-space: pre-wrap; word-break: break-word;"></div>
+                    <div id="viewPostContent"
+                        style="padding: 10px; background-color: #f5f5f5; border-radius: 4px; max-height: 300px; overflow-y: auto; white-space: pre-wrap; word-break: break-word;">
+                    </div>
                 </div>
                 <div class="form-group">
                     <label>Categories</label>
-                    <div id="viewPostCategories" style="padding: 10px; background-color: #f5f5f5; border-radius: 4px;"></div>
+                    <div id="viewPostCategories" style="padding: 10px; background-color: #f5f5f5; border-radius: 4px;">
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -225,7 +244,8 @@
                     <input type="hidden" id="editPostId">
                     <div class="form-group">
                         <label for="editPostStatus">Status</label>
-                        <select id="editPostStatus" style="padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: Arial;">
+                        <select id="editPostStatus"
+                            style="padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: Arial;">
                             <option value="active">Active</option>
                             <option value="locked">Locked</option>
                             <option value="inactive">Inactive</option>
@@ -233,8 +253,11 @@
                     </div>
                     <div class="form-group">
                         <label>Categories</label>
-                        <div id="editPostCategoriesList" style="margin-bottom: 10px; padding: 10px; background-color: #f9f9f9; border-radius: 4px; min-height: 40px;"></div>
-                        <select id="editPostCategoryAdd" onchange="addPostCategory()" style="padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: Arial; width: 100%;">
+                        <div id="editPostCategoriesList"
+                            style="margin-bottom: 10px; padding: 10px; background-color: #f9f9f9; border-radius: 4px; min-height: 40px;">
+                        </div>
+                        <select id="editPostCategoryAdd" onchange="addPostCategory()"
+                            style="padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: Arial; width: 100%;">
                             <option value="">Select a category to add</option>
                         </select>
                     </div>
@@ -263,7 +286,8 @@
                     </div>
                     <div class="form-group">
                         <label for="editCategoryDescription">Description</label>
-                        <textarea id="editCategoryDescription" style="padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: Arial; resize: vertical; min-height: 80px;"></textarea>
+                        <textarea id="editCategoryDescription"
+                            style="padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: Arial; resize: vertical; min-height: 80px;"></textarea>
                     </div>
                 </form>
             </div>
@@ -301,6 +325,7 @@
         </div>
     </div>
 
-    <script src="admin.js"></script>
+    <script type="module" src="admin.js"></script>
 </body>
+
 </html>
