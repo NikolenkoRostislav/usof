@@ -4,7 +4,7 @@ INSERT INTO users (id, login, full_name, password_hash, email, role) VALUES
 ('550e8400-e29b-41d4-a716-446655440001', 'admin_user', 'Admin User', '$2b$10$abcdefghijklmnopqrstuvwxyz', 'admin@example.com', 'admin'),
 ('550e8400-e29b-41d4-a716-446655440002', 'john_doe', 'John Doe', '$2b$10$abcdefghijklmnopqrstuvwxyz', 'john@example.com', 'user'),
 ('550e8400-e29b-41d4-a716-446655440003', 'jane_smith', 'Jane Smith', '$2b$10$abcdefghijklmnopqrstuvwxyz', 'jane@example.com', 'user'),
-('550e8400-e29b-41d4-a716-446655440004', 'bob_wilson', 'Bob Wilson', '$2b$10$abcdefghijklmnopqrstuvwxyz', 'bob@example.com', 'user');
+('550e8400-e29b-41d4-a716-446655440004', 'heisenberg', 'Walter White', '$2b$10$abcdefghijklmnopqrstuvwxyz', 'walterwhite@email.com', 'user');
 
 INSERT INTO categories (id, title, description) VALUES
 ('550e8400-e29b-41d4-a716-446655440101', 'Technology', 'Technology and software development'),
@@ -13,10 +13,10 @@ INSERT INTO categories (id, title, description) VALUES
 ('550e8400-e29b-41d4-a716-446655440104', 'Education', 'Education and learning');
 
 INSERT INTO posts (id, author_id, title, status, content) VALUES
-('550e8400-e29b-41d4-a716-446655440201', '550e8400-e29b-41d4-a716-446655440002', 'Getting Started with Node.js', 'active', 'This is a comprehensive guide to getting started with Node.js development.'),
+('550e8400-e29b-41d4-a716-446655440201', '550e8400-e29b-41d4-a716-446655440002', 'How I rewrote my own DNA sequence in Rust', 'locked', 'A guide on how to replace every molecule in the universe with Rust code'),
 ('550e8400-e29b-41d4-a716-446655440202', '550e8400-e29b-41d4-a716-446655440003', 'Design Principles for Modern Web Apps', 'active', 'Learn the key design principles that make web applications user-friendly.'),
-('550e8400-e29b-41d4-a716-446655440203', '550e8400-e29b-41d4-a716-446655440004', 'Scaling Your Startup', 'active', 'Tips and strategies for scaling your startup from zero to IPO.'),
-('550e8400-e29b-41d4-a716-446655440204', '550e8400-e29b-41d4-a716-446655440002', 'Advanced Database Optimization', 'locked', 'Techniques for optimizing database performance at scale.');
+('550e8400-e29b-41d4-a716-446655440203', '550e8400-e29b-41d4-a716-446655440004', 'Scaling Your Startup', 'active', 'Just buy a better computer, you only have 3 monthly users anyways'),
+('550e8400-e29b-41d4-a716-446655440204', '550e8400-e29b-41d4-a716-446655440002', 'Advanced Database Optimization', 'inactive', 'Index everything and use TEXT for all types to make using the DB more fun for everyone!');
 
 INSERT INTO post_categories (post_id, category_id) VALUES
 ('550e8400-e29b-41d4-a716-446655440201', '550e8400-e29b-41d4-a716-446655440101'),
@@ -25,13 +25,13 @@ INSERT INTO post_categories (post_id, category_id) VALUES
 ('550e8400-e29b-41d4-a716-446655440204', '550e8400-e29b-41d4-a716-446655440101');
 
 INSERT INTO comments (id, author_id, post_id, status, content) VALUES
-('550e8400-e29b-41d4-a716-446655440301', '550e8400-e29b-41d4-a716-446655440003', '550e8400-e29b-41d4-a716-446655440201', 'active', 'Great guide! This really helped me understand Node.js basics.'),
-('550e8400-e29b-41d4-a716-446655440302', '550e8400-e29b-41d4-a716-446655440004', '550e8400-e29b-41d4-a716-446655440201', 'active', 'Could you provide more examples on async/await?'),
+('550e8400-e29b-41d4-a716-446655440301', '550e8400-e29b-41d4-a716-446655440003', '550e8400-e29b-41d4-a716-446655440201', 'active', 'Great guide!'),
+('550e8400-e29b-41d4-a716-446655440302', '550e8400-e29b-41d4-a716-446655440004', '550e8400-e29b-41d4-a716-446655440201', 'active', 'Could you provide more examples?'),
 ('550e8400-e29b-41d4-a716-446655440303', '550e8400-e29b-41d4-a716-446655440002', '550e8400-e29b-41d4-a716-446655440202', 'active', 'Design principles are timeless. Well written!'),
-('550e8400-e29b-41d4-a716-446655440304', '550e8400-e29b-41d4-a716-446655440003', '550e8400-e29b-41d4-a716-446655440203', 'active', 'I agree with your point about team building.');
+('550e8400-e29b-41d4-a716-446655440304', '550e8400-e29b-41d4-a716-446655440003', '550e8400-e29b-41d4-a716-446655440203', 'active', 'What if I have 5 monthly users?');
 
 INSERT INTO comments (id, author_id, post_id, quote_id, status, content) VALUES
-('550e8400-e29b-41d4-a716-446655440305', '550e8400-e29b-41d4-a716-446655440004', '550e8400-e29b-41d4-a716-446655440201', '550e8400-e29b-41d4-a716-446655440302', 'active', 'Great question! Async/await is very powerful when used correctly.');
+('550e8400-e29b-41d4-a716-446655440305', '550e8400-e29b-41d4-a716-446655440004', '550e8400-e29b-41d4-a716-446655440201', '550e8400-e29b-41d4-a716-446655440302', 'active', 'Great question! No I cant.');
 
 INSERT INTO likes (id, author_id, type, post_id) VALUES
 ('550e8400-e29b-41d4-a716-446655440401', '550e8400-e29b-41d4-a716-446655440003', 'like', '550e8400-e29b-41d4-a716-446655440201'),
@@ -44,9 +44,9 @@ INSERT INTO likes (id, author_id, type, comment_id) VALUES
 ('550e8400-e29b-41d4-a716-446655440406', '550e8400-e29b-41d4-a716-446655440004', 'like', '550e8400-e29b-41d4-a716-446655440303');
 
 INSERT INTO awards (id, title, description, rarity) VALUES
-('550e8400-e29b-41d4-a716-446655440501', 'Gold Star', 'Awarded for exceptional content', 'rare'),
-('550e8400-e29b-41d4-a716-446655440502', 'Silver Medal', 'Awarded for good contributions', 'common'),
-('550e8400-e29b-41d4-a716-446655440503', 'Diamond Trophy', 'Awarded for outstanding achievement', 'legendary'),
+('550e8400-e29b-41d4-a716-446655440501', 'Gold Star', 'Hey now, youre a rock star!', 'rare'),
+('550e8400-e29b-41d4-a716-446655440502', 'Coal award', 'I came looking for copper and found... coal', 'common'),
+('550e8400-e29b-41d4-a716-446655440503', 'Gemerald', 'Legendary post, an absolute gem', 'legendary'),
 ('550e8400-e29b-41d4-a716-446655440504', 'Helpful Badge', 'For being helpful to the community', 'common');
 
 INSERT INTO post_awards (post_id, award_id, count) VALUES
