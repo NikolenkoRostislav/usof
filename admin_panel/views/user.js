@@ -83,7 +83,6 @@ export function showEditModal(user) {
     document.getElementById('editUserId').value = user.id;
     document.getElementById('editUserLogin').value = user.login;
     document.getElementById('editUserFullName').value = user.fullName || '';
-
     document.getElementById('editUserModal').style.display = 'block';
 }
 

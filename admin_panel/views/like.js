@@ -10,12 +10,10 @@ export function getFilters() {
 export function renderPostLikes(likes) {
     const container = document.getElementById('postLikesList');
 
-    document.getElementById('postLikesCount').textContent =
-        `(${likes.length})`;
+    document.getElementById('postLikesCount').textContent = `(${likes.length})`;
 
     if (likes.length === 0) {
-        container.innerHTML =
-            '<div class="no-data">No post likes found</div>';
+        container.innerHTML = '<div class="no-data">No post likes found</div>';
         return;
     }
 
@@ -53,13 +51,10 @@ export function renderPostLikes(likes) {
 
 export function renderCommentLikes(likes) {
     const container = document.getElementById('commentLikesList');
-
-    document.getElementById('commentLikesCount').textContent =
-        `(${likes.length})`;
+    document.getElementById('commentLikesCount').textContent = `(${likes.length})`;
 
     if (likes.length === 0) {
-        container.innerHTML =
-            '<div class="no-data">No comment likes found</div>';
+        container.innerHTML = '<div class="no-data">No comment likes found</div>';
         return;
     }
 
@@ -96,8 +91,7 @@ export function renderCommentLikes(likes) {
 }
 
 export function renderError(message) {
-    const html =
-        `<div class="error-message">${escapeHtml(message)}</div>`;
+    const html = `<div class="error-message">${escapeHtml(message)}</div>`;
 
     document.getElementById('postLikesList').innerHTML = html;
     document.getElementById('commentLikesList').innerHTML = html;

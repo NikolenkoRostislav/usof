@@ -9,7 +9,6 @@
 </head>
 
 <body>
-    <!-- Login Page -->
     <div class="login-page" id="loginPage">
         <div class="login-box">
             <h1>Admin Login</h1>
@@ -28,7 +27,6 @@
         </div>
     </div>
 
-    <!-- Dashboard -->
     <div class="dashboard" id="dashboard">
         <div class="dashboard-header">
             <h1>Admin Dashboard</h1>
@@ -44,64 +42,80 @@
             <button class="tab-btn" onclick="switchTab('likes')">Likes</button>
         </div>
 
-        <!-- Categories Tab -->
         <div class="tab-content active" id="categories">
             <h2>Categories Management</h2>
             <div class="success-message" id="categoriesSuccess"></div>
+
             <div class="form-container">
                 <h3>Add New Category</h3>
+
                 <div class="form-row full">
-                    <input type="text" id="categoryName" placeholder="Category Title" required>
+                    <input type="text" id="categoryName" class="form-control" placeholder="Category Title" required>
                 </div>
+
                 <div class="form-row full">
-                    <textarea id="categoryDescription" placeholder="Description"
-                        style="padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: Arial; resize: vertical; min-height: 80px;"></textarea>
+                    <textarea id="categoryDescription" class="form-control form-textarea"
+                        placeholder="Description"></textarea>
                 </div>
-                <button class="btn btn-success" onclick="createCategory()">Create Category</button>
+
+                <button class="btn btn-success" onclick="createCategory()">
+                    Create Category
+                </button>
             </div>
+
             <div id="categoriesList" class="loading">Loading...</div>
         </div>
 
-        <!-- Posts Tab -->
         <div class="tab-content" id="posts">
             <h2>Posts Management</h2>
             <div class="success-message" id="postsSuccess"></div>
+
             <div class="form-container">
                 <h3>Create New Post</h3>
+
                 <div class="form-row full">
-                    <input type="text" id="postTitle" placeholder="Post Title" required>
+                    <input type="text" id="postTitle" class="form-control" placeholder="Post Title" required>
                 </div>
+
                 <div class="form-row full">
-                    <textarea id="postContent" placeholder="Post Content"
-                        style="padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: Arial; resize: vertical; min-height: 100px;"></textarea>
+                    <textarea id="postContent" class="form-control form-textarea-large"
+                        placeholder="Post Content"></textarea>
                 </div>
+
                 <div class="form-row full">
-                    <select id="postCategories" multiple
-                        style="padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: Arial; min-height: 80px;">
-                        <option value="" disabled>Select Categories (hold Ctrl/Cmd to select multiple)</option>
+                    <select id="postCategories" class="form-control form-select-multiple" multiple>
+                        <option value="" disabled>
+                            Select Categories (hold Ctrl/Cmd to select multiple)
+                        </option>
                     </select>
                 </div>
-                <button class="btn btn-success" onclick="createPost()">Create Post</button>
+
+                <button class="btn btn-success" onclick="createPost()">
+                    Create Post
+                </button>
             </div>
+
             <div id="postsList" class="loading">Loading...</div>
         </div>
 
-        <!-- Awards Tab -->
         <div class="tab-content" id="awards">
             <h2>Awards Management</h2>
             <div class="success-message" id="awardsSuccess"></div>
+
             <div class="form-container">
                 <h3>Add New Award</h3>
+
                 <div class="form-row full">
-                    <input type="text" id="awardName" placeholder="Award Title" required>
+                    <input type="text" id="awardName" class="form-control" placeholder="Award Title" required>
                 </div>
+
                 <div class="form-row full">
-                    <textarea id="awardDescription" placeholder="Description"
-                        style="padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: Arial; resize: vertical; min-height: 80px;"></textarea>
+                    <textarea id="awardDescription" class="form-control form-textarea"
+                        placeholder="Description"></textarea>
                 </div>
+
                 <div class="form-row full">
-                    <select id="awardRarity"
-                        style="padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: Arial;">
+                    <select id="awardRarity" class="form-control">
                         <option value="common">Common</option>
                         <option value="uncommon">Uncommon</option>
                         <option value="rare">Rare</option>
@@ -109,218 +123,271 @@
                         <option value="legendary">Legendary</option>
                     </select>
                 </div>
-                <button class="btn btn-success" onclick="createAward()">Create Award</button>
+
+                <button class="btn btn-success" onclick="createAward()">
+                    Create Award
+                </button>
             </div>
+
             <div id="awardsList" class="loading">Loading...</div>
         </div>
 
-        <!-- Users Tab -->
         <div class="tab-content" id="users">
             <h2>Users Management</h2>
             <div class="success-message" id="usersSuccess"></div>
+
             <div class="form-container">
                 <h3>Create New User</h3>
+
                 <div class="form-row">
-                    <input type="email" id="newUserEmail" placeholder="Email" required>
-                    <input type="password" id="newUserPassword" placeholder="Password" required>
+                    <input type="email" id="newUserEmail" class="form-control" placeholder="Email" required>
+
+                    <input type="password" id="newUserPassword" class="form-control" placeholder="Password" required>
                 </div>
+
                 <div class="form-row">
-                    <input type="text" id="newUserLogin" placeholder="Login" required>
-                    <input type="text" id="newUserFullName" placeholder="Full Name" required>
+                    <input type="text" id="newUserLogin" class="form-control" placeholder="Login" required>
+
+                    <input type="text" id="newUserFullName" class="form-control" placeholder="Full Name" required>
                 </div>
+
                 <div class="form-row full">
-                    <select id="newUserRole"
-                        style="padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: Arial;">
+                    <select id="newUserRole" class="form-control">
                         <option value="user">User</option>
                         <option value="admin">Admin</option>
                     </select>
                 </div>
+
                 <div class="form-row full">
-                    <button class="btn btn-success" onclick="createUser()">Create User</button>
+                    <button class="btn btn-success" onclick="createUser()">
+                        Create User
+                    </button>
                 </div>
             </div>
+
             <div id="usersList" class="loading">Loading...</div>
         </div>
 
-        <!-- Comments Tab -->
         <div class="tab-content" id="comments">
             <h2>Comments Management</h2>
+
             <div class="form-container">
                 <h3>Filter Comments</h3>
+
                 <div class="form-row full">
-                    <input type="text" id="commentPostIdFilter"
-                        placeholder="Enter Post ID to filter (leave empty for all)"
-                        style="padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: Arial;">
+                    <input type="text" id="commentPostIdFilter" class="form-control"
+                        placeholder="Enter Post ID to filter (leave empty for all)">
                 </div>
-                <button class="btn btn-success" onclick="loadComments()">Filter</button>
+
+                <button class="btn btn-success" onclick="loadComments()">
+                    Filter
+                </button>
             </div>
+
             <div id="commentsList" class="loading">Loading...</div>
         </div>
 
-        <!-- Likes Tab -->
         <div class="tab-content" id="likes">
             <h2>Likes Management</h2>
+
             <div class="form-container">
                 <h3>Filter Post Likes</h3>
+
                 <div class="form-row full">
-                    <input type="text" id="postIdFilter"
-                        placeholder="Enter Post ID to filter post likes (leave empty for all)"
-                        style="padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: Arial;">
+                    <input type="text" id="postIdFilter" class="form-control"
+                        placeholder="Enter Post ID to filter post likes (leave empty for all)">
                 </div>
-                <button class="btn btn-success" onclick="loadLikes()">Filter</button>
+
+                <button class="btn btn-success" onclick="loadLikes()">
+                    Filter
+                </button>
             </div>
+
             <h3>Post Likes <span id="postLikesCount"></span></h3>
             <div id="postLikesList" class="loading">Loading...</div>
-            <div class="form-container" style="margin-top: 30px;">
+
+            <div class="form-container form-container-spaced">
                 <h3>Filter Comment Likes</h3>
+
                 <div class="form-row full">
-                    <input type="text" id="commentIdFilter"
-                        placeholder="Enter Comment ID to filter comment likes (leave empty for all)"
-                        style="padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: Arial;">
+                    <input type="text" id="commentIdFilter" class="form-control"
+                        placeholder="Enter Comment ID to filter comment likes (leave empty for all)">
                 </div>
-                <button class="btn btn-success" onclick="loadLikes()">Filter</button>
+
+                <button class="btn btn-success" onclick="loadLikes()">
+                    Filter
+                </button>
             </div>
+
             <h3>Comment Likes <span id="commentLikesCount"></span></h3>
             <div id="commentLikesList" class="loading">Loading...</div>
         </div>
     </div>
 
-    <!-- View Post Modal -->
     <div id="viewPostModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
                 <h2>Post Details</h2>
                 <span class="close" onclick="closeViewPostModal()">&times;</span>
             </div>
+
             <div class="modal-body">
                 <div class="form-group">
                     <label>ID</label>
-                    <div id="viewPostId" style="padding: 10px; background-color: #f5f5f5; border-radius: 4px;"></div>
+                    <div id="viewPostId" class="readonly-field"></div>
                 </div>
+
                 <div class="form-group">
                     <label>Title</label>
-                    <div id="viewPostTitle" style="padding: 10px; background-color: #f5f5f5; border-radius: 4px;"></div>
+                    <div id="viewPostTitle" class="readonly-field"></div>
                 </div>
+
                 <div class="form-group">
                     <label>Author ID</label>
-                    <div id="viewPostAuthorId" style="padding: 10px; background-color: #f5f5f5; border-radius: 4px;">
-                    </div>
+                    <div id="viewPostAuthorId" class="readonly-field"></div>
                 </div>
+
                 <div class="form-group">
                     <label>Status</label>
-                    <div id="viewPostStatus" style="padding: 10px; background-color: #f5f5f5; border-radius: 4px;">
-                    </div>
+                    <div id="viewPostStatus" class="readonly-field"></div>
                 </div>
+
                 <div class="form-group">
                     <label>Likes</label>
-                    <div id="viewPostLikes" style="padding: 10px; background-color: #f5f5f5; border-radius: 4px;"></div>
+                    <div id="viewPostLikes" class="readonly-field"></div>
                 </div>
+
                 <div class="form-group">
                     <label>Content</label>
-                    <div id="viewPostContent"
-                        style="padding: 10px; background-color: #f5f5f5; border-radius: 4px; max-height: 300px; overflow-y: auto; white-space: pre-wrap; word-break: break-word;">
-                    </div>
+                    <div id="viewPostContent" class="readonly-field post-content"></div>
                 </div>
+
                 <div class="form-group">
                     <label>Categories</label>
-                    <div id="viewPostCategories" style="padding: 10px; background-color: #f5f5f5; border-radius: 4px;">
-                    </div>
+                    <div id="viewPostCategories" class="readonly-field"></div>
                 </div>
             </div>
+
             <div class="modal-footer">
             </div>
         </div>
     </div>
 
-    <!-- Edit Post Modal -->
     <div id="editPostModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
                 <h2>Edit Post</h2>
                 <span class="close" onclick="closeEditPostModal()">&times;</span>
             </div>
+
             <div class="modal-body">
                 <form id="editPostForm">
                     <input type="hidden" id="editPostId">
+
                     <div class="form-group">
                         <label for="editPostStatus">Status</label>
-                        <select id="editPostStatus"
-                            style="padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: Arial;">
+
+                        <select id="editPostStatus" class="form-control">
                             <option value="active">Active</option>
                             <option value="locked">Locked</option>
                             <option value="inactive">Inactive</option>
                         </select>
                     </div>
+
                     <div class="form-group">
                         <label>Categories</label>
-                        <div id="editPostCategoriesList"
-                            style="margin-bottom: 10px; padding: 10px; background-color: #f9f9f9; border-radius: 4px; min-height: 40px;">
-                        </div>
-                        <select id="editPostCategoryAdd" onchange="addPostCategory()"
-                            style="padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: Arial; width: 100%;">
+
+                        <div id="editPostCategoriesList" class="category-list"></div>
+
+                        <select id="editPostCategoryAdd" class="form-control" onchange="addPostCategory()">
                             <option value="">Select a category to add</option>
                         </select>
                     </div>
                 </form>
             </div>
+
             <div class="modal-footer">
-                <button class="btn btn-danger" onclick="closeEditPostModal()">Cancel</button>
-                <button class="btn btn-success" onclick="updatePost()">Save Changes</button>
+                <button class="btn btn-danger" onclick="closeEditPostModal()">
+                    Cancel
+                </button>
+
+                <button class="btn btn-success" onclick="updatePost()">
+                    Save Changes
+                </button>
             </div>
         </div>
     </div>
 
-    <!-- Edit Category Modal -->
     <div id="editCategoryModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
                 <h2>Edit Category</h2>
                 <span class="close" onclick="closeEditCategoryModal()">&times;</span>
             </div>
+
             <div class="modal-body">
                 <form id="editCategoryForm">
                     <input type="hidden" id="editCategoryId">
+
                     <div class="form-group">
                         <label for="editCategoryTitle">Title</label>
-                        <input type="text" id="editCategoryTitle" required>
+
+                        <input type="text" id="editCategoryTitle" class="form-control" required>
                     </div>
+
                     <div class="form-group">
                         <label for="editCategoryDescription">Description</label>
-                        <textarea id="editCategoryDescription"
-                            style="padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: Arial; resize: vertical; min-height: 80px;"></textarea>
+
+                        <textarea id="editCategoryDescription" class="form-control form-textarea"></textarea>
                     </div>
                 </form>
             </div>
+
             <div class="modal-footer">
-                <button class="btn btn-danger" onclick="closeEditCategoryModal()">Cancel</button>
-                <button class="btn btn-success" onclick="updateCategory()">Save Changes</button>
+                <button class="btn btn-danger" onclick="closeEditCategoryModal()">
+                    Cancel
+                </button>
+
+                <button class="btn btn-success" onclick="updateCategory()">
+                    Save Changes
+                </button>
             </div>
         </div>
     </div>
 
-    <!-- Edit User Modal -->
     <div id="editUserModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
                 <h2>Edit User</h2>
                 <span class="close" onclick="closeEditUserModal()">&times;</span>
             </div>
+
             <div class="modal-body">
                 <form id="editUserForm">
                     <input type="hidden" id="editUserId">
+
                     <div class="form-group">
                         <label for="editUserLogin">Login</label>
-                        <input type="text" id="editUserLogin" required>
+
+                        <input type="text" id="editUserLogin" class="form-control" required>
                     </div>
+
                     <div class="form-group">
                         <label for="editUserFullName">Full Name</label>
-                        <input type="text" id="editUserFullName" required>
+
+                        <input type="text" id="editUserFullName" class="form-control" required>
                     </div>
                 </form>
             </div>
+
             <div class="modal-footer">
-                <button class="btn btn-danger" onclick="closeEditUserModal()">Cancel</button>
-                <button class="btn btn-success" onclick="updateUser()">Save Changes</button>
+                <button class="btn btn-danger" onclick="closeEditUserModal()">
+                    Cancel
+                </button>
+
+                <button class="btn btn-success" onclick="updateUser()">
+                    Save Changes
+                </button>
             </div>
         </div>
     </div>

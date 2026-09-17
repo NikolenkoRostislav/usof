@@ -71,9 +71,7 @@ export function getEditFormData() {
 export function showEditModal(category) {
     document.getElementById('editCategoryId').value = category.id;
     document.getElementById('editCategoryTitle').value = category.title;
-    document.getElementById('editCategoryDescription').value =
-        category.description || '';
-
+    document.getElementById('editCategoryDescription').value = category.description || '';
     document.getElementById('editCategoryModal').style.display = 'block';
 }
 
@@ -96,7 +94,6 @@ export function populateCategorySelect(categories) {
 
     categories.forEach(category => {
         const option = document.createElement('option');
-
         option.value = category.id;
         option.textContent = category.title;
 

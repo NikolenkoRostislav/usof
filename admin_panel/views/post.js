@@ -6,8 +6,7 @@ export function getCreateFormData() {
     return {
         title: document.getElementById('postTitle').value.trim(),
         content: document.getElementById('postContent').value.trim(),
-        categories: Array.from(categorySelect.selectedOptions)
-            .map(option => option.value)
+        categories: Array.from(categorySelect.selectedOptions).map(option => option.value)
     };
 }
 
@@ -86,18 +85,10 @@ export function showPostDetails(post, likeCount, categoryNames) {
     document.getElementById('viewPostId').textContent = post.id;
     document.getElementById('viewPostTitle').textContent = post.title;
     document.getElementById('viewPostAuthorId').textContent = post.authorId;
-    document.getElementById('viewPostStatus').textContent =
-        post.status || 'active';
-
-    document.getElementById('viewPostContent').textContent =
-        post.content;
-
-    document.getElementById('viewPostLikes').textContent =
-        likeCount;
-
-    document.getElementById('viewPostCategories').textContent =
-        categoryNames || 'No categories';
-
+    document.getElementById('viewPostStatus').textContent = post.status || 'active';
+    document.getElementById('viewPostContent').textContent = post.content;
+    document.getElementById('viewPostLikes').textContent = likeCount;
+    document.getElementById('viewPostCategories').textContent = categoryNames || 'No categories';
     document.getElementById('viewPostModal').style.display = 'block';
 }
 
@@ -114,8 +105,7 @@ export function getEditFormData() {
 
 export function showEditPostModal(post) {
     document.getElementById('editPostId').value = post.id;
-    document.getElementById('editPostStatus').value =
-        post.status || 'active';
+    document.getElementById('editPostStatus').value = post.status || 'active';
 
     document.getElementById('editPostModal').style.display = 'block';
 }
@@ -125,13 +115,10 @@ export function closeEditPostModal() {
 }
 
 export function renderPostCategories(categories, allCategories) {
-    const container =
-        document.getElementById('editPostCategoriesList');
+    const container = document.getElementById('editPostCategoriesList');
 
     if (categories.length === 0) {
-        container.innerHTML =
-            '<div style="color: #999;">No categories selected</div>';
-
+        container.innerHTML = '<div style="color: #999;">No categories selected</div>';
         return;
     }
 
@@ -156,7 +143,7 @@ export function renderPostCategories(categories, allCategories) {
                 onclick="removePostCategory('${category.id}')"
                 class="remove-post-category"
             >
-                ×
+                x
             </button>
         </span>
     `).join('');
@@ -166,11 +153,8 @@ export function populateCategoryAddSelect(
     categories,
     selectedCategoryIds
 ) {
-    const select =
-        document.getElementById('editPostCategoryAdd');
-
-    select.innerHTML =
-        '<option value="">Select a category to add</option>';
+    const select = document.getElementById('editPostCategoryAdd');
+    select.innerHTML = '<option value="">Select a category to add</option>';
 
     categories.forEach(category => {
         if (selectedCategoryIds.includes(category.id)) {
@@ -191,8 +175,7 @@ export function getCategoryToAdd() {
 }
 
 export function removeCategoryFromSelect(categoryId, category) {
-    const select =
-        document.getElementById('editPostCategoryAdd');
+    const select = document.getElementById('editPostCategoryAdd');
 
     const option = document.createElement('option');
 
@@ -203,8 +186,7 @@ export function removeCategoryFromSelect(categoryId, category) {
 }
 
 export function removeSelectedCategoryOption() {
-    const select =
-        document.getElementById('editPostCategoryAdd');
+    const select = document.getElementById('editPostCategoryAdd');
 
     select.remove(select.selectedIndex);
     select.value = '';
