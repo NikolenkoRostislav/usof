@@ -143,7 +143,7 @@ export function renderPostCategories(categories, allCategories) {
                 onclick="removePostCategory('${category.id}')"
                 class="remove-post-category"
             >
-                x
+                &times;
             </button>
         </span>
     `).join('');
