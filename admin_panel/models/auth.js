@@ -2,18 +2,15 @@ import { api } from './api.js';
 
 export async function checkSession() {
     try {
-        await api.get('/users/me');
-        return true;
+        const user = await api.get('/users/me');
+        return user?.role === 'admin';
     } catch {
         return false;
     }
 }
 
 export function login(login, password) {
-    return api.post('/auth/login', {
-        login,
-        password
-    });
+    return api.post('/auth/login', { login, password });
 }
 
 export function logout() {

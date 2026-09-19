@@ -19,11 +19,15 @@ export async function login() {
     try {
         await authModel.login(username, password);
 
-        authView.resetLoginForm();
-        authView.clearLoginError();
-        authView.showDashboard();
+        const isLoggedIn = await authModel.checkSession();
+        if (isLoggedIn) {
+            authView.resetLoginForm();
+            authView.clearLoginError();
+            authView.showDashboard();
+            return true;
+        }
 
-        return true;
+        throw Error;
     } catch (error) {
         authView.showLoginError(
             'Invalid credentials or not an admin'
