@@ -2,9 +2,9 @@ import "./profile.css";
 
 function Profile() {
     return (
-        <main>
+        <div>
             <h1>Profile Page</h1>
-        </main>
+        </div>
     );
 }
 

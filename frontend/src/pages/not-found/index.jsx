@@ -2,9 +2,9 @@ import "./not-found.css";
 
 function NotFound() {
     return (
-        <main>
+        <div>
             <h1>404</h1>
-        </main>
+        </div>
     );
 }
 

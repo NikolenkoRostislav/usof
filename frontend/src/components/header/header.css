@@ -1,6 +1,6 @@
 .header {
     width: 100%;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid var(--color-border);
 }
 
 .header-main {
@@ -44,7 +44,7 @@
     height: 40px;
     border-radius: 50%;
     overflow: hidden;
-    background: #ddd;
+    background: var(--color-surface);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -60,7 +60,7 @@
 }
 
 .header-role {
-    color: #666;
+    color: var(--color-text-muted);
     font-size: 12px;
 }
 
@@ -68,7 +68,7 @@
     display: flex;
     gap: 20px;
     padding: 10px 24px;
-    background: #f5f5f5;
+    background: var(--color-surface);
 }
 
 .header-menu a {

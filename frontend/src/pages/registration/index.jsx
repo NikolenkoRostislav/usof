@@ -2,9 +2,9 @@ import "./registration.css";
 
 function Registration() {
     return (
-        <main>
+        <div>
             <h1>Registration Page</h1>
-        </main>
+        </div>
     );
 }
 

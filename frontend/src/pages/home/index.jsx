@@ -2,9 +2,9 @@ import "./home.css";
 
 function Home() {
     return (
-        <main>
+        <div>
             <h1>Main Page</h1>
-        </main>
+        </div>
     );
 }
 

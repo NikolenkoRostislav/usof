@@ -2,9 +2,9 @@ import "./login.css";
 
 function Login() {
     return (
-        <main>
+        <div>
             <h1>Login Page</h1>
-        </main>
+        </div>
     );
 }
 
