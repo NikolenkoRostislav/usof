@@ -17,4 +17,22 @@ export function getMe() {
     return api.get('/users/me');
 }
 
-// todo: add avatar endoints
+export function deleteAvatarById(id) {
+    return api.delete(`/users/${id}/avatar`);
+}
+
+export async function getAvatarById(id) {
+    const blob = await api.getBlob(`/users/${id}/avatar`);
+    return URL.createObjectURL(blob);
+}
+
+export function updateAvatar(id, file) {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    return fetch(`${API_URL}/users/${id}/avatar`, {
+        method: 'PATCH',
+        credentials: 'include',
+        body: formData
+    });
+}

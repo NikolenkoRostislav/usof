@@ -41,5 +41,17 @@ export const api = {
 
     delete: (url) => request(url, {
         method: 'DELETE'
-    })
+    }),
+
+    getBlob: async (url) => {
+        const response = await fetch(`${API_URL}${url}`, {
+            credentials: 'include'
+        });
+
+        if (!response.ok) {
+            throw new Error(`Request failed with status ${response.status}`);
+        }
+
+        return response.blob();
+    }
 };
