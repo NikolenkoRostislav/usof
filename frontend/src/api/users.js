@@ -12,7 +12,6 @@ export function patchById(id, login, email, fullName) {
     return api.patch(`/users/${id}`, { login, email, fullName });
 }
 
-
 export function getMe() {
     return api.get('/users/me');
 }
