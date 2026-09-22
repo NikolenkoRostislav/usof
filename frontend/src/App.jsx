@@ -4,6 +4,7 @@ import Login from "./pages/login";
 import Registration from "./pages/registration";
 import Profile from "./pages/profile";
 import NotFound from "./pages/not-found";
+import Post from "./pages/post";
 import "./App.css";
 import Header from "./components/header";
 import Footer from "./components/footer";
@@ -18,7 +19,9 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Registration />} />
+          <Route path="/profile/:id" element={<Profile />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/posts/:id" element={<Post />} />
 
           <Route path="*" element={<NotFound />} />
         </Routes>

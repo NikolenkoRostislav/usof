@@ -1,0 +1,33 @@
+.post-reactions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.post-reaction {
+    padding: 6px 10px;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    background: var(--color-background);
+    cursor: pointer;
+}
+
+.post-reaction:hover:not(:disabled) {
+    background: var(--color-surface);
+}
+
+.post-reaction-active {
+    background: var(--color-surface);
+    border-color: var(--color-text);
+}
+
+.post-reaction-disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.post-score {
+    min-width: 24px;
+    text-align: center;
+    font-weight: bold;
+}
