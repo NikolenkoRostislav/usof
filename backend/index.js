@@ -1,17 +1,21 @@
 require("dotenv").config();
 const http = require("http");
 const express = require("express");
+const cors = require("cors")
 const swaggerUi = require("swagger-ui-express");
 const swaggerSpecs = require("./src/api/swagger");
 const { sessionMiddleware, errorHandlingMiddleware } = require("./src/api/middleware");
 const route = require("./src/api/router");
 const host = process.env.HOST || "localhost";
 const port = process.env.PORT || 3000;
+const origin = process.env.ORIGIN || "http://localhost:5173";
 
 const app = express();
 const server = http.createServer(app);
 
 app.use(express.json());
+
+app.use(cors({ origin, credentials: true }));
 
 app.use(sessionMiddleware);
 
