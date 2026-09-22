@@ -5,6 +5,7 @@ import { getById as getPostById } from "../../api/posts";
 import { getById as getUserById } from "../../api/users";
 import { getByPostId as getLikesByPostId } from "../../api/likes";
 import { getByPostId as getAwardsByPostId } from "../../api/awards";
+import Comments from "./comments";
 import Reactions from "./reactions";
 import "./post.css";
 
@@ -103,8 +104,7 @@ function Post() {
                 </div>
 
                 <section className="post-comments">
-                    <h2>Comments</h2>
-                    <p>Comments will be implemented here.</p>
+                    <Comments postId={id} />
                 </section>
             </article>
         </main>
