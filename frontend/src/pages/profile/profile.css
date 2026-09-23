@@ -110,3 +110,11 @@
     flex-direction: column;
     gap: 16px;
 }
+
+.profile-load-more {
+    display: flex;
+    justify-content: center;
+    min-height: 60px;
+    padding: 24px 0;
+    color: var(--color-text-muted);
+}

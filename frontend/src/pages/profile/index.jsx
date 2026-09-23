@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router";
 import { useAuth } from "../../context/auth";
 import { getById } from "../../api/users";
@@ -14,8 +14,14 @@ function Profile() {
 
     const [user, setUser] = useState(null);
     const [posts, setPosts] = useState([]);
+    const [page, setPage] = useState(0);
+    const [hasMore, setHasMore] = useState(true);
     const [loading, setLoading] = useState(true);
+    const [loadingPosts, setLoadingPosts] = useState(false);
     const [error, setError] = useState(null);
+
+    const loadMoreRef = useRef(null);
+    const loadingRef = useRef(false);
 
     useEffect(() => {
         async function loadProfile() {
@@ -32,12 +38,6 @@ function Profile() {
                 }
 
                 setUser(profileUser);
-
-                const response = await getPosts({
-                    authorId: profileUser.id,
-                });
-
-                setPosts(response.posts);
             } catch (error) {
                 setError(error);
             } finally {
@@ -47,6 +47,56 @@ function Profile() {
 
         loadProfile();
     }, [id, currentUser]);
+
+    async function loadPosts() {
+        if (loadingRef.current || !hasMore || !user) {
+            return;
+        }
+
+        loadingRef.current = true;
+        setLoadingPosts(true);
+        setError(null);
+
+        try {
+            const response = await getPosts({
+                authorId: user.id,
+                page,
+            });
+
+            if (response.posts.length === 0) {
+                setHasMore(false);
+                return;
+            }
+
+            setPosts(prev => [...prev, ...response.posts]);
+            setPage(prev => prev + 1);
+        } catch (error) {
+            setError(error);
+        } finally {
+            loadingRef.current = false;
+            setLoadingPosts(false);
+        }
+    }
+
+    useEffect(() => {
+        if (user) {
+            loadPosts();
+        }
+    }, [user]);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(entries => {
+            if (entries[0].isIntersecting) {
+                loadPosts();
+            }
+        });
+
+        if (loadMoreRef.current) {
+            observer.observe(loadMoreRef.current);
+        }
+
+        return () => observer.disconnect();
+    });
 
     if (loading) {
         return (
@@ -85,7 +135,7 @@ function Profile() {
             <section className="profile-posts">
                 <h2>Posts</h2>
 
-                {posts.length === 0 ? (
+                {posts.length === 0 && !loadingPosts ? (
                     <p>No posts yet.</p>
                 ) : (
                     <div className="profile-posts-list">
@@ -97,6 +147,16 @@ function Profile() {
                         ))}
                     </div>
                 )}
+
+                <div
+                    ref={loadMoreRef}
+                    className="profile-load-more"
+                >
+                    {loadingPosts && <p>Loading...</p>}
+                    {!hasMore && posts.length > 0 && (
+                        <p>No more posts.</p>
+                    )}
+                </div>
             </section>
         </div>
     );
