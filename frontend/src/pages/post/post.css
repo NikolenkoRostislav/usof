@@ -26,44 +26,6 @@
     font-size: 14px;
 }
 
-.post-awards {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 16px;
-}
-
-.post-award-common,
-.post-award-rare,
-.post-award-epic,
-.post-award-legendary {
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 13px;
-}
-
-.post-award-common {
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-}
-
-.post-award-rare {
-    background: #e8f1ff;
-    border: 1px solid #6ea8fe;
-    color: #2457a6;
-}
-
-.post-award-epic {
-    background: #f1e8ff;
-    border: 1px solid #9b6cff;
-    color: #6535a8;
-}
-
-.post-award-legendary {
-    background: #fff3d6;
-    border: 1px solid #e5a928;
-    color: #8a5a00;
-}
 
 .post-content {
     padding: 24px;
