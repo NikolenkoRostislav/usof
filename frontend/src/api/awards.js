@@ -11,3 +11,7 @@ export function getByPostId(post_id) {
 export function getOwned() {
     return api.get(`/awards/me`);
 }
+
+export function getAwards() {
+    return api.get(`/awards`);
+}

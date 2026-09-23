@@ -4,7 +4,7 @@ import { useAuth } from "../../context/auth";
 import { getById as getPostById } from "../../api/posts";
 import { getById as getUserById } from "../../api/users";
 import { getByPostId as getLikesByPostId } from "../../api/likes";
-import { getByPostId as getAwardsByPostId } from "../../api/awards";
+import { getByPostId as getAwardsByPostId, getAwards as getAllAwards } from "../../api/awards";
 import Comments from "./comments";
 import Reactions from "./reactions";
 import "./post.css";
@@ -17,6 +17,7 @@ function Post() {
     const [author, setAuthor] = useState(null);
     const [likes, setLikes] = useState([]);
     const [awards, setAwards] = useState([]);
+    const [allAwardsData, setAllAwardsData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -28,16 +29,18 @@ function Post() {
 
                 const postData = await getPostById(id);
 
-                const [authorData, likesData, awardsData] = await Promise.all([
+                const [authorData, likesData, awardsData, allAwardsData] = await Promise.all([
                     getUserById(postData.authorId),
                     getLikesByPostId(id),
-                    getAwardsByPostId(id)
+                    getAwardsByPostId(id),
+                    getAllAwards(),
                 ]);
 
                 setPost(postData);
                 setAuthor(authorData);
                 setLikes(likesData.likes);
-                setAwards(awardsData);
+                setAwards(awardsData.awards);
+                setAllAwardsData(allAwardsData.awards);
             } catch (error) {
                 setError(error);
             } finally {
@@ -78,14 +81,19 @@ function Post() {
 
                     {awards.length > 0 && (
                         <div className="post-awards">
-                            {awards.map((award) => (
-                                <span
-                                    className="post-award"
-                                    key={award.id}
-                                >
-                                    {award.title}
-                                </span>
-                            ))}
+                            {awards.map((award) => {
+                                const data = allAwardsData.find((a) => a.id === award.awardId);
+
+                                return (
+                                    <span
+                                        className={`post-award-${data?.rarity ?? "common"}`}
+                                        key={award.awardId}
+                                        title={data?.description ?? "I have no idea what this award is, if you're seeing this you are very lucky"}
+                                    >
+                                        {data?.title ?? "Unknown award"} {award.count}
+                                    </span>
+                                );
+                            })}
                         </div>
                     )}
                 </header>
