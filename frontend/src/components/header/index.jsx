@@ -11,9 +11,7 @@ function Header() {
 
     function handleSearch(event) {
         event.preventDefault();
-
         const query = search.trim();
-
         if (!query) {
             return;
         }

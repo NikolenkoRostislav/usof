@@ -50,12 +50,8 @@ function Comment({
                         className="comment-replies-toggle"
                         onClick={() => toggleReplies(comment.id)}
                     >
-                        {isExpanded
-                            ? "Hide replies"
-                            : `Show ${replies.length} ${replies.length === 1
-                                ? "reply"
-                                : "replies"
-                            }`}
+                        {isExpanded ? "Hide replies"
+                            : `Show ${replies.length} ${replies.length === 1 ? "reply" : "replies"}`}
                     </button>
 
                     {isExpanded && (

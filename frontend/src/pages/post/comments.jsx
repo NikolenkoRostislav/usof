@@ -19,8 +19,7 @@ function Comments({ postId }) {
         async function loadComments() {
             try {
                 const commentsData = await getByPostId(postId);
-                const loadedComments =
-                    commentsData.comments ?? commentsData;
+                const loadedComments = commentsData.comments;
 
                 setComments(loadedComments);
 
@@ -35,16 +34,13 @@ function Comments({ postId }) {
                 const authorEntries = await Promise.all(
                     authorIds.map(async (authorId) => {
                         const author = await getUserById(authorId);
-
                         return [authorId, author];
                     })
                 );
 
                 const likeEntries = await Promise.all(
                     loadedComments.map(async (comment) => {
-                        const data =
-                            await getLikesByCommentId(comment.id);
-
+                        const data = await getLikesByCommentId(comment.id);
                         return [comment.id, data.likes];
                     })
                 );
@@ -52,10 +48,7 @@ function Comments({ postId }) {
                 setAuthors(Object.fromEntries(authorEntries));
                 setLikes(Object.fromEntries(likeEntries));
             } catch (error) {
-                console.error(
-                    "Failed to load comments:",
-                    error
-                );
+                console.error("Failed to load comments:", error);
             } finally {
                 setLoading(false);
             }
@@ -93,9 +86,7 @@ function Comments({ postId }) {
         );
     }
 
-    const topLevelComments = comments.filter(
-        (comment) => comment.quoteId === null
-    );
+    const topLevelComments = comments.filter((comment) => comment.quoteId === null);
 
     return (
         <section className="comments">

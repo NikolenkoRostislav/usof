@@ -18,26 +18,16 @@ function Reactions({
 }) {
     const [loading, setLoading] = useState(false);
 
-    const userReaction = user
-        ? likes.find((like) => like.authorId === user.id)?.type
-        : null;
+    const userReaction = user ? likes.find((like) => like.authorId === user.id)?.type : null;
 
-    const likesCount = likes.filter(
-        (like) => like.type === "like"
-    ).length;
-
-    const dislikesCount = likes.filter(
-        (like) => like.type === "dislike"
-    ).length;
-
+    const likesCount = likes.filter((like) => like.type === "like").length;
+    const dislikesCount = likes.filter((like) => like.type === "dislike").length;
     const score = likesCount - dislikesCount;
 
     async function handleReaction(type) {
         if (!user || loading) return;
 
-        const currentReaction = likes.find(
-            (like) => like.authorId === user.id
-        );
+        const currentReaction = likes.find((like) => like.authorId === user.id);
 
         try {
             setLoading(true);

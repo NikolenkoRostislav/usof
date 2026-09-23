@@ -49,19 +49,19 @@ function Post() {
     }, [id]);
 
     if (loading) {
-        return <main className="post-page">Loading...</main>;
+        return <div className="post-page">Loading...</div>;
     }
 
     if (error || !post) {
         return (
-            <main className="post-page">
+            <div className="post-page">
                 <h1>Post not found</h1>
-            </main>
+            </div>
         );
     }
 
     return (
-        <main className="post-page">
+        <div className="post-page">
             <article className="post">
                 <header className="post-header">
                     <h1>{post.title}</h1>
@@ -107,7 +107,7 @@ function Post() {
                     <Comments postId={id} />
                 </section>
             </article>
-        </main>
+        </div>
     );
 }
 
