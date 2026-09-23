@@ -1,0 +1,17 @@
+.infinite-scroll {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.infinite-scroll-load-more {
+    display: flex;
+    justify-content: center;
+    min-height: 60px;
+    padding: 24px 0;
+    color: var(--color-text-muted);
+}
+
+.infinite-scroll-error {
+    color: #b42318;
+}
