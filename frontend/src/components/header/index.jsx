@@ -45,7 +45,7 @@ function Header() {
                 {!loading && (
                     <div className="header-user">
                         <Link
-                            to={user ? `/profile/${user.id}` : "/login"}
+                            to={user ? `/profile` : "/login"}
                             className="header-avatar"
                         >
                             <Avatar user={user} />
@@ -88,7 +88,7 @@ function Header() {
                 <Link to="/gacha">Gacha</Link>
 
                 {user && (
-                    <Link to={`/profile/${user.id}`}>
+                    <Link to={`/profile`}>
                         Profile
                     </Link>
                 )}
