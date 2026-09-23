@@ -96,3 +96,17 @@
     margin-top: 16px;
     color: #b42318;
 }
+
+.profile-posts {
+    margin-top: 32px;
+}
+
+.profile-posts h2 {
+    margin: 0 0 16px;
+}
+
+.profile-posts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}

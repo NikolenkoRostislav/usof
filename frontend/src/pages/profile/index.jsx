@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { useAuth } from "../../context/auth";
 import { getById } from "../../api/users";
+import { get as getPosts } from "../../api/posts";
 import ProfileData from "./profile-data";
 import ProfileEdit from "./profile-edit";
+import Post from "../../components/post";
 import "./profile.css";
 
 function Profile() {
@@ -11,21 +13,31 @@ function Profile() {
     const { user: currentUser } = useAuth();
 
     const [user, setUser] = useState(null);
+    const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        async function loadUser() {
+        async function loadProfile() {
             try {
                 setLoading(true);
                 setError(null);
 
+                let profileUser;
+
                 if (currentUser && (!id || currentUser.id === id)) {
-                    setUser(currentUser);
-                    return;
+                    profileUser = currentUser;
+                } else {
+                    profileUser = await getById(id);
                 }
 
-                setUser(await getById(id));
+                setUser(profileUser);
+
+                const response = await getPosts({
+                    authorId: profileUser.id,
+                });
+
+                setPosts(response.posts);
             } catch (error) {
                 setError(error);
             } finally {
@@ -33,7 +45,7 @@ function Profile() {
             }
         }
 
-        loadUser();
+        loadProfile();
     }, [id, currentUser]);
 
     if (loading) {
@@ -69,6 +81,23 @@ function Profile() {
                     isOwnProfile={isOwnProfile}
                 />
             )}
+
+            <section className="profile-posts">
+                <h2>Posts</h2>
+
+                {posts.length === 0 ? (
+                    <p>No posts yet.</p>
+                ) : (
+                    <div className="profile-posts-list">
+                        {posts.map(post => (
+                            <Post
+                                key={post.id}
+                                post={post}
+                            />
+                        ))}
+                    </div>
+                )}
+            </section>
         </div>
     );
 }

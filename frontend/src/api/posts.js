@@ -32,7 +32,7 @@ export function post(title, content, categories) {
     return api.post(`/posts`, { title, content, categories });
 }
 
-export function getByCategoryId(id) {
+export function getByCategoryId(id, params = {}) {
     const query = new URLSearchParams();
 
     if (params.sortBy) query.set('sortBy', params.sortBy);
@@ -42,4 +42,3 @@ export function getByCategoryId(id) {
 
     return api.get(`/categories/${id}/posts${queryString ? `?${queryString}` : ''}`);
 }
-
