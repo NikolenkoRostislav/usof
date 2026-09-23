@@ -8,8 +8,8 @@ export function deleteById(id) {
     return api.delete(`/users/${id}`);
 }
 
-export function patchById(id, login, email, fullName) {
-    return api.patch(`/users/${id}`, { login, email, fullName });
+export function patchById(id, login, fullName) {
+    return api.patch(`/users/${id}`, { login, fullName });
 }
 
 export function getMe() {
