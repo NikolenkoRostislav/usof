@@ -3,10 +3,11 @@ import { getByPostId } from "../../api/comments";
 import { getById as getUserById } from "../../api/users";
 import { getByCommentId as getLikesByCommentId } from "../../api/likes";
 import { useAuth } from "../../context/auth";
+import CreateComment from "./create-comment";
 import Comment from "./comment";
 import "./comments.css";
 
-function Comments({ postId }) {
+function Comments({ post }) {
     const { user } = useAuth();
 
     const [comments, setComments] = useState([]);
@@ -18,7 +19,7 @@ function Comments({ postId }) {
     useEffect(() => {
         async function loadComments() {
             try {
-                const commentsData = await getByPostId(postId);
+                const commentsData = await getByPostId(post.id);
                 const loadedComments = commentsData.comments;
 
                 setComments(loadedComments);
@@ -55,7 +56,7 @@ function Comments({ postId }) {
         }
 
         loadComments();
-    }, [postId]);
+    }, [post.id]);
 
     function toggleReplies(commentId) {
         setExpanded((current) => {
@@ -69,6 +70,20 @@ function Comments({ postId }) {
 
             return next;
         });
+    }
+
+    function handleCommentCreated(comment) {
+        setComments((current) => [...current, comment]);
+
+        setAuthors((current) => ({
+            ...current,
+            [comment.authorId]: user
+        }));
+
+        setLikes((current) => ({
+            ...current,
+            [comment.id]: []
+        }));
     }
 
     function handleLikesChange(commentId, updatedLikes) {
@@ -91,6 +106,11 @@ function Comments({ postId }) {
     return (
         <section className="comments">
             <h2>Comments</h2>
+
+            {post.status === 'active' && user && (<CreateComment
+                postId={post.id}
+                onCreated={handleCommentCreated}
+            />)}
 
             {topLevelComments.length === 0 ? (
                 <p className="comments-empty">

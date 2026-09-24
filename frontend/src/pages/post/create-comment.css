@@ -1,0 +1,46 @@
+.create-comment {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px 24px;
+}
+
+.create-comment textarea {
+    width: 100%;
+    min-height: 100px;
+    padding: 12px;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    background: var(--color-background);
+    color: var(--color-text);
+    resize: vertical;
+}
+
+.create-comment textarea:focus {
+    outline: none;
+    border-color: var(--color-text-muted);
+}
+
+.create-comment button {
+    align-self: flex-end;
+    padding: 8px 16px;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    background: var(--color-surface);
+    color: var(--color-text);
+    cursor: pointer;
+}
+
+.create-comment button:hover {
+    background: var(--color-border);
+}
+
+.create-comment button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.create-comment-error {
+    color: var(--color-text-muted);
+    font-size: 14px;
+}

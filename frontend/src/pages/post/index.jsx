@@ -100,7 +100,7 @@ function Post() {
                 </div>
 
                 <section className="post-comments">
-                    <Comments postId={id} />
+                    <Comments post={post} />
                 </section>
             </article>
         </div>
