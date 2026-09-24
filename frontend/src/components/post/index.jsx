@@ -8,9 +8,9 @@ function Post({ post }) {
                 <div className="post-card-header">
                     <h2 className="post-card-title">{post.title}</h2>
 
-                    <span className={`post-card-status post-card-status-${post.status}`}>
+                    {post.status !== "active" && (<span className={`post-card-status`}>
                         {post.status}
-                    </span>
+                    </span>)}
                 </div>
 
                 <p className="post-card-content">
