@@ -109,6 +109,7 @@ function Comments({ post }) {
 
             {post.status === 'active' && user && (<CreateComment
                 postId={post.id}
+                quoteId={null}
                 onCreated={handleCommentCreated}
             />)}
 
@@ -120,12 +121,14 @@ function Comments({ post }) {
                 <div className="comments-list">
                     {topLevelComments.map((comment) => (
                         <Comment
+                            postId={post.id}
                             key={comment.id}
                             comment={comment}
                             comments={comments}
                             authors={authors}
                             commentLikes={likes}
                             onLikesChange={handleLikesChange}
+                            onCommentCreated={handleCommentCreated}
                             expanded={expanded}
                             toggleReplies={toggleReplies}
                             user={user}

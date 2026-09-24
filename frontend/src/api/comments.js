@@ -1,7 +1,7 @@
 import { api } from './api.js';
 
-export function post(post_id, content) {
-    return api.post(`/posts/${post_id}/comments`, { content });
+export function post(post_id, content, quoteId) {
+    return api.post(`/posts/${post_id}/comments`, { content, quoteId });
 }
 
 export function getByPostId(post_id) {

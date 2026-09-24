@@ -64,3 +64,17 @@
 .comment-reply {
     background: var(--color-surface);
 }
+
+.comment-answer {
+    margin-left: auto;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.comment-answer:hover {
+    text-decoration: underline;
+}

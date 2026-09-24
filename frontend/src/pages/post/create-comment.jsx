@@ -2,7 +2,7 @@ import { useState } from "react";
 import { post as createComment } from "../../api/comments";
 import "./create-comment.css";
 
-function CreateComment({ postId, onCreated }) {
+function CreateComment({ postId, quoteId, onCreated }) {
     const [content, setContent] = useState("");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -18,7 +18,7 @@ function CreateComment({ postId, onCreated }) {
             setLoading(true);
             setError(null);
 
-            const comment = await createComment(postId, content.trim());
+            const comment = await createComment(postId, content.trim(), quoteId);
 
             setContent("");
             onCreated?.(comment);
@@ -34,7 +34,7 @@ function CreateComment({ postId, onCreated }) {
             <textarea
                 value={content}
                 onChange={(event) => setContent(event.target.value)}
-                placeholder="Write a comment..."
+                placeholder={quoteId ? "Write an answer..." : "Write a comment..."}
                 disabled={loading}
             />
 
