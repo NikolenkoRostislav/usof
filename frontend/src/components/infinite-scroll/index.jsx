@@ -52,8 +52,49 @@ function InfiniteScroll({ filters = {} }) {
     }
 
     useEffect(() => {
-        loadPosts();
-    }, []);
+        let cancelled = false;
+
+        async function loadInitialPosts() {
+            loadingRef.current = true;
+            setLoading(true);
+            setError(null);
+
+            try {
+                const response = await getPosts({
+                    ...filters,
+                    page: 0,
+                });
+
+                if (cancelled) {
+                    return;
+                }
+
+                setPosts(response.posts);
+                setPage(1);
+                setHasMore(response.posts.length > 0);
+            } catch (error) {
+                if (!cancelled) {
+                    setError(error);
+                }
+            } finally {
+                if (!cancelled) {
+                    loadingRef.current = false;
+                    setLoading(false);
+                }
+            }
+        }
+
+        setPosts([]);
+        setPage(0);
+        setHasMore(true);
+        setError(null);
+
+        loadInitialPosts();
+
+        return () => {
+            cancelled = true;
+        };
+    }, [filters]);
 
     useEffect(() => {
         const observer = new IntersectionObserver(entries => {

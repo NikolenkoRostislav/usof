@@ -1,9 +1,78 @@
 .home-page {
-    width: min(900px, 100%);
+    width: min(1200px, 100%);
     margin: 0 auto;
     padding: 32px 20px;
+
+    display: grid;
+    grid-template-columns: 220px minmax(0, 1fr);
+    gap: 32px;
+    align-items: start;
 }
 
 .home-page h1 {
+    grid-column: 2;
     margin: 0 0 24px;
+}
+
+.post-filters {
+    position: sticky;
+    top: 80px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    padding: 16px;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    background: var(--color-surface);
+}
+
+.post-filter {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.post-filter label {
+    color: var(--color-text-muted);
+    font-size: 13px;
+}
+
+.post-filter input,
+.post-filter select {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8px 10px;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    background: var(--color-background);
+}
+
+.post-filters form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.post-filters button {
+    padding: 8px 10px;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+@media (max-width: 700px) {
+    .home-page {
+        display: block;
+    }
+
+    .home-page h1 {
+        margin-bottom: 24px;
+    }
+
+    .post-filters {
+        position: static;
+        margin-bottom: 24px;
+    }
 }
