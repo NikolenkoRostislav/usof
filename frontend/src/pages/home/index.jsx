@@ -1,9 +1,12 @@
+import { useNavigate } from "react-router";
 import { useState } from "react";
 import InfiniteScroll from "../../components/infinite-scroll";
 import PostFilters from "./post-filters";
 import "./home.css";
 
 function Home() {
+    const navigate = useNavigate();
+
     const [filters, setFilters] = useState({});
     const [search, setSearch] = useState("");
 
@@ -29,13 +32,22 @@ function Home() {
         <div className="home-page">
             <h1>Posts</h1>
 
-            <PostFilters
-                filters={filters}
-                search={search}
-                onFilterChange={handleFilterChange}
-                onSearchChange={event => setSearch(event.target.value)}
-                onSearch={handleSearch}
-            />
+            <div className="home-sidebar">
+                <button
+                    className="create-post-button"
+                    onClick={() => navigate("/create-post")}
+                >
+                    Create Post
+                </button>
+
+                <PostFilters
+                    filters={filters}
+                    search={search}
+                    onFilterChange={handleFilterChange}
+                    onSearchChange={event => setSearch(event.target.value)}
+                    onSearch={handleSearch}
+                />
+            </div>
 
             <InfiniteScroll filters={filters} />
         </div>

@@ -14,10 +14,24 @@
     margin: 0 0 24px;
 }
 
-.post-filters {
+.home-sidebar {
     position: sticky;
     top: 80px;
 
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.create-post-button {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.post-filters {
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -71,7 +85,7 @@
         margin-bottom: 24px;
     }
 
-    .post-filters {
+    .home-sidebar {
         position: static;
         margin-bottom: 24px;
     }
