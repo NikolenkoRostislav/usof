@@ -21,16 +21,6 @@ function Post({ post }) {
                     <span>
                         {new Date(post.publishDate).toLocaleDateString()}
                     </span>
-
-                    {post.categories?.length > 0 && (
-                        <div className="post-card-categories">
-                            {post.categories.map(category => (
-                                <span key={category} className="post-card-category">
-                                    {category}
-                                </span>
-                            ))}
-                        </div>
-                    )}
                 </div>
             </Link>
         </article>

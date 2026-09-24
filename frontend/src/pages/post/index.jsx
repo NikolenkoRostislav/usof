@@ -5,6 +5,7 @@ import { getById as getPostById } from "../../api/posts";
 import { getById as getUserById } from "../../api/users";
 import { getByPostId as getLikesByPostId } from "../../api/likes";
 import { getByPostId as getAwardsByPostId, getAwards as getAllAwards } from "../../api/awards";
+import { getAll as getAllCategories } from "../../api/categories";
 import Reactions from "./reactions";
 import Comments from "./comments";
 import Awards from "./awards";
@@ -18,6 +19,7 @@ function Post() {
     const [author, setAuthor] = useState(null);
     const [likes, setLikes] = useState([]);
     const [awards, setAwards] = useState([]);
+    const [categories, setCategories] = useState([]);
     const [allAwardsData, setAllAwardsData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -30,11 +32,18 @@ function Post() {
 
                 const postData = await getPostById(id);
 
-                const [authorData, likesData, awardsData, allAwardsData] = await Promise.all([
+                const [
+                    authorData,
+                    likesData,
+                    awardsData,
+                    allAwardsData,
+                    categoriesData
+                ] = await Promise.all([
                     getUserById(postData.authorId),
                     getLikesByPostId(id),
                     getAwardsByPostId(id),
                     getAllAwards(),
+                    getAllCategories(),
                 ]);
 
                 setPost(postData);
@@ -42,6 +51,7 @@ function Post() {
                 setLikes(likesData.likes);
                 setAwards(awardsData.awards);
                 setAllAwardsData(allAwardsData.awards);
+                setCategories(categoriesData.categories);
             } catch (error) {
                 setError(error);
             } finally {
@@ -78,6 +88,17 @@ function Post() {
                         <span>
                             {new Date(post.publishDate).toLocaleDateString()}
                         </span>
+                    </div>
+
+                    <div className="post-categories">
+                        {post.categories.map(category => (
+                            <span
+                                key={category.id}
+                                className="post-category"
+                            >
+                                {category.title}
+                            </span>
+                        ))}
                     </div>
 
                     <Awards
