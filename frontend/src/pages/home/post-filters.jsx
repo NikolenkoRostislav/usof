@@ -33,7 +33,7 @@ function PostFilters({
                     onChange={onFilterChange}
                 >
                     <option value="">Likes</option>
-                    <option value="publishDate">Last Added</option>
+                    <option value="date">Last Added</option>
                 </select>
             </div>
 

@@ -5,6 +5,7 @@ import Registration from "./pages/registration";
 import Profile from "./pages/profile";
 import NotFound from "./pages/not-found";
 import Post from "./pages/post";
+import CreatePost from "./pages/create-post";
 import "./App.css";
 import Header from "./components/header";
 import Footer from "./components/footer";
@@ -22,6 +23,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/profile/:id" element={<Profile />} />
           <Route path="/posts/:id" element={<Post />} />
+          <Route path="/create-post" element={<CreatePost />} />
 
           <Route path="*" element={<NotFound />} />
         </Routes>
