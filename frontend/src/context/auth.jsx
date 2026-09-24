@@ -9,7 +9,6 @@ export function AuthProvider({ children }) {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // login("a", "aaaaaaA1")
         getMe()
             .then(setUser)
             .catch(() => setUser(null))
