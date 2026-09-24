@@ -69,6 +69,10 @@
     gap: 20px;
     padding: 10px 24px;
     background: var(--color-surface);
+
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
 .header-menu a {
