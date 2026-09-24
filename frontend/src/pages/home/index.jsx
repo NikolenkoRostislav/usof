@@ -1,11 +1,13 @@
 import { useNavigate } from "react-router";
 import { useState } from "react";
+import { useAuth } from "../../context/auth";
 import InfiniteScroll from "../../components/infinite-scroll";
 import PostFilters from "./post-filters";
 import "./home.css";
 
 function Home() {
     const navigate = useNavigate();
+    const { user, loading } = useAuth();
 
     const [filters, setFilters] = useState({});
     const [search, setSearch] = useState("");
@@ -36,6 +38,8 @@ function Home() {
                 <button
                     className="create-post-button"
                     onClick={() => navigate("/create-post")}
+                    disabled={loading || !user}
+                    title={!user ? "You must be logged in to create a post." : ""}
                 >
                     Create Post
                 </button>
