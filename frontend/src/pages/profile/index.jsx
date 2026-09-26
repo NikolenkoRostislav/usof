@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { useAuth } from "../../context/auth";
 import { getById } from "../../api/users";
+import { get as getPosts } from "../../api/posts";
 import ProfileData from "./profile-data";
 import ProfileEdit from "./profile-edit";
 import InfiniteScroll from "../../components/infinite-scroll";
@@ -78,7 +79,7 @@ function Profile() {
                 <h2>Posts</h2>
 
                 <InfiniteScroll
-                    filters={{ authorId: user.id }}
+                    filters={{ authorId: user.id }} getPosts={getPosts}
                 />
             </section>
         </div>

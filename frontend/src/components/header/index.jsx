@@ -86,6 +86,7 @@ function Header() {
             </header>
             <nav className="header-menu">
                 <Link to="/">Home</Link>
+                <Link to="/categories">Categories</Link>
                 <Link to="/gacha">Gacha</Link>
 
                 {user && (

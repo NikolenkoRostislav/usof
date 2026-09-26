@@ -1,6 +1,7 @@
 import { useNavigate, useParams } from "react-router";
 import { useState } from "react";
 import { useAuth } from "../../context/auth";
+import { get as getPosts } from "../../api/posts";
 import InfiniteScroll from "../../components/infinite-scroll";
 import PostFilters from "./post-filters";
 import "./home.css";
@@ -54,7 +55,7 @@ function Home() {
                 />
             </div>
 
-            <InfiniteScroll filters={filters} />
+            <InfiniteScroll filters={filters} getPosts={getPosts} />
         </div>
     );
 }

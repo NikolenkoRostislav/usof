@@ -1,9 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { get as getPosts } from "../../api/posts";
 import Post from "../post";
 import "./infinite-scroll.css";
 
-function InfiniteScroll({ filters = {} }) {
+function InfiniteScroll({ filters = {}, getPosts }) {
     const [posts, setPosts] = useState([]);
     const [page, setPage] = useState(0);
     const [hasMore, setHasMore] = useState(true);

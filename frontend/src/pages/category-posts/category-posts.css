@@ -1,0 +1,9 @@
+.category-posts-page {
+    width: min(800px, 100%);
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.category-posts-page h1 {
+    margin: 0 0 24px;
+}
