@@ -53,7 +53,7 @@ function Header() {
                             </Link>
 
                             <div className="header-user-info">
-                                <span className="header-login">
+                                <span className="header-username">
                                     {user?.login ?? "Guest"}
                                 </span>
 
@@ -71,14 +71,15 @@ function Header() {
                                     Log out
                                 </button>
                             ) : (
-                                <Link to="/login">
-                                    <button
-                                        type="button"
-                                        className="header-logout"
-                                    >
+                                <>
+                                    <Link to="/login" className="header-login">
                                         Log in
-                                    </button>
-                                </Link>
+                                    </Link>
+
+                                    <Link to="/register" className="header-register">
+                                        Register
+                                    </Link>
+                                </>
                             )}
                         </div>
                     )}

@@ -74,3 +74,14 @@
 .registration-success p:last-child {
     margin-bottom: 0;
 }
+
+.registration-link {
+    margin: 0;
+    text-align: center;
+    color: var(--color-text-muted);
+    font-size: 13px;
+}
+
+.registration-link a {
+    color: var(--color-text);
+}

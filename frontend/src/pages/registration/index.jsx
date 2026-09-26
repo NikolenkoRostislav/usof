@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router";
 import { register } from "../../api/auth";
 import "./registration.css";
 
@@ -134,6 +135,10 @@ function Registration() {
                 >
                     {loading ? "Registering..." : "Register"}
                 </button>
+
+                <p className="registration-link">
+                    Already have an account? <Link to="/login">Log in</Link>
+                </p>
             </form>
         </div>
     );

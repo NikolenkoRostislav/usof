@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useAuth } from "../../context/auth";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import "./login.css";
 
 function Login() {
@@ -67,6 +67,10 @@ function Login() {
                 >
                     {loading ? "Logging in..." : "Login"}
                 </button>
+
+                <p className="login-link">
+                    Don't have an account? <Link to="/register">Register</Link>
+                </p>
             </form>
         </div>
     );
