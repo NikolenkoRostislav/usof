@@ -5,6 +5,7 @@ import Registration from "./pages/registration";
 import ConfirmRegistration from "./pages/confirm-registration";
 import Profile from "./pages/profile";
 import ResetPassword from "./pages/reset-password";
+import RequestPasswordReset from "./pages/request-password-reset";
 import NotFound from "./pages/not-found";
 import Post from "./pages/post";
 import CreatePost from "./pages/create-post";
@@ -23,6 +24,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Registration />} />
           <Route path="/confirm-registration/:token/:email" element={<ConfirmRegistration />} />
+          <Route path="/request-password-reset" element={<RequestPasswordReset />} />
           <Route path="/reset-password/:token/:email" element={<ResetPassword />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/profile/:id" element={<Profile />} />

@@ -69,6 +69,10 @@ function Login() {
                 </button>
 
                 <p className="login-link">
+                    <Link to="/request-password-reset">Forgot your password?</Link>
+                </p>
+
+                <p className="login-link">
                     Don't have an account? <Link to="/register">Register</Link>
                 </p>
             </form>

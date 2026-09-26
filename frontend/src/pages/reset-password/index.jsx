@@ -15,7 +15,9 @@ function ResetPassword() {
         async function confirm() {
             try {
                 await confirmPasswordReset(email, token);
-                await logout();
+                try {
+                    await logout();
+                } catch (error) { }
                 navigate("/login");
             } catch (error) {
                 setError(error);
