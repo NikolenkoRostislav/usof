@@ -81,6 +81,13 @@ class PasswordUpdateIntentsRepo {
         );
     }
 
+    async deleteByEmail(email) {
+        await this.connection.query(
+            "DELETE FROM password_update_intents WHERE email = ?",
+            [email]
+        );
+    }
+
     async deleteByTokenHash(tokenHash) {
         await this.connection.query(
             "DELETE FROM password_update_intents WHERE token_hash = ?",

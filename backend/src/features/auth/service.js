@@ -115,12 +115,13 @@ async function _createPasswordUpdateIntent(uow, email, newPassword) {
     const intent = new PasswordUpdateIntent({ email });
     await intent.setPassword(newPassword);
     const token = await intent.generateToken();
+    await passwordUpdateIntentsRepo.deleteByEmail(email);
     await passwordUpdateIntentsRepo.save(intent);
 
     await emailSender.sendEmail(
         email,
         "Reset your password",
-        `Please confirm your password reset by clicking the following link: ${frontedUrl}/reset-password?token=${token}
+        `Please confirm your password reset by clicking the following link: ${frontedUrl}/reset-password/${token}/${encodeURIComponent(email)}
         It will only be active for 10 minutes. If you did not request this, please ignore this email.`
     );
 }
