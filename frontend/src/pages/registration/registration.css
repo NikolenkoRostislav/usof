@@ -1,0 +1,76 @@
+.registration-page {
+    width: min(400px, 100%);
+    margin: 0 auto;
+    padding: 64px 20px;
+}
+
+.registration-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    padding: 24px;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    background: var(--color-surface);
+}
+
+.registration-form h1 {
+    margin: 0 0 8px;
+}
+
+.registration-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.registration-field label {
+    color: var(--color-text-muted);
+    font-size: 13px;
+}
+
+.registration-field input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    background: var(--color-background);
+}
+
+.registration-form button {
+    padding: 10px;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.registration-form button:disabled {
+    cursor: default;
+    opacity: 0.6;
+}
+
+.registration-error {
+    margin: 0;
+    color: var(--color-error);
+}
+
+.registration-success {
+    padding: 24px;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    background: var(--color-surface);
+}
+
+.registration-success h1 {
+    margin: 0 0 16px;
+}
+
+.registration-success p {
+    margin: 0 0 12px;
+}
+
+.registration-success p:last-child {
+    margin-bottom: 0;
+}
