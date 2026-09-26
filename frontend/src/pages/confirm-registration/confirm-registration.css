@@ -1,0 +1,21 @@
+.confirm-registration-page {
+    width: min(400px, 100%);
+    margin: 0 auto;
+    padding: 64px 20px;
+}
+
+.confirm-registration-message {
+    padding: 24px;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    background: var(--color-surface);
+}
+
+.confirm-registration-message h1 {
+    margin: 0 0 16px;
+}
+
+.confirm-registration-message p {
+    margin: 0;
+    color: var(--color-text-muted);
+}

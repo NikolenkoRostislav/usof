@@ -5,7 +5,7 @@ const emailSender = require("../../infra/email_sender/nodemailer");
 const { transactional } = require("../../infra/db/uow");
 const { AppError, Kind } = require("../../domain/errors");
 
-const frontedUrl = process.env.FRONTEND_URL || "http://localhost:3000";
+const frontedUrl = process.env.FRONTEND_URL || "http://localhost:5173";
 const registrationTokenExpirationMinutes = 10;
 const passwordUpdateTokenExpirationMinutes = 10;
 
@@ -30,11 +30,12 @@ async function _register(uow, login, password, email, fullName = null) {
     let registration = new RegistrationIntent({ login, email, fullName });
     registration.setPassword(password);
     const token = await registration.generateToken();
+    await registrationIntentsRepo.deleteByEmailOrLogin(email, login);
     await registrationIntentsRepo.save(registration);
     await emailSender.sendEmail(
         registration.email,
         "Confirm your registration",
-        `Please confirm your registration by clicking the following link: ${frontedUrl}/confirm-registration?token=${token}
+        `Please confirm your registration by clicking the following link: ${frontedUrl}/confirm-registration/${token}/${encodeURIComponent(email)}
         It will only be active for 10 minutes. If you did not request this, please ignore this email.`
     );
 }

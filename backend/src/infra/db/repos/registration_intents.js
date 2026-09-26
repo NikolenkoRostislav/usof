@@ -91,6 +91,13 @@ class RegistrationIntentsRepo {
         );
     }
 
+    async deleteByEmailOrLogin(email, login) {
+        await this.connection.query(
+            "DELETE FROM registration_intents WHERE email = ? OR login = ?",
+            [email, login]
+        );
+    }
+
     async deleteByTokenHash(tokenHash) {
         await this.connection.query(
             "DELETE FROM registration_intents WHERE token_hash = ?",

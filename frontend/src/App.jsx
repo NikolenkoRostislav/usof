@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router";
 import Home from "./pages/home";
 import Login from "./pages/login";
 import Registration from "./pages/registration";
+import ConfirmRegistration from "./pages/confirm-registration";
 import Profile from "./pages/profile";
 import NotFound from "./pages/not-found";
 import Post from "./pages/post";
@@ -20,6 +21,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Registration />} />
+          <Route path="/confirm-registration/:token/:email" element={<ConfirmRegistration />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/profile/:id" element={<Profile />} />
           <Route path="/posts/:id" element={<Post />} />
