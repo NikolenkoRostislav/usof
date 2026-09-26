@@ -21,6 +21,7 @@ function App() {
       <main className="app-content">
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/search/:search" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Registration />} />
           <Route path="/confirm-registration/:token/:email" element={<ConfirmRegistration />} />

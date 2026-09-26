@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useState } from "react";
 import { useAuth } from "../../context/auth";
 import InfiniteScroll from "../../components/infinite-scroll";
@@ -7,10 +7,11 @@ import "./home.css";
 
 function Home() {
     const navigate = useNavigate();
+    const { search: searchParam } = useParams();
     const { user, loading } = useAuth();
 
-    const [filters, setFilters] = useState({});
-    const [search, setSearch] = useState("");
+    const [filters, setFilters] = useState({ title: searchParam || undefined, sortBy: "dateAdded" });
+    const [search, setSearch] = useState(searchParam || "");
 
     function handleFilterChange(event) {
         const { name, value } = event.target;

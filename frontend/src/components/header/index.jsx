@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router";
+import { Link } from "react-router";
 import { useAuth } from "../../context/auth";
 import Avatar from "../avatar";
 import "./header.css";
@@ -7,7 +7,6 @@ import "./header.css";
 function Header() {
     const { user, loading, logout } = useAuth();
     const [search, setSearch] = useState("");
-    const navigate = useNavigate();
 
     function handleSearch(event) {
         event.preventDefault();
@@ -16,8 +15,7 @@ function Header() {
             return;
         }
 
-        navigate(`/search?q=${encodeURIComponent(query)}`);
-        setSearch("");
+        window.location.href = `/search/${encodeURIComponent(query)}`;
     }
 
     return (
