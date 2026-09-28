@@ -66,17 +66,20 @@ async function _update(uow, postId, userId, isAdmin, updates) {
             throw new AppError(Kind.PermissionDenied, "Only admins can change post status");
         }
         post.status = updates.status;
-    } else {
-        if (post.authorId !== userId || post.status !== "active") {
+    }
+
+    if (updates.title !== undefined) {
+        if (post.authorId !== userId || (post.status === "locked" && !isAdmin)) {
             throw new AppError(Kind.PermissionDenied, "You cannot modify this post");
         }
+        post.title = updates.title;
+    }
 
-        if (updates.title !== undefined) {
-            post.title = updates.title;
+    if (updates.content !== undefined) {
+        if (post.authorId !== userId || (post.status === "locked" && !isAdmin)) {
+            throw new AppError(Kind.PermissionDenied, "You cannot modify this post");
         }
-        if (updates.content !== undefined) {
-            post.content = updates.content;
-        }
+        post.content = updates.content;
     }
 
     if (updates.categories !== undefined) {

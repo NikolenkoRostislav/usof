@@ -24,8 +24,8 @@ export function deleteById(id) {
     return api.delete(`/posts/${id}`);
 }
 
-export function patchById(id, title, content, status, categories) {
-    return api.patch(`/posts/${id}`, { title, content, status, categories });
+export function patchById(id, data) {
+    return api.patch(`/posts/${id}`, data);
 }
 
 export function post(title, content, categories) {

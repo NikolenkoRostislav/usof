@@ -10,6 +10,7 @@ import ResetPassword from "./pages/reset-password";
 import RequestPasswordReset from "./pages/request-password-reset";
 import NotFound from "./pages/not-found";
 import Post from "./pages/post";
+import EditPost from "./pages/edit-post";
 import CreatePost from "./pages/create-post";
 import "./App.css";
 import Header from "./components/header";
@@ -25,6 +26,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/search/:search" element={<Home />} />
           <Route path="/categories" element={<Categories />} />
+          <Route path="/posts/edit/:id" element={<EditPost />} />
           <Route path="/posts/category/:id" element={<CategoryPosts />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Registration />} />

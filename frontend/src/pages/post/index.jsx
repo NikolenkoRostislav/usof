@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useAuth } from "../../context/auth";
 import { getById as getPostById } from "../../api/posts";
 import { getById as getUserById } from "../../api/users";
 import { getByPostId as getLikesByPostId } from "../../api/likes";
 import { getByPostId as getAwardsByPostId, getAwards as getAllAwards } from "../../api/awards";
-import { getAll as getAllCategories } from "../../api/categories";
 import Reactions from "./reactions";
 import Comments from "./comments";
 import Awards from "./awards";
@@ -13,13 +12,13 @@ import "./post.css";
 
 function Post() {
     const { id } = useParams();
+    const navigate = useNavigate();
     const { user } = useAuth();
 
     const [post, setPost] = useState(null);
     const [author, setAuthor] = useState(null);
     const [likes, setLikes] = useState([]);
     const [awards, setAwards] = useState([]);
-    const [categories, setCategories] = useState([]);
     const [allAwardsData, setAllAwardsData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -37,13 +36,11 @@ function Post() {
                     likesData,
                     awardsData,
                     allAwardsData,
-                    categoriesData
                 ] = await Promise.all([
                     getUserById(postData.authorId),
                     getLikesByPostId(id),
                     getAwardsByPostId(id),
                     getAllAwards(),
-                    getAllCategories(),
                 ]);
 
                 setPost(postData);
@@ -51,7 +48,6 @@ function Post() {
                 setLikes(likesData.likes);
                 setAwards(awardsData.awards);
                 setAllAwardsData(allAwardsData.awards);
-                setCategories(categoriesData.categories);
             } catch (error) {
                 setError(error);
             } finally {
@@ -73,6 +69,8 @@ function Post() {
             </div>
         );
     }
+
+    const canEdit = user?.id === post.authorId || user?.role === "admin";
 
     return (
         <div className="post-page">
@@ -100,6 +98,15 @@ function Post() {
                             </span>
                         ))}
                     </div>
+
+                    {canEdit && (
+                        <button
+                            type="button"
+                            onClick={() => navigate(`/posts/edit/${id}`)}
+                        >
+                            Edit
+                        </button>
+                    )}
 
                     <Awards
                         awards={awards}
