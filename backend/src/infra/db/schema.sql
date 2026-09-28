@@ -47,7 +47,7 @@ CREATE TABLE comments (
 
     FOREIGN KEY (author_id) REFERENCES users(id) ON DELETE SET NULL,
     FOREIGN KEY (post_id) REFERENCES posts(id) ON DELETE CASCADE,
-    FOREIGN KEY (quote_id) REFERENCES comments(id) ON DELETE SET NULL
+    FOREIGN KEY (quote_id) REFERENCES comments(id) ON DELETE CASCADE
 );
 
 CREATE TABLE likes (

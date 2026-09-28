@@ -93,6 +93,24 @@ function Comments({ post }) {
         }));
     }
 
+    function handleCommentDeleted(commentId) {
+        setComments((current) =>
+            current.filter((comment) => comment.id !== commentId)
+        );
+
+        setLikes((current) => {
+            const next = { ...current };
+            delete next[commentId];
+            return next;
+        });
+
+        setExpanded((current) => {
+            const next = new Set(current);
+            next.delete(commentId);
+            return next;
+        });
+    }
+
     if (loading) {
         return (
             <section className="comments">
@@ -127,6 +145,7 @@ function Comments({ post }) {
                             comments={comments}
                             authors={authors}
                             commentLikes={likes}
+                            onCommentDeleted={handleCommentDeleted}
                             onLikesChange={handleLikesChange}
                             onCommentCreated={handleCommentCreated}
                             expanded={expanded}

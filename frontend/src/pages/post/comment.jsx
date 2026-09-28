@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Reactions from "./reactions";
 import CreateComment from "./create-comment";
+import { deleteById } from "../../api/comments";
 
 function Comment({
     postId,
@@ -10,6 +11,7 @@ function Comment({
     commentLikes,
     onLikesChange,
     onCommentCreated,
+    onCommentDeleted,
     expanded,
     toggleReplies,
     user,
@@ -24,6 +26,21 @@ function Comment({
     const author = authors[comment.authorId];
     const isExpanded = expanded.has(comment.id);
 
+    const canDelete = user?.id === comment.authorId || user?.role === "admin";
+
+    async function handleDelete() {
+        if (!window.confirm("Are you sure you want to delete this comment?")) {
+            return;
+        }
+
+        try {
+            await deleteById(comment.id);
+            onCommentDeleted?.(comment.id);
+        } catch (error) {
+            console.error("Failed to delete comment:", error);
+        }
+    }
+
     return (
         <article className={`comment ${reply ? "comment-reply" : ""}`}>
             <div className="comment-header">
@@ -34,6 +51,16 @@ function Comment({
                 <span>
                     {new Date(comment.publishDate).toLocaleDateString()}
                 </span>
+
+                {canDelete && (
+                    <button
+                        type="button"
+                        className="comment-delete"
+                        onClick={handleDelete}
+                    >
+                        Delete
+                    </button>
+                )}
 
                 <button
                     type="button"
@@ -67,6 +94,7 @@ function Comment({
                     }}
                 />
             )}
+
             {replies.length > 0 && (
                 <>
                     <button
@@ -74,8 +102,12 @@ function Comment({
                         className="comment-replies-toggle"
                         onClick={() => toggleReplies(comment.id)}
                     >
-                        {isExpanded ? "Hide replies"
-                            : `Show ${replies.length} ${replies.length === 1 ? "reply" : "replies"}`}
+                        {isExpanded
+                            ? "Hide replies"
+                            : `Show ${replies.length} ${replies.length === 1
+                                ? "reply"
+                                : "replies"
+                            }`}
                     </button>
 
                     {isExpanded && (
@@ -90,6 +122,7 @@ function Comment({
                                     commentLikes={commentLikes}
                                     onLikesChange={onLikesChange}
                                     onCommentCreated={onCommentCreated}
+                                    onCommentDeleted={onCommentDeleted}
                                     expanded={expanded}
                                     toggleReplies={toggleReplies}
                                     user={user}
