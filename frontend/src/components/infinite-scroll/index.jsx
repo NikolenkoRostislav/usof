@@ -41,6 +41,7 @@ function InfiniteScroll({ filters = {}, getPosts }) {
 
                 return [...prev, ...newPosts];
             });
+
             setPage(prev => prev + 1);
         } catch (error) {
             setError(error);
@@ -48,6 +49,10 @@ function InfiniteScroll({ filters = {}, getPosts }) {
             loadingRef.current = false;
             setLoading(false);
         }
+    }
+
+    function handlePostDelete(id) {
+        setPosts(prev => prev.filter(post => post.id !== id));
     }
 
     useEffect(() => {
@@ -121,6 +126,7 @@ function InfiniteScroll({ filters = {}, getPosts }) {
                 <Post
                     key={post.id}
                     post={post}
+                    onDelete={handlePostDelete}
                 />
             ))}
 
