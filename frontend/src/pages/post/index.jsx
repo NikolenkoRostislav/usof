@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router";
+import { useNavigate, useParams, Link } from "react-router";
 import { useAuth } from "../../context/auth";
 import { getById as getPostById } from "../../api/posts";
 import { getById as getUserById } from "../../api/users";
@@ -80,7 +80,13 @@ function Post() {
 
                     <div className="post-meta">
                         <span>
-                            {author?.login ?? "Unknown author"}
+                            {author ? (
+                                <Link to={`/profile/${author.id}`}>
+                                    {author.login}
+                                </Link>
+                            ) : (
+                                "Unknown author"
+                            )}
                         </span>
 
                         <span>

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router";
 import Reactions from "./reactions";
 import CreateComment from "./create-comment";
 import { deleteById, patchById } from "../../api/comments";
@@ -98,7 +99,13 @@ function Comment({
         <article className={`comment ${reply ? "comment-reply" : ""}`}>
             <div className="comment-header">
                 <strong>
-                    {author?.login ?? "Unknown author"}
+                    {author ? (
+                        <Link to={`/profile/${author.id}`}>
+                            {author.login}
+                        </Link>
+                    ) : (
+                        "Unknown author"
+                    )}
                 </strong>
 
                 <span>
