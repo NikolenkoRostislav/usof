@@ -16,6 +16,6 @@ export function deleteById(id) {
     return api.delete(`/comments/${id}`);
 }
 
-export function patchById(id, content, status) {
-    return api.patch(`/comments/${id}`, { content, status });
+export function patchById(id, data) {
+    return api.patch(`/comments/${id}`, data);
 }
