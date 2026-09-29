@@ -1,6 +1,27 @@
+import { useEffect, useState } from "react";
 import Avatar from "../../components/avatar";
+import { getOwned } from "../../api/awards";
 
 function ProfileData({ user, isOwnProfile }) {
+    const [ownedAwards, setOwnedAwards] = useState([]);
+
+    useEffect(() => {
+        if (!isOwnProfile) {
+            return;
+        }
+
+        async function loadOwnedAwards() {
+            try {
+                const data = await getOwned();
+                setOwnedAwards(data.awards);
+            } catch (error) {
+                console.error("Failed to load owned awards:", error);
+            }
+        }
+
+        loadOwnedAwards();
+    }, [isOwnProfile]);
+
     return (
         <section className="profile-card">
             <div className="profile-avatar">
@@ -36,6 +57,25 @@ function ProfileData({ user, isOwnProfile }) {
                         </div>
                     )}
                 </div>
+
+                {isOwnProfile && ownedAwards.length > 0 && (
+                    <div className="profile-awards">
+                        <span>Awards</span>
+
+                        <div className="profile-awards-list">
+                            {ownedAwards.map((owned) => (
+                                <div
+                                    key={owned.awardId}
+                                    className={`profile-award-${owned.award?.rarity ?? "common"}`}
+                                    title={owned.award?.description}
+                                >
+                                    <strong>{owned.award?.title}</strong>
+                                    <span> | {owned.count}</span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                )}
             </div>
         </section>
     );
