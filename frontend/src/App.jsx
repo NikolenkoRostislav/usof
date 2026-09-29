@@ -10,6 +10,7 @@ import ResetPassword from "./pages/reset-password";
 import RequestPasswordReset from "./pages/request-password-reset";
 import NotFound from "./pages/not-found";
 import Post from "./pages/post";
+import Gacha from "./pages/gacha";
 import EditPost from "./pages/edit-post";
 import CreatePost from "./pages/create-post";
 import "./App.css";
@@ -29,6 +30,7 @@ function App() {
           <Route path="/posts/edit/:id" element={<EditPost />} />
           <Route path="/posts/category/:id" element={<CategoryPosts />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/gacha" element={<Gacha />} />
           <Route path="/register" element={<Registration />} />
           <Route path="/confirm-registration/:token/:email" element={<ConfirmRegistration />} />
           <Route path="/request-password-reset" element={<RequestPasswordReset />} />
