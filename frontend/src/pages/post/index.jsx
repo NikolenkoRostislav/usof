@@ -58,6 +58,11 @@ function Post() {
         loadPost();
     }, [id]);
 
+    async function reloadAwards() {
+        const awardsData = await getAwardsByPostId(id);
+        setAwards(awardsData.awards);
+    }
+
     if (loading) {
         return <div className="post-page">Loading...</div>;
     }
@@ -115,8 +120,10 @@ function Post() {
                     )}
 
                     <Awards
+                        postId={post.id}
                         awards={awards}
                         allAwardsData={allAwardsData}
+                        onAwardGiven={reloadAwards}
                     />
                 </header>
 

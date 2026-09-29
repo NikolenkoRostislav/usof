@@ -397,7 +397,7 @@ const options = {
               type: "string",
               format: "uuid",
             },
-            awardId: {
+            award_id: {
               type: "string",
               format: "uuid",
             },

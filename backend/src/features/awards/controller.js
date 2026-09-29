@@ -40,7 +40,7 @@ const { PostAwardResponse, PostAwardsListResponse, AwardResponse } = require("./
 async function giveAward(req, res) {
     const userId = req.session.user.id;
     const { post_id } = req.params;
-    const giveAwardRequest = new GiveAwardRequest(req.body.awardId);
+    const giveAwardRequest = new GiveAwardRequest(req.body.award_id);
 
     const award = await awardService.giveAwardToPost(userId, post_id, giveAwardRequest.awardId);
     const response = new PostAwardResponse(award);
