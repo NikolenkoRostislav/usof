@@ -62,24 +62,25 @@ function Profile() {
 
     return (
         <div className="profile-page">
-            <ProfileData
-                user={user}
-                isOwnProfile={isOwnProfile}
-            />
-
-            {canManage && (
-                <ProfileEdit
+            <div className="profile-hero">
+                <ProfileData
                     user={user}
-                    onUserChange={setUser}
                     isOwnProfile={isOwnProfile}
                 />
-            )}
+
+                {canManage && (
+                    <ProfileEdit
+                        user={user}
+                        onUserChange={setUser}
+                        isOwnProfile={isOwnProfile}
+                    />
+                )}
+            </div>
 
             <section className="profile-posts">
-                <h2>Posts</h2>
-
                 <InfiniteScroll
-                    filters={{ authorId: user.id }} getPosts={getPosts}
+                    filters={{ authorId: user.id }}
+                    getPosts={getPosts}
                 />
             </section>
         </div>

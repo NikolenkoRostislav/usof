@@ -24,16 +24,18 @@ function ProfileData({ user, isOwnProfile }) {
 
     return (
         <section className="profile-card">
+            {user.role === 'admin' && (
+                <div className="profile-admin">
+                    ADMIN
+                </div>
+            )}
+
             <div className="profile-avatar">
                 <Avatar user={user} />
             </div>
 
             <div className="profile-info">
                 <h1>{user.login}</h1>
-
-                <p className="profile-role">
-                    {user.role}
-                </p>
 
                 <div className="profile-details">
                     <div>
@@ -69,8 +71,14 @@ function ProfileData({ user, isOwnProfile }) {
                                     className={`profile-award-${owned.award?.rarity ?? "common"}`}
                                     title={owned.award?.description}
                                 >
-                                    <strong>{owned.award?.title}</strong>
-                                    <span> | {owned.count}</span>
+                                    <strong>
+                                        {owned.award?.title}
+                                    </strong>
+
+                                    <span>
+                                        {" | "}
+                                        {owned.count}
+                                    </span>
                                 </div>
                             ))}
                         </div>

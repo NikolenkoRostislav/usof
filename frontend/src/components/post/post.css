@@ -1,54 +1,102 @@
 .post-card {
     overflow: hidden;
+
     border: 1px solid var(--color-border);
-    border-radius: 12px;
-    background: var(--color-background);
+    border-radius: var(--radius-lg);
+
+    background:
+        linear-gradient(135deg,
+            rgba(201, 162, 39, 0.025),
+            transparent 45%),
+        var(--color-surface);
+
+    box-shadow:
+        0 6px 18px rgba(0, 0, 0, 0.18);
+
     transition:
-        transform 0.15s ease,
-        box-shadow 0.15s ease,
-        border-color 0.15s ease;
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast),
+        border-color var(--transition-fast);
 }
 
 .post-card:hover {
-    transform: translateY(-5px);
-    border-color: #aaa;
+    transform: translateY(-2px);
+
+    border-color: var(--color-gold-dark);
+
+    box-shadow:
+        0 10px 28px rgba(0, 0, 0, 0.28),
+        var(--shadow-gold);
 }
+
+
+/* ===== Card Link ===== */
 
 .post-card-link {
     display: block;
-    padding: 20px;
+
+    padding: var(--space-6);
+
     color: inherit;
     text-decoration: none;
 }
+
+
+/* ===== Header ===== */
 
 .post-card-header {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    gap: 16px;
+
+    gap: var(--space-4);
 }
 
 .post-card-title {
     margin: 0;
-    font-size: 1.35rem;
-    line-height: 1.3;
+
+    color: var(--color-text);
+
+    font-family: var(--font-display);
+    font-size: 1.45rem;
+    font-weight: 600;
+    line-height: 1.25;
 }
+
+
+/* ===== Status ===== */
 
 .post-card-status {
     flex-shrink: 0;
-    padding: 4px 9px;
-    border-radius: 999px;
-    background: var(--color-surface);
+
+    padding: 4px 10px;
+
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+
+    background: var(--color-surface-light);
+
     color: var(--color-text-muted);
-    font-size: 0.75rem;
+
+    font-family: var(--font-ui);
+    font-size: 0.7rem;
     font-weight: 600;
+
     text-transform: capitalize;
+    letter-spacing: 0.04em;
 }
 
+
+/* ===== Content ===== */
+
 .post-card-content {
-    margin: 12px 0 20px;
+    margin: var(--space-3) 0 var(--space-5);
+
     color: var(--color-text-muted);
-    line-height: 1.55;
+
+    font-family: var(--font-ui);
+    font-size: 0.9rem;
+    line-height: 1.6;
 
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -57,13 +105,72 @@
     overflow: hidden;
 }
 
+
+/* ===== Footer ===== */
+
 .post-card-footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 12px;
-    padding-top: 14px;
+
+    gap: var(--space-3);
+
+    padding-top: var(--space-3);
+
     border-top: 1px solid var(--color-border);
+
     color: var(--color-text-muted);
-    font-size: 0.85rem;
+
+    font-family: var(--font-ui);
+    font-size: 0.8rem;
+}
+
+
+/* ===== Delete ===== */
+
+.post-card-delete {
+    padding: 5px 10px;
+
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm);
+
+    background: transparent;
+
+    color: var(--color-text-muted);
+
+    font-family: var(--font-ui);
+    font-size: 0.75rem;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        color var(--transition-fast),
+        background var(--transition-fast),
+        border-color var(--transition-fast);
+}
+
+.post-card-delete:hover {
+    border-color: rgba(168, 61, 50, 0.5);
+
+    background: rgba(168, 61, 50, 0.08);
+
+    color: var(--color-danger);
+}
+
+
+/* ===== Mobile ===== */
+
+@media (max-width: 500px) {
+    .post-card-link {
+        padding: var(--space-5);
+    }
+
+    .post-card-title {
+        font-size: 1.3rem;
+    }
+
+    .post-card-header {
+        gap: var(--space-3);
+    }
 }

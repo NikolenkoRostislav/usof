@@ -115,29 +115,88 @@ function InfiniteScroll({ filters = {}, getPosts }) {
     });
 
     return (
-        <div className="infinite-scroll">
-            {error && (
-                <p className="infinite-scroll-error">
-                    Failed to load posts.
-                </p>
-            )}
+        <section className="infinite-scroll">
+            <div className="infinite-scroll-architecture">
+                <div className="infinite-scroll-roof">
+                    <div className="infinite-scroll-roof-crown" />
+                    <div className="infinite-scroll-roof-architrave" />
+                    <div className="infinite-scroll-roof-frieze">
+                        <span>✦</span>
+                        <span>❖</span>
+                        <span>✦</span>
+                    </div>
+                    <div className="infinite-scroll-roof-cornice" />
+                </div>
 
-            {posts.map(post => (
-                <Post
-                    key={post.id}
-                    post={post}
-                    onDelete={handlePostDelete}
-                />
-            ))}
+                <div className="infinite-scroll-columns">
+                    <div className="roman-column roman-column-left">
+                        <div className="column-capital">
+                            <span />
+                            <span />
+                            <span />
+                        </div>
 
-            <div
-                ref={loadMoreRef}
-                className="infinite-scroll-load-more"
-            >
-                {loading && <p>Loading...</p>}
-                {!hasMore && <p>No more posts.</p>}
+                        <div className="column-shaft">
+                            <div className="column-fluting" />
+                        </div>
+
+                        <div className="column-base">
+                            <span />
+                            <span />
+                            <span />
+                        </div>
+                    </div>
+
+                    <div className="infinite-scroll-content">
+                        {error && (
+                            <p className="infinite-scroll-error">
+                                Failed to load posts.
+                            </p>
+                        )}
+
+                        {posts.map(post => (
+                            <Post
+                                key={post.id}
+                                post={post}
+                                onDelete={handlePostDelete}
+                            />
+                        ))}
+
+                        <div
+                            ref={loadMoreRef}
+                            className="infinite-scroll-load-more"
+                        >
+                            {loading && <p>Loading...</p>}
+                            {!hasMore && <p>No more posts.</p>}
+                        </div>
+                    </div>
+
+                    <div className="roman-column roman-column-right">
+                        <div className="column-capital">
+                            <span />
+                            <span />
+                            <span />
+                        </div>
+
+                        <div className="column-shaft">
+                            <div className="column-fluting" />
+                        </div>
+
+                        <div className="column-base">
+                            <span />
+                            <span />
+                            <span />
+                        </div>
+                    </div>
+                </div>
+
+                <div className="infinite-scroll-floor">
+                    <div className="infinite-scroll-floor-step floor-step-top" />
+                    <div className="infinite-scroll-floor-step floor-step-middle" />
+                    <div className="infinite-scroll-floor-step floor-step-bottom" />
+                </div>
             </div>
-        </div>
+        </section>
     );
 }
 
