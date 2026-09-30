@@ -11,7 +11,7 @@ function Home() {
     const { search: searchParam } = useParams();
     const { user, loading } = useAuth();
 
-    const [filters, setFilters] = useState({ title: searchParam || undefined, sortBy: "dateAdded" });
+    const [filters, setFilters] = useState({ title: searchParam || undefined, sortBy: "date" });
     const [search, setSearch] = useState(searchParam || "");
 
     function handleFilterChange(event) {
