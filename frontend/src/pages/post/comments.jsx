@@ -15,6 +15,7 @@ function Comments({ post }) {
     const [likes, setLikes] = useState({});
     const [expanded, setExpanded] = useState(new Set());
     const [loading, setLoading] = useState(true);
+    const [commentOrder, setCommentOrder] = useState([]);
 
     useEffect(() => {
         async function loadComments() {
@@ -45,9 +46,29 @@ function Comments({ post }) {
                         return [comment.id, data.likes];
                     })
                 );
-
                 setAuthors(Object.fromEntries(authorEntries));
                 setLikes(Object.fromEntries(likeEntries));
+
+                const likesByComment = Object.fromEntries(likeEntries);
+
+                const sortedComments = [...loadedComments]
+                    .filter((comment) => comment.quoteId === null)
+                    .sort((a, b) => {
+                        const aLikes = likesByComment[a.id] ?? [];
+                        const bLikes = likesByComment[b.id] ?? [];
+
+                        const aScore =
+                            aLikes.filter((like) => like.type === "like").length -
+                            aLikes.filter((like) => like.type === "dislike").length;
+
+                        const bScore =
+                            bLikes.filter((like) => like.type === "like").length -
+                            bLikes.filter((like) => like.type === "dislike").length;
+
+                        return bScore - aScore;
+                    });
+
+                setCommentOrder(sortedComments.map((comment) => comment.id));
             } catch (error) {
                 console.error("Failed to load comments:", error);
             } finally {
@@ -119,7 +140,9 @@ function Comments({ post }) {
         );
     }
 
-    const topLevelComments = comments.filter((comment) => comment.quoteId === null);
+    const topLevelComments = commentOrder
+        .map((id) => comments.find((comment) => comment.id === id))
+        .filter((comment) => comment !== undefined)
 
     return (
         <section className="comments">
