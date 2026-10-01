@@ -123,7 +123,7 @@ async function getByCategory(categoryId, options, userId, isAdmin) {
     const postsRepo = uow.posts();
     let posts = await postsRepo.findByCategory(categoryId, options);
     if (!isAdmin) {
-        posts = posts.filter(p => p.status === "active" || p.authorId === userId);
+        posts = posts.filter(p => p.status !== "inactive" || p.authorId === userId);
     }
     return posts;
 }

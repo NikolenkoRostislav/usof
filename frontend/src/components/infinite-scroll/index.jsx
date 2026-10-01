@@ -122,7 +122,9 @@ function InfiniteScroll({ filters = {}, getPosts }) {
                     <div className="infinite-scroll-roof-architrave" />
                     <div className="infinite-scroll-roof-frieze">
                         <span>✦</span>
-                        <span>❖</span>
+                        <span className="infinite-scroll-posts-sign">
+                            POSTS
+                        </span>
                         <span>✦</span>
                     </div>
                     <div className="infinite-scroll-roof-cornice" />
@@ -167,7 +169,6 @@ function InfiniteScroll({ filters = {}, getPosts }) {
                             className="infinite-scroll-load-more"
                         >
                             {loading && <p>Loading...</p>}
-                            {!hasMore && <p>No more posts.</p>}
                         </div>
                     </div>
 
@@ -192,7 +193,13 @@ function InfiniteScroll({ filters = {}, getPosts }) {
 
                 <div className="infinite-scroll-floor">
                     <div className="infinite-scroll-floor-step floor-step-top" />
-                    <div className="infinite-scroll-floor-step floor-step-middle" />
+                    <div className="infinite-scroll-floor-step floor-step-middle">
+                        {!hasMore && (
+                            <span className="infinite-scroll-floor-inscription">
+                                NO MORE POSTS
+                            </span>
+                        )}
+                    </div>
                     <div className="infinite-scroll-floor-step floor-step-bottom" />
                 </div>
             </div>

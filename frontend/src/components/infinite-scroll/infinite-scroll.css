@@ -1,16 +1,15 @@
-/* =========================
-   ARCHITECTURAL FRAME
-   ========================= */
-
 .infinite-scroll-architecture {
     position: relative;
+
     width: 100%;
     padding: 0 78px;
+
     box-sizing: border-box;
 }
 
+
 /* =========================
-   MARBLE ROOF
+    MARBLE ROOF
    ========================= */
 
 .infinite-scroll-roof {
@@ -27,23 +26,7 @@
 .infinite-scroll-roof-cornice {
     border-color: #88785F;
 
-    background:
-        linear-gradient(105deg,
-            transparent 0%,
-            rgba(255, 255, 255, 0.10) 18%,
-            transparent 31%,
-            rgba(0, 0, 0, 0.07) 47%,
-            transparent 61%,
-            rgba(255, 255, 255, 0.07) 78%,
-            transparent 91%),
-        linear-gradient(90deg,
-            #9C9282,
-            #D8D0C0 18%,
-            #B6AC9B 37%,
-            #E0D8C9 55%,
-            #AAA090 73%,
-            #D1C8B7 88%,
-            #968A79);
+    background: var(--marble-base);
 
     color: #665A48;
 
@@ -73,9 +56,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 48px;
+    gap: 55px;
 
-    height: 36px;
+    height: 58px;
 
     border-top: 1px solid rgba(255, 255, 255, 0.16);
     border-bottom: 1px solid #76664D;
@@ -86,22 +69,71 @@
             transparent 44px,
             rgba(84, 72, 55, 0.12) 45px,
             transparent 46px),
-        linear-gradient(105deg,
-            #A59A89,
-            #D8D0C0 20%,
-            #B1A695 42%,
-            #DCD4C5 63%,
-            #9D9280);
+        var(--marble-base);
 }
 
-.infinite-scroll-roof-frieze span {
+.infinite-scroll-roof-frieze>span:first-child,
+.infinite-scroll-roof-frieze>span:last-child {
     color: var(--color-gold-dark);
+
+    font-size: 1.1rem;
+
     text-shadow:
         0 1px 1px rgba(255, 255, 255, 0.3);
 }
 
-.infinite-scroll-roof-frieze span:nth-child(2) {
-    color: #80631B;
+
+/* =========================
+    POSTS MARBLE SIGN
+   ========================= */
+
+.infinite-scroll-posts-sign {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 190px;
+    height: 42px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #796A52;
+
+    background: var(--marble-light);
+
+    color: #514633;
+
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 600;
+
+    letter-spacing: 0.18em;
+
+    text-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.45),
+        0 -1px 0 rgba(70, 55, 40, 0.18);
+
+    box-shadow:
+        0 3px 6px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.18);
+}
+
+.infinite-scroll-posts-sign::before {
+    content: "";
+
+    position: absolute;
+    inset: 5px;
+
+    border: 1px solid rgba(92, 77, 57, 0.45);
+
+    pointer-events: none;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.12),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.06);
 }
 
 .infinite-scroll-roof-cornice {
@@ -114,8 +146,9 @@
         0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
+
 /* =========================
-   COLUMNS
+    COLUMNS
    ========================= */
 
 .infinite-scroll-columns {
@@ -136,11 +169,13 @@
     align-items: center;
 
     min-height: 100%;
+
     z-index: 2;
 }
 
+
 /* =========================
-   CAPITAL
+    CAPITAL
    ========================= */
 
 .column-capital {
@@ -151,17 +186,9 @@
 
     flex-shrink: 0;
 
-    /* EXACTLY centered over the 42px shaft */
     box-sizing: border-box;
 
-    background:
-        linear-gradient(105deg,
-            #A09786,
-            #D8D0C0 18%,
-            #B2A797 38%,
-            #E0D8C9 56%,
-            #A79C8B 78%,
-            #D1C8B8);
+    background: var(--marble-light);
 
     border: 1px solid #7D6E56;
 
@@ -184,13 +211,7 @@
 
     border: 1px solid var(--color-gold-dark);
 
-    background:
-        linear-gradient(90deg,
-            #A69B8A,
-            #DCD4C4 25%,
-            #B2A797 50%,
-            #DED6C7 75%,
-            #9D9281);
+    background: var(--marble-base);
 
     box-shadow:
         0 2px 4px rgba(0, 0, 0, 0.3);
@@ -211,15 +232,9 @@
     border-top: 1px solid #76674F;
     border-bottom: 1px solid var(--color-gold-dark);
 
-    background:
-        repeating-linear-gradient(90deg,
-            #D5CCBC 0,
-            #D5CCBC 7px,
-            #A69B8A 8px,
-            #C8BFAF 11px);
+    background: var(--marble-base);
 }
 
-/* Capital decorative tiers */
 .column-capital span {
     position: absolute;
     left: 50%;
@@ -232,13 +247,7 @@
 
     border: 1px solid #827258;
 
-    background:
-        linear-gradient(90deg,
-            #AAA090,
-            #D8D0C0 25%,
-            #B4AA99 50%,
-            #DDD5C6 75%,
-            #A09685);
+    background: var(--marble-base);
 }
 
 .column-capital span:nth-child(1) {
@@ -256,8 +265,9 @@
     width: 58px;
 }
 
+
 /* =========================
-   SHAFT
+    SHAFT
    ========================= */
 
 .column-shaft {
@@ -275,13 +285,12 @@
 
     background:
         linear-gradient(90deg,
-            #918675 0%,
-            #C7BEAE 13%,
-            #E0D8C9 26%,
-            #AAA090 39%,
-            #D8D0C1 53%,
-            #A69B8A 68%,
-            #D6CDBD 84%,
+            #8E8271 0%,
+            #B7AD9C 18%,
+            #D8D0C0 35%,
+            #E0D8C9 50%,
+            #D8D0C0 65%,
+            #B7AD9C 82%,
             #8E8271 100%);
 
     box-shadow:
@@ -303,8 +312,9 @@
             transparent 9px);
 }
 
+
 /* =========================
-   BASE
+    BASE
    ========================= */
 
 .column-base {
@@ -317,14 +327,7 @@
 
     box-sizing: border-box;
 
-    background:
-        linear-gradient(105deg,
-            #9D9281,
-            #D8D0C0 20%,
-            #B0A595 42%,
-            #DDD5C6 61%,
-            #9B907F 81%,
-            #CEC5B5);
+    background: var(--marble-base);
 
     border: 1px solid #7D6E56;
 
@@ -344,13 +347,7 @@
 
     border: 1px solid #817258;
 
-    background:
-        linear-gradient(90deg,
-            #AAA090,
-            #D8D0C0 25%,
-            #B4AA99 50%,
-            #DCD4C4 75%,
-            #9B907F);
+    background: var(--marble-base);
 }
 
 .column-base span:nth-child(1) {
@@ -369,7 +366,7 @@
 }
 
 /* =========================
-   POSTS
+    POSTS
    ========================= */
 
 .infinite-scroll-content {
@@ -383,17 +380,11 @@
     min-width: 0;
 
     padding: 28px 12px 0;
-
-    background:
-        linear-gradient(90deg,
-            rgba(201, 162, 39, 0.025),
-            transparent 8%,
-            transparent 92%,
-            rgba(201, 162, 39, 0.025));
 }
 
+
 /* =========================
-   MARBLE FLOOR
+    MARBLE FLOOR
    ========================= */
 
 .infinite-scroll-floor {
@@ -403,26 +394,19 @@
 
     width: calc(100% + 156px);
     margin-left: -78px;
-
 }
 
 .infinite-scroll-floor-step {
+    position: relative;
+
     box-sizing: border-box;
 
-    height: 11px;
+    height: 22px;
 
     border-top: 1px solid #817258;
     border-bottom: 1px solid #75664F;
 
-    background:
-        linear-gradient(105deg,
-            #948978,
-            #D4CCBC 18%,
-            #AEA393 35%,
-            #DED6C7 53%,
-            #9E9382 70%,
-            #D0C7B7 88%,
-            #918574);
+    background: var(--marble-light);
 
     box-shadow:
         inset 0 1px 0 rgba(255, 255, 255, 0.28),
@@ -436,6 +420,7 @@
 
 .floor-step-middle {
     width: 97%;
+    height: 42px;
     margin: 0 auto;
 }
 
@@ -443,4 +428,32 @@
     width: 100%;
 
     border-top-color: var(--color-gold-dark);
+}
+
+
+/* =========================
+    FLOOR INSCRIPTION
+   ========================= */
+
+.infinite-scroll-floor-inscription {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+
+    color: rgba(72, 59, 43, 0.62);
+
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 600;
+
+    letter-spacing: 0.22em;
+
+    white-space: nowrap;
+
+    text-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.22),
+        0 -1px 0 rgba(45, 35, 25, 0.18);
 }

@@ -78,6 +78,43 @@
 
     --transition-normal:
         250ms ease;
+
+    /* ===== Textures ===== */
+
+    --marble-base:
+        linear-gradient(105deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0.10) 18%,
+            transparent 31%,
+            rgba(0, 0, 0, 0.07) 47%,
+            transparent 61%,
+            rgba(255, 255, 255, 0.07) 78%,
+            transparent 91%),
+        linear-gradient(90deg,
+            #9C9282,
+            #D8D0C0 18%,
+            #B6AC9B 37%,
+            #E0D8C9 55%,
+            #AAA090 73%,
+            #D1C8B7 88%,
+            #968A79);
+
+    --marble-light:
+        linear-gradient(105deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0.14) 18%,
+            transparent 31%,
+            rgba(0, 0, 0, 0.05) 47%,
+            transparent 61%,
+            rgba(255, 255, 255, 0.10) 78%,
+            transparent 91%),
+        linear-gradient(90deg,
+            #A09786,
+            #D8D0C0 18%,
+            #B2A797 38%,
+            #E0D8C9 56%,
+            #A79C8B 78%,
+            #D1C8B8);
 }
 
 

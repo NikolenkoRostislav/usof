@@ -34,8 +34,6 @@ function Home() {
 
     return (
         <div className="home-page">
-            <h1>Posts</h1>
-
             <div className="home-sidebar">
                 <button
                     className="create-post-button"
