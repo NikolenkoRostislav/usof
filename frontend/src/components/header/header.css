@@ -1,27 +1,75 @@
 .header {
+    position: relative;
+    z-index: 20;
+
     width: 100%;
 
-    border-bottom: 1px solid var(--color-border);
+    border-top: 2px solid var(--color-gold-dark);
+    border-bottom: 2px solid #75664F;
 
-    background:
-        linear-gradient(180deg,
-            rgba(201, 162, 39, 0.035),
-            transparent),
-        var(--color-bg);
+    background: var(--marble-base);
+
+    box-shadow:
+        0 5px 12px rgba(0, 0, 0, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.35),
+        inset 0 -2px 0 rgba(0, 0, 0, 0.18);
+}
+
+
+/* ===== Roof Details ===== */
+
+.header::before,
+.header::after {
+    content: "";
+
+    position: absolute;
+    left: 0;
+    right: 0;
+
+    background: var(--marble-light);
+
+    pointer-events: none;
+}
+
+.header::before {
+    top: 0;
+
+    height: 10px;
+
+    border-bottom: 1px solid #76664D;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+.header::after {
+    bottom: 0;
+
+    height: 8px;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.18);
+    border-bottom: 1px solid #76664D;
+
+    box-shadow:
+        0 3px 6px rgba(0, 0, 0, 0.3);
 }
 
 
 /* ===== Main Header ===== */
 
 .header-main {
+    position: relative;
+    z-index: 1;
+
     display: flex;
     align-items: center;
     gap: var(--space-6);
 
     width: min(1400px, calc(100% - 48px));
-    min-height: 68px;
+    min-height: 76px;
 
     margin: 0 auto;
+    padding: 10px 0;
 }
 
 
@@ -30,12 +78,16 @@
 .header-logo {
     flex-shrink: 0;
 
-    color: var(--color-gold-light);
+    color: #514633;
 
     font-family: var(--font-display);
-    font-size: 1.8rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
+    font-size: 1.9rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+
+    text-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.45),
+        0 -1px 0 rgba(70, 55, 40, 0.18);
 
     text-decoration: none;
 
@@ -45,10 +97,11 @@
 }
 
 .header-logo:hover {
-    color: var(--color-gold);
+    color: var(--color-gold-dark);
 
     text-shadow:
-        0 0 16px rgba(201, 162, 39, 0.25);
+        0 1px 0 rgba(255, 255, 255, 0.45),
+        0 0 12px rgba(201, 162, 39, 0.2);
 }
 
 
@@ -69,11 +122,11 @@
 
     padding: 0 var(--space-3);
 
-    border: 1px solid var(--color-border);
+    border: 1px solid #796A52;
     border-right: 0;
     border-radius: var(--radius-sm) 0 0 var(--radius-sm);
 
-    background: var(--color-surface);
+    background: rgba(33, 28, 23, 0.82);
 
     color: var(--color-text);
 
@@ -98,7 +151,7 @@
 
 .header-search input:focus {
     border-color: var(--color-gold);
-    background: var(--color-surface-light);
+    background: var(--color-surface);
 }
 
 .header-search button {
@@ -141,6 +194,38 @@
     margin-left: auto;
 }
 
+.header-avatar {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 40px;
+    height: 40px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: var(--color-surface);
+
+    box-shadow:
+        0 0 0 2px var(--marble-light),
+        0 0 0 3px var(--color-gold-dark);
+
+    transition:
+        box-shadow var(--transition-fast),
+        transform var(--transition-fast);
+}
+
+.header-avatar:hover {
+    box-shadow:
+        0 0 0 2px var(--marble-light),
+        0 0 0 3px var(--color-gold),
+        0 0 18px rgba(201, 162, 39, 0.2);
+}
+
 
 .header-user-info {
     display: flex;
@@ -150,7 +235,7 @@
 }
 
 .header-username {
-    color: var(--color-text);
+    color: #514633;
 
     font-family: var(--font-ui);
     font-size: 0.85rem;
@@ -162,7 +247,7 @@
 .header-role {
     margin-top: 2px;
 
-    color: var(--color-text-muted);
+    color: #75664F;
 
     font-family: var(--font-ui);
     font-size: 0.7rem;
@@ -179,10 +264,10 @@
     min-height: 34px;
     padding: 0 var(--space-3);
 
-    border: 1px solid var(--color-border);
+    border: 1px solid #796A52;
     border-radius: var(--radius-sm);
 
-    background: transparent;
+    background: rgba(33, 28, 23, 0.82);
 
     color: var(--color-text);
 
@@ -202,7 +287,7 @@
 
 .header-logout:hover,
 .header-login:hover {
-    border-color: var(--color-border-light);
+    border-color: var(--color-gold);
 
     background: var(--color-surface-light);
 
@@ -226,24 +311,37 @@
 }
 
 
-/* ===== Navigation ===== */
+/* ===== Navigation Frieze ===== */
 
 .header-menu {
     display: flex;
     align-items: center;
     gap: var(--space-8);
 
-    width: min(1400px, calc(100% - 48px));
-
-    margin: 0 auto;
-
+    width: 100%;
     min-height: 42px;
 
-    background: transparent;
+    padding: 0 max(24px, calc((100% - 1400px) / 2));
 
-    position: static;
+    box-sizing: border-box;
 
-    z-index: auto;
+    background:
+        repeating-linear-gradient(90deg,
+            transparent 0,
+            transparent 44px,
+            rgba(84, 72, 55, 0.10) 45px,
+            transparent 46px),
+        var(--marble-base);
+
+    border-top: 1px solid rgba(255, 255, 255, 0.16);
+    border-bottom: 2px solid #75664F;
+
+    position: sticky;
+    top: 0;
+    z-index: 100;
+
+    box-shadow:
+        0 4px 8px rgba(0, 0, 0, 0.25);
 }
 
 .header-menu a {
@@ -254,7 +352,7 @@
 
     height: 42px;
 
-    color: var(--color-text-muted);
+    color: #665A48;
 
     font-family: var(--font-ui);
     font-size: 0.8rem;
@@ -276,7 +374,7 @@
 
     height: 2px;
 
-    background: var(--color-gold);
+    background: var(--color-gold-dark);
 
     transform: scaleX(0);
     transform-origin: center;
@@ -286,7 +384,7 @@
 }
 
 .header-menu a:hover {
-    color: var(--color-gold-light);
+    color: var(--color-gold-dark);
 }
 
 .header-menu a:hover::after {
@@ -302,7 +400,7 @@
 
         flex-wrap: wrap;
 
-        padding: var(--space-3) 0;
+        padding: var(--space-4) 0;
     }
 
     .header-search {
@@ -313,7 +411,9 @@
     }
 
     .header-menu {
-        width: calc(100% - 32px);
+        width: 100%;
+
+        padding: 0 16px;
 
         gap: var(--space-5);
 
@@ -338,68 +438,70 @@
     }
 
     .header-menu {
-        width: calc(100% - 24px);
+        padding: 0 12px;
 
         gap: var(--space-4);
     }
 }
 
-.header-menu {
-    display: flex;
-    align-items: center;
-    gap: var(--space-8);
+/* ===== Auth Buttons ===== */
 
-    width: 100%;
-    min-height: 42px;
-
-    padding: 0 max(24px, calc((100% - 1400px) / 2));
-
-    box-sizing: border-box;
-
-    background: var(--color-surface);
-
-    border-bottom: 1px solid var(--color-border);
-
-    position: sticky;
-    top: 0;
-    z-index: 100;
-}
-
-.header-avatar {
-    position: relative;
-
-    display: flex;
+.header-logout,
+.header-login,
+.header-register {
+    display: inline-flex;
     align-items: center;
     justify-content: center;
 
-    width: 40px;
-    height: 40px;
+    min-height: 34px;
+    padding: 0 var(--space-4);
 
-    flex-shrink: 0;
+    box-sizing: border-box;
 
-    border: 1px;
-    border-radius: 50%;
+    border: 1px solid #796A52;
+    border-radius: var(--radius-sm);
 
-    background: var(--color-surface);
+    background: rgba(33, 28, 23, 0.82);
 
-    box-shadow:
-        0 0 0 2px var(--color-surface),
-        0 0 0 3px var(--color-gold-dark);
+    color: var(--color-text);
+
+    font-family: var(--font-ui);
+    font-size: 0.8rem;
+    font-weight: 600;
+    line-height: 1;
+
+    text-decoration: none;
+
+    cursor: pointer;
 
     transition:
+        background var(--transition-fast),
         border-color var(--transition-fast),
-        box-shadow var(--transition-fast),
+        color var(--transition-fast),
         transform var(--transition-fast);
 }
 
+.header-logout:hover,
+.header-login:hover {
+    border-color: var(--color-gold);
 
-.header-avatar:hover {
-    border-color: var(--color-gold-light);
+    background: var(--color-surface-light);
 
-    box-shadow:
-        0 0 0 2px var(--color-surface),
-        0 0 0 3px var(--color-gold),
-        0 0 18px rgba(201, 162, 39, 0.2);
+    color: var(--color-gold-light);
+}
 
-    transform: translateY(-1px);
+.header-register {
+    border-color: var(--color-gold-dark);
+
+    background: var(--color-gold);
+
+    color: var(--color-text-dark);
+}
+
+.header-register:hover {
+    border-color: var(--color-gold);
+
+    background: var(--color-gold-light);
+
+    color: var(--color-text-dark);
 }

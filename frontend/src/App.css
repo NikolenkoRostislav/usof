@@ -115,6 +115,16 @@
             #E0D8C9 56%,
             #A79C8B 78%,
             #D1C8B8);
+
+    --marble-column-shaft:
+        linear-gradient(90deg,
+            #8E8271 0%,
+            #B7AD9C 18%,
+            #D8D0C0 35%,
+            #E0D8C9 50%,
+            #D8D0C0 65%,
+            #B7AD9C 82%,
+            #8E8271 100%);
 }
 
 
@@ -331,4 +341,49 @@ p {
 
 .app>main {
     flex: 1;
+}
+
+/* ===== Page Columns ===== */
+
+@media (min-width: 769px) {
+
+    .app::before,
+    .app::after {
+        content: "";
+
+        position: fixed;
+        top: 0;
+        bottom: 0;
+
+        width: 110px;
+
+        background:
+            repeating-linear-gradient(90deg,
+                transparent 0,
+                transparent 8px,
+                rgba(79, 67, 51, 0.18) 9px,
+                rgba(255, 255, 255, 0.10) 11px,
+                transparent 13px),
+            var(--marble-column-shaft);
+
+        border-left: 1px solid #796B55;
+        border-right: 1px solid #796B55;
+
+        box-shadow:
+            inset 7px 0 9px rgba(255, 255, 255, 0.12),
+            inset -7px 0 9px rgba(0, 0, 0, 0.22),
+            0 0 16px rgba(0, 0, 0, 0.35);
+
+        z-index: 10;
+
+        pointer-events: none;
+    }
+
+    .app::before {
+        left: -45px;
+    }
+
+    .app::after {
+        right: -45px;
+    }
 }
