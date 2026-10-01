@@ -1,3 +1,5 @@
+import "./post-filters.css";
+
 function PostFilters({
     filters,
     search,

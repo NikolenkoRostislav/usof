@@ -3,35 +3,12 @@
    ========================= */
 
 .home-page {
-    width: min(1200px, 100%);
+    width: min(1240px, calc(100% - 80px));
     margin: 0 auto;
-    padding: var(--space-12) 20px var(--space-16);
 
-    display: grid;
-    grid-template-columns: 220px minmax(0, 1fr);
-    gap: var(--space-8);
+    padding: var(--space-12) 0 var(--space-16);
 
-    align-items: start;
-}
-
-
-/* =========================
-   PAGE HEADER
-   ========================= */
-
-.home-page h1 {
-    grid-column: 2;
-
-    margin: 0 0 var(--space-6);
-
-    color: var(--color-text);
-
-    font-family: var(--font-display);
-    font-size: clamp(2rem, 4vw, 2.75rem);
-    font-weight: 600;
-    line-height: 1;
-
-    letter-spacing: 0.01em;
+    box-sizing: border-box;
 }
 
 
@@ -40,14 +17,19 @@
    ========================= */
 
 .home-sidebar {
-    position: sticky;
-    top: var(--space-6);
+    position: fixed;
+    top: 175px;
+    left: max(32px, calc((100vw - 1560px) / 2));
+
+    width: 360px;
 
     display: flex;
     flex-direction: column;
-    gap: var(--space-5);
+    gap: var(--space-6);
 
-    padding: 22px 18px 18px;
+    padding: 36px 28px 28px;
+
+    box-sizing: border-box;
 
     border: 1px solid #796A52;
     border-radius: 3px;
@@ -75,7 +57,7 @@
         inset 0 1px 0 rgba(255, 255, 255, 0.3),
         inset 0 -1px 0 rgba(0, 0, 0, 0.25);
 
-    z-index: 1;
+    z-index: 30;
 }
 
 /* Inner carved frame */
@@ -108,8 +90,6 @@
 
     transform: translateX(-50%);
 
-    background: #BDB3A2;
-
     color: var(--color-gold-dark);
 
     font-family: var(--font-display);
@@ -117,6 +97,34 @@
 
     text-shadow:
         0 1px 1px rgba(255, 255, 255, 0.3);
+}
+
+
+/* =========================
+   INFINITE SCROLL AREA
+   ========================= */
+
+.home-page>.infinite-scroll {
+    width: min(880px, 100%);
+    margin-left: 300px;
+}
+
+
+/* =========================
+   PAGE HEADER
+   ========================= */
+
+.home-page h1 {
+    margin: 0 0 var(--space-6);
+
+    color: var(--color-text);
+
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    font-weight: 600;
+    line-height: 1;
+
+    letter-spacing: 0.01em;
 }
 
 
@@ -198,294 +206,38 @@
 
 
 /* =========================
-   POST FILTERS
-   ========================= */
-
-.post-filters {
-    position: relative;
-    z-index: 1;
-
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-5);
-
-    padding: 28px 14px 14px;
-
-    border: 1px solid #796A52;
-    border-radius: 2px;
-
-    background:
-        linear-gradient(118deg,
-            transparent 0%,
-            rgba(255, 255, 255, 0.08) 20%,
-            transparent 33%,
-            rgba(70, 59, 45, 0.07) 48%,
-            transparent 61%,
-            rgba(255, 255, 255, 0.06) 78%,
-            transparent 90%),
-        linear-gradient(90deg,
-            #9B9180,
-            #D5CDBD 18%,
-            #B0A696 36%,
-            #DED6C7 53%,
-            #A79D8C 70%,
-            #D0C7B8 86%,
-            #958978);
-
-    box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.28),
-        inset 0 -1px 0 rgba(0, 0, 0, 0.2),
-        0 5px 10px rgba(0, 0, 0, 0.22);
-}
-
-
-/* =========================
-   FILTER INNER FRAME
-   ========================= */
-
-.post-filters::before {
-    content: "";
-
-    position: absolute;
-    inset: 7px;
-
-    border: 1px solid rgba(92, 77, 57, 0.42);
-
-    pointer-events: none;
-
-    box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.12),
-        inset 0 -1px 0 rgba(255, 255, 255, 0.06);
-}
-
-
-/* Filter ornament */
-
-.post-filters::after {
-    content: "❖";
-
-    position: absolute;
-    top: 7px;
-    left: 50%;
-
-    padding: 0 7px;
-
-    transform: translateX(-50%);
-
-    background: #BDB3A2;
-
-    color: var(--color-gold-dark);
-
-    font-family: var(--font-display);
-    font-size: 0.65rem;
-
-    text-shadow:
-        0 1px 1px rgba(255, 255, 255, 0.3);
-}
-
-
-/* =========================
-   INDIVIDUAL FILTER
-   ========================= */
-
-.post-filter {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-
-.post-filter label {
-    position: relative;
-    z-index: 1;
-
-    padding-left: 2px;
-
-    color: #5E523F;
-
-    font-family: var(--font-display);
-    font-size: 0.9rem;
-    font-weight: 600;
-
-    letter-spacing: 0.04em;
-}
-
-
-/* =========================
-   SEARCH FORM
-   ========================= */
-
-.post-filters form {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-
-
-/* =========================
-   FILTER INPUTS
-   ========================= */
-
-.post-filter input,
-.post-filter select {
-    position: relative;
-    z-index: 1;
-
-    width: 100%;
-    box-sizing: border-box;
-
-    min-height: 38px;
-    padding: 8px 10px;
-
-    border: 1px solid #8B7D65;
-    border-radius: 2px;
-
-    background:
-        linear-gradient(180deg,
-            rgba(65, 53, 40, 0.12),
-            rgba(255, 255, 255, 0.06)),
-        rgba(74, 61, 45, 0.08);
-
-    color: #403729;
-
-    font-family: var(--font-ui);
-    font-size: 0.8rem;
-
-    outline: none;
-
-    box-shadow:
-        inset 0 2px 5px rgba(50, 40, 30, 0.20),
-        inset 0 1px 0 rgba(0, 0, 0, 0.10),
-        0 1px 0 rgba(255, 255, 255, 0.22);
-
-    transition:
-        border-color var(--transition-fast),
-        box-shadow var(--transition-fast),
-        background var(--transition-fast);
-}
-
-.post-filter input::placeholder {
-    color: #756956;
-    opacity: 1;
-}
-
-.post-filter input:hover,
-.post-filter select:hover {
-    border-color: #74634A;
-}
-
-.post-filter input:focus,
-.post-filter select:focus {
-    border-color: var(--color-gold-dark);
-
-    background:
-        linear-gradient(180deg,
-            rgba(65, 53, 40, 0.08),
-            rgba(255, 255, 255, 0.08)),
-        rgba(74, 61, 45, 0.06);
-
-    box-shadow:
-        inset 0 2px 5px rgba(50, 40, 30, 0.18),
-        0 0 0 1px rgba(201, 162, 39, 0.22);
-}
-
-
-/* =========================
-   DATE INPUTS
-   ========================= */
-
-.post-filter input[type="date"] {
-    color-scheme: light;
-}
-
-
-/* =========================
-   SEARCH BUTTON
-   ========================= */
-
-.post-filters form button {
-    position: relative;
-    z-index: 1;
-
-    min-height: 36px;
-    margin-top: 2px;
-    padding: 7px 12px;
-
-    border: 1px solid #80631B;
-    border-radius: 2px;
-
-    background:
-        linear-gradient(180deg,
-            var(--color-gold-light),
-            var(--color-gold) 55%,
-            #A98218);
-
-    color: #302719;
-
-    font-family: var(--font-display);
-    font-size: 0.9rem;
-    font-weight: 600;
-
-    letter-spacing: 0.03em;
-
-    cursor: pointer;
-
-    box-shadow:
-        0 3px 5px rgba(55, 42, 25, 0.25),
-        inset 0 1px 0 rgba(255, 255, 255, 0.35);
-
-    transition:
-        transform var(--transition-fast),
-        background var(--transition-fast),
-        box-shadow var(--transition-fast);
-}
-
-.post-filters form button:hover {
-    background:
-        linear-gradient(180deg,
-            #EBD16C,
-            var(--color-gold-light) 55%,
-            #B68F1E);
-
-    transform: translateY(-1px);
-
-    box-shadow:
-        0 5px 8px rgba(55, 42, 25, 0.3),
-        0 0 10px rgba(201, 162, 39, 0.12),
-        inset 0 1px 0 rgba(255, 255, 255, 0.4);
-}
-
-.post-filters form button:active {
-    transform: translateY(1px);
-
-    box-shadow:
-        0 2px 4px rgba(55, 42, 25, 0.3),
-        inset 0 2px 4px rgba(60, 45, 25, 0.18);
-}
-
-
-/* =========================
-   SELECT
-   ========================= */
-
-.post-filter select {
-    cursor: pointer;
-}
-
-.post-filter select option {
-    background: #D0C7B8;
-    color: #403729;
-}
-
-
-/* =========================
    RESPONSIVE
    ========================= */
 
+@media (max-width: 1000px) {
+    .home-page {
+        width: calc(100% - 48px);
+    }
+
+    .home-sidebar {
+        width: 280px;
+        left: 24px;
+    }
+
+    .home-page>.infinite-scroll {
+        margin-left: 320px;
+        width: calc(100% - 320px);
+    }
+}
+
+
 @media (max-width: 700px) {
     .home-page {
+        width: 100%;
+
         display: block;
 
-        padding-top: var(--space-8);
+        padding: var(--space-8) 20px var(--space-16);
+    }
+
+    .home-page>.infinite-scroll {
+        width: 100%;
+        margin-left: 0;
     }
 
     .home-page h1 {
@@ -495,9 +247,14 @@
     .home-sidebar {
         position: static;
 
+        width: 100%;
+
         margin-bottom: var(--space-6);
+
+        padding: 32px 24px 24px;
     }
 }
+
 
 @media (max-width: 500px) {
     .home-page {
@@ -506,10 +263,6 @@
     }
 
     .home-sidebar {
-        padding: 18px 14px 14px;
-    }
-
-    .post-filters {
-        padding: 26px 12px 12px;
+        padding: 24px 18px 18px;
     }
 }
