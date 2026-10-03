@@ -98,8 +98,6 @@
 
     transform: translateX(-50%);
 
-    background: #BDB3A2;
-
     color: var(--color-gold-dark);
 
     font-family: var(--font-display);
@@ -147,22 +145,7 @@
     border: 1px solid #796A52;
     border-radius: 3px;
 
-    background:
-        linear-gradient(118deg,
-            transparent 0%,
-            rgba(255, 255, 255, 0.07) 18%,
-            transparent 30%,
-            rgba(70, 59, 45, 0.05) 46%,
-            transparent 60%,
-            rgba(255, 255, 255, 0.05) 78%,
-            transparent 90%),
-        linear-gradient(90deg,
-            #8F8473,
-            #C9C0B0 19%,
-            #A79C8B 37%,
-            #D2CABB 55%,
-            #9F9483 74%,
-            #C8BFAD);
+    background: var(--marble-light);
 
     color: var(--color-text-dark);
 
@@ -336,13 +319,7 @@
 }
 
 .comment-reply {
-    background:
-        linear-gradient(90deg,
-            #817666,
-            #BDB3A3 22%,
-            #988D7C 48%,
-            #C4BAAA 72%,
-            #887D6C);
+    background: var(--marble-base);
 
     box-shadow:
         inset 2px 0 4px rgba(60, 48, 35, 0.16),

@@ -87,8 +87,6 @@
 
     transform: translateX(-50%);
 
-    background: #BDB3A2;
-
     color: var(--color-gold-dark);
 
     font-family: var(--font-display);
@@ -349,8 +347,6 @@
     padding: 0 10px;
 
     transform: translateX(-50%);
-
-    background: #BDB3A2;
 
     color: var(--color-gold-dark);
 
