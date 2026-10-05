@@ -5,25 +5,34 @@
 .post-reactions {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    gap: 3px;
 
     padding: 4px;
 
-    border: 1px solid #59471F;
+    border: 1px solid var(--color-gold-dark);
     border-radius: 3px;
 
-    background:
-        linear-gradient(180deg,
-            rgba(201, 162, 39, 0.06),
-            rgba(0, 0, 0, 0.08)),
-        var(--color-bg);
+    background: var(--marble-light);
 
     box-shadow:
-        inset 0 1px 3px rgba(0, 0, 0, 0.3),
-        0 1px 0 rgba(255, 255, 255, 0.03);
+        0 2px 5px rgba(0, 0, 0, 0.28),
+        inset 0 1px 0 rgba(255, 255, 255, 0.45),
+        inset 0 -1px 0 rgba(70, 55, 35, 0.2);
+}
+
+.post-reactions::before {
+    content: "";
+    position: absolute;
+    inset: 2px;
+
+    border: 1px solid rgba(90, 70, 35, 0.18);
+
+    pointer-events: none;
 }
 
 .post-reaction {
+    position: relative;
+
     min-width: 38px;
     min-height: 32px;
 
@@ -34,7 +43,7 @@
 
     background: transparent;
 
-    color: var(--color-text-muted);
+    color: #665d50;
 
     font-family: var(--font-ui);
     font-size: 0.9rem;
@@ -49,11 +58,12 @@
 }
 
 .post-reaction:hover:not(:disabled) {
-    border-color: var(--color-border);
+    border-color: rgba(141, 109, 22, 0.45);
 
-    background: var(--color-surface-light);
+    background:
+        rgba(255, 255, 255, 0.18);
 
-    color: var(--color-gold-light);
+    color: var(--color-gold-dark);
 
     transform: translateY(-1px);
 }
@@ -63,28 +73,30 @@
 
     background:
         linear-gradient(180deg,
-            rgba(201, 162, 39, 0.18),
-            rgba(201, 162, 39, 0.06));
+            rgba(201, 162, 39, 0.20),
+            rgba(141, 109, 22, 0.08));
 
-    color: var(--color-gold-light);
+    color: #765b12;
 
     box-shadow:
-        inset 0 1px 2px rgba(201, 162, 39, 0.12);
+        inset 0 1px 2px rgba(80, 60, 20, 0.15);
 }
 
 .post-reaction-disabled {
-    opacity: 0.4;
+    opacity: 0.45;
     cursor: not-allowed;
 }
 
 .post-score {
     min-width: 30px;
 
-    color: var(--color-text);
+    color: #332d25;
 
     font-family: var(--font-display);
-    font-size: 1rem;
+    font-size: 1.05rem;
     font-weight: 600;
 
     text-align: center;
+
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.45);
 }

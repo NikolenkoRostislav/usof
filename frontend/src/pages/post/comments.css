@@ -233,17 +233,19 @@
     position: relative;
     z-index: 1;
 
-    padding: 3px 7px;
+    padding: 6px 10px;
 
     border: 1px solid transparent;
     border-radius: 2px;
 
     background: transparent;
 
-    color: #675B49;
+    color: #594B38;
 
     font-family: var(--font-ui);
-    font-size: 0.7rem;
+    font-size: 0.84rem;
+    font-weight: 500;
+    line-height: 1.2;
 
     cursor: pointer;
 
@@ -259,7 +261,7 @@
 
     background: rgba(255, 255, 255, 0.12);
 
-    color: #4E412C;
+    color: #3F3424;
 }
 
 .comment-delete:hover {
@@ -283,47 +285,31 @@
     position: relative;
     z-index: 1;
 
-    margin-top: 14px;
+    display: inline-block;
+
+    margin-top: 10px;
+    margin-left: 10px;
     padding: 4px 0;
 
     border: 0;
 
     background: transparent;
 
-    color: #665018;
+    color: #5F4B15;
 
     font-family: var(--font-display);
-    font-size: 0.78rem;
+    font-size: 0.9rem;
     font-weight: 600;
 
     cursor: pointer;
+
+    transition:
+        color var(--transition-fast);
 }
 
 .comment-replies-toggle:hover {
     color: #8D6D16;
     text-decoration: underline;
-}
-
-.comment-replies {
-    position: relative;
-
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-
-    margin-top: 14px;
-    margin-left: 22px;
-    padding-left: 14px;
-
-    border-left: 2px solid #796A52;
-}
-
-.comment-reply {
-    background: var(--marble-base);
-
-    box-shadow:
-        inset 2px 0 4px rgba(60, 48, 35, 0.16),
-        0 3px 8px rgba(0, 0, 0, 0.2);
 }
 
 

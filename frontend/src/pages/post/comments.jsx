@@ -105,6 +105,10 @@ function Comments({ post }) {
             ...current,
             [comment.id]: []
         }));
+
+        if (comment.quoteId === null) {
+            setCommentOrder((current) => [...current, comment.id]);
+        }
     }
 
     function handleLikesChange(commentId, updatedLikes) {
