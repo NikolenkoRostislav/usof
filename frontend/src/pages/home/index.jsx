@@ -35,14 +35,16 @@ function Home() {
     return (
         <div className="home-page">
             <div className="home-sidebar">
-                <button
-                    className="create-post-button"
-                    onClick={() => navigate("/create-post")}
-                    disabled={loading || !user}
-                    title={!user ? "You must be logged in to create a post." : ""}
-                >
-                    Create Post
-                </button>
+                <div className="create-post-panel">
+                    <button
+                        className="create-post-button"
+                        onClick={() => navigate("/create-post")}
+                        disabled={loading || !user}
+                        title={!user ? "You must be logged in to create a post." : ""}
+                    >
+                        Create Post
+                    </button>
+                </div>
 
                 <PostFilters
                     filters={filters}
