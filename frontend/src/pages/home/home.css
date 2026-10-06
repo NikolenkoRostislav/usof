@@ -60,8 +60,6 @@
     z-index: 30;
 }
 
-/* Inner carved frame */
-
 .home-sidebar::before {
     content: "";
 
@@ -76,8 +74,6 @@
         inset 0 1px 0 rgba(255, 255, 255, 0.14),
         inset 0 -1px 0 rgba(255, 255, 255, 0.06);
 }
-
-/* Top ornament */
 
 .home-sidebar::after {
     content: "✦";
@@ -177,10 +173,6 @@
             #EBD16C,
             var(--color-gold-light) 55%,
             #B68F1E);
-
-    border-color: var(--color-gold);
-
-    transform: translateY(-1px);
 
     box-shadow:
         0 6px 11px rgba(55, 42, 25, 0.34),
