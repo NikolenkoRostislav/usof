@@ -8,22 +8,10 @@
 
     border-radius: inherit;
 
-    /* Slightly soften the image so it feels more like a portrait */
-    filter: saturate(0.9) contrast(1.05);
-
     transition:
         transform var(--transition-normal),
         filter var(--transition-normal);
 }
-
-.avatar:hover {
-    transform: scale(1.04);
-
-    filter: saturate(1) contrast(1.05);
-}
-
-
-/* ===== Loading Placeholder ===== */
 
 .avatar-placeholder {
     width: 100%;

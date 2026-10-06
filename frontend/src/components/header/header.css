@@ -211,21 +211,22 @@
     background: var(--color-surface);
 
     box-shadow:
-        0 0 0 2px var(--marble-light),
-        0 0 0 3px var(--color-gold-dark);
+        0 0 0 2px rgba(245, 239, 224, 0.7),
+        0 0 0 3px var(--color-gold-dark),
+        0 2px 5px rgba(55, 42, 25, 0.25);
+
+    overflow: hidden;
 
     transition:
-        box-shadow var(--transition-fast),
-        transform var(--transition-fast);
+        box-shadow var(--transition-fast);
 }
 
 .header-avatar:hover {
     box-shadow:
-        0 0 0 2px var(--marble-light),
+        0 0 0 2px rgba(245, 239, 224, 0.85),
         0 0 0 3px var(--color-gold),
-        0 0 18px rgba(201, 162, 39, 0.2);
+        0 0 12px rgba(201, 162, 39, 0.18);
 }
-
 
 .header-user-info {
     display: flex;

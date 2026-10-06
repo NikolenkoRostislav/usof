@@ -8,6 +8,7 @@ import { getByPostId as getAwardsByPostId, getAwards as getAllAwards } from "../
 import Reactions from "./reactions";
 import Comments from "./comments";
 import Awards from "./awards";
+import Avatar from "../../components/avatar";
 import "./post.css";
 
 function Post() {
@@ -84,17 +85,24 @@ function Post() {
                     <h1>{post.title}</h1>
 
                     <div className="post-meta">
-                        <span>
-                            {author ? (
+                        {author ? (
+                            <div className="post-author">
+                                <Link
+                                    to={`/profile/${author.id}`}
+                                    className="post-author-avatar"
+                                >
+                                    <Avatar user={author} />
+                                </Link>
+
                                 <Link to={`/profile/${author.id}`}>
                                     {author.login}
                                 </Link>
-                            ) : (
-                                "Unknown author"
-                            )}
-                        </span>
+                            </div>
+                        ) : (
+                            <span>Unknown author</span>
+                        )}
 
-                        <span>
+                        <span className="post-date">
                             {new Date(post.publishDate).toLocaleDateString()}
                         </span>
                     </div>
