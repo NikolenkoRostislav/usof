@@ -76,8 +76,6 @@
 
     padding: 0 12px;
 
-    background: #BDB3A2;
-
     color: var(--color-gold-dark);
 
     font-family: var(--font-display);
@@ -149,10 +147,6 @@
     letter-spacing: 0.04em;
 }
 
-/*
- * Inputs look recessed into the stone rather than
- * sitting on top of it.
- */
 
 .login-field input {
     width: 100%;
