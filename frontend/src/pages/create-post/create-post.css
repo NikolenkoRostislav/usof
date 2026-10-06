@@ -16,52 +16,23 @@
 
 .create-post-form {
     position: relative;
-
     display: flex;
     flex-direction: column;
     gap: 24px;
-
     padding: 42px 40px 36px;
-
     border: 1px solid #796A52;
     border-radius: 3px;
-
-    background:
-        linear-gradient(118deg,
-            transparent 0%,
-            rgba(255, 255, 255, 0.16) 16%,
-            transparent 29%,
-            rgba(70, 59, 45, 0.10) 43%,
-            transparent 56%,
-            rgba(255, 255, 255, 0.10) 73%,
-            transparent 87%),
-        linear-gradient(90deg,
-            #9B9180,
-            #D5CDBD 18%,
-            #B0A696 36%,
-            #DED6C7 53%,
-            #A79D8C 70%,
-            #D0C7B8 86%,
-            #958978);
-
+    background: var(--marble-panel-variant);
     color: var(--color-text-dark);
-
-    box-shadow:
-        0 12px 26px rgba(0, 0, 0, 0.34),
-        inset 0 1px 0 rgba(255, 255, 255, 0.32),
-        inset 0 -1px 0 rgba(0, 0, 0, 0.24);
+    box-shadow: var(--shadow-panel-md);
 }
 
 .create-post-form::before {
     content: "";
-
     position: absolute;
     inset: 10px;
-
-    border: 1px solid rgba(92, 77, 57, 0.45);
-
+    border: 1px solid var(--color-carved-frame-subtle);
     pointer-events: none;
-
     box-shadow:
         inset 0 1px 0 rgba(255, 255, 255, 0.14),
         inset 0 -1px 0 rgba(255, 255, 255, 0.07);
@@ -69,22 +40,15 @@
 
 .create-post-form::after {
     content: "✦";
-
     position: absolute;
     top: 9px;
     left: 50%;
-
     padding: 0 12px;
-
     transform: translateX(-50%);
-
     color: var(--color-gold-dark);
-
     font-family: var(--font-display);
     font-size: 0.8rem;
-
-    text-shadow:
-        0 1px 1px rgba(255, 255, 255, 0.3);
+    text-shadow: var(--ornament-text-shadow);
 }
 
 
@@ -94,21 +58,14 @@
 
 .create-post-form h1 {
     position: relative;
-
     margin: 0 0 4px;
-
     color: #514633;
-
     font-family: var(--font-display);
     font-size: clamp(2rem, 5vw, 2.8rem);
     font-weight: 600;
     line-height: 1.1;
-
     letter-spacing: 0.015em;
-
-    text-shadow:
-        0 1px 0 rgba(255, 255, 255, 0.45),
-        0 -1px 0 rgba(70, 55, 40, 0.18);
+    text-shadow: var(--marble-text-shadow);
 }
 
 .create-post-form h1::after {
@@ -144,13 +101,10 @@
 .create-post-field>span {
     position: relative;
     z-index: 1;
-
-    color: #5E523F;
-
+    color: var(--color-label);
     font-family: var(--font-display);
     font-size: 0.82rem;
     font-weight: 600;
-
     letter-spacing: 0.03em;
 }
 
@@ -158,34 +112,25 @@
 .create-post-field textarea {
     position: relative;
     z-index: 1;
-
     width: 100%;
     box-sizing: border-box;
-
     padding: 13px;
-
     border: 1px solid #806F54;
     border-radius: 2px;
-
     background:
         linear-gradient(180deg,
             rgba(65, 53, 40, 0.11),
             rgba(255, 255, 255, 0.05)),
         rgba(74, 61, 45, 0.08);
-
-    color: #403729;
-
+    color: var(--color-input-bg);
     font-family: var(--font-ui);
     font-size: 0.85rem;
     line-height: 1.5;
-
     outline: none;
-
     box-shadow:
         inset 0 2px 6px rgba(50, 40, 30, 0.22),
         inset 0 1px 0 rgba(0, 0, 0, 0.1),
         0 1px 0 rgba(255, 255, 255, 0.2);
-
     transition:
         border-color var(--transition-fast),
         box-shadow var(--transition-fast);
@@ -193,7 +138,7 @@
 
 .create-post-field input[type="text"]::placeholder,
 .create-post-field textarea::placeholder {
-    color: #756956;
+    color: var(--color-input-placeholder);
 }
 
 .create-post-field input[type="text"]:hover,
@@ -204,7 +149,6 @@
 .create-post-field input[type="text"]:focus,
 .create-post-field textarea:focus {
     border-color: var(--color-gold-dark);
-
     box-shadow:
         inset 0 2px 6px rgba(50, 40, 30, 0.18),
         0 0 0 1px rgba(201, 162, 39, 0.22);
@@ -285,17 +229,12 @@
 
 .create-post-error {
     position: relative;
-
     margin: 0;
     padding: 10px 12px;
-
     border: 1px solid rgba(130, 60, 45, 0.6);
     border-radius: 2px;
-
     background: rgba(90, 40, 30, 0.16);
-
     color: #713F35;
-
     font-family: var(--font-ui);
     font-size: 0.82rem;
 }
@@ -317,30 +256,22 @@
 
 .create-post-actions button {
     min-height: 36px;
-
     padding: 9px 16px;
-
-    border: 1px solid #80631B;
+    border: 1px solid var(--color-button-gold-border);
     border-radius: 2px;
-
     background:
         linear-gradient(180deg,
             var(--color-gold-light),
             var(--color-gold) 55%,
             #A98218);
-
-    color: #302719;
-
+    color: var(--color-button-text);
     font-family: var(--font-display);
     font-size: 0.8rem;
     font-weight: 600;
-
     cursor: pointer;
-
     box-shadow:
         0 3px 6px rgba(55, 42, 25, 0.28),
         inset 0 1px 0 rgba(255, 255, 255, 0.35);
-
     transition:
         background var(--transition-fast),
         box-shadow var(--transition-fast);
@@ -352,7 +283,6 @@
             #EBD16C,
             var(--color-gold-light) 55%,
             #B68F1E);
-
     box-shadow:
         0 5px 10px rgba(55, 42, 25, 0.32),
         0 0 12px rgba(201, 162, 39, 0.15),

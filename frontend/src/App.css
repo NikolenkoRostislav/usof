@@ -125,6 +125,125 @@
             #D8D0C0 65%,
             #B7AD9C 82%,
             #8E8271 100%);
+
+    /* ===== Form Panels ===== */
+
+    --marble-panel:
+        linear-gradient(118deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0.16) 17%,
+            transparent 29%,
+            rgba(70, 59, 45, 0.10) 43%,
+            transparent 55%,
+            rgba(255, 255, 255, 0.10) 72%,
+            transparent 86%),
+        linear-gradient(90deg,
+            #9B9180,
+            #D9D1C1 17%,
+            #B4AA99 34%,
+            #E0D8C9 51%,
+            #AAA090 68%,
+            #D3CABB 84%,
+            #958978);
+
+    --marble-panel-variant:
+        linear-gradient(118deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0.16) 16%,
+            transparent 29%,
+            rgba(70, 59, 45, 0.10) 43%,
+            transparent 56%,
+            rgba(255, 255, 255, 0.10) 73%,
+            transparent 87%),
+        linear-gradient(90deg,
+            #9B9180,
+            #D5CDBD 18%,
+            #B0A696 36%,
+            #DED6C7 53%,
+            #A79D8C 70%,
+            #D0C7B8 86%,
+            #958978);
+
+    --marble-panel-light:
+        linear-gradient(118deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0.12) 14%,
+            transparent 26%,
+            rgba(70, 59, 45, 0.08) 40%,
+            transparent 53%,
+            rgba(255, 255, 255, 0.09) 69%,
+            transparent 83%),
+        linear-gradient(90deg,
+            #918675,
+            #CFC6B6 16%,
+            #AFA494 33%,
+            #DCD4C5 50%,
+            #A59A89 68%,
+            #CEC5B5 84%,
+            #918574);
+
+    --marble-panel-subtle:
+        linear-gradient(118deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0.12) 18%,
+            transparent 31%,
+            rgba(70, 59, 45, 0.08) 46%,
+            transparent 61%,
+            rgba(255, 255, 255, 0.08) 78%,
+            transparent 90%),
+        linear-gradient(90deg,
+            #958A79,
+            #C9C0B0 20%,
+            #A69B8A 39%,
+            #D5CDBD 57%,
+            #9F9483 76%,
+            #C7BEAE);
+
+    /* ===== Panel Shadows ===== */
+
+    --shadow-panel-md:
+        0 12px 26px rgba(0, 0, 0, 0.34),
+        inset 0 1px 0 rgba(255, 255, 255, 0.32),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.24);
+
+    --shadow-panel-lg:
+        0 14px 30px rgba(0, 0, 0, 0.38),
+        inset 0 1px 0 rgba(255, 255, 255, 0.35),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.25);
+
+    --shadow-panel-sm:
+        0 10px 22px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.25);
+
+    --shadow-panel-subtle:
+        0 9px 20px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.28),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+
+    /* ===== Form Elements ===== */
+
+    --color-input-bg: #403729;
+    --color-input-border: #8B7D65;
+    --color-input-border-hover: #74634A;
+    --color-input-placeholder: #756956;
+    --color-label: #5E523F;
+    --color-carved-frame: rgba(92, 77, 57, 0.55);
+    --color-carved-frame-subtle: rgba(92, 77, 57, 0.45);
+
+    /* ===== Text Styling ===== */
+
+    --marble-text-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.45),
+        0 -1px 0 rgba(70, 55, 40, 0.18);
+
+    --ornament-text-shadow:
+        0 1px 1px rgba(255, 255, 255, 0.3);
+
+    /* ===== Button Colors ===== */
+
+    --color-button-gold-border: #80631B;
+    --color-button-text: #302719;
 }
 
 
@@ -309,6 +428,286 @@ p {
 :focus-visible {
     outline: 2px solid var(--color-gold);
     outline-offset: 2px;
+}
+
+
+/* ===== Utility Classes ===== */
+
+.marble-panel {
+    position: relative;
+    border: 1px solid #796A52;
+    border-radius: 3px;
+    background: var(--marble-panel);
+    color: var(--color-text-dark);
+    box-shadow: var(--shadow-panel-lg);
+}
+
+.marble-panel-md {
+    position: relative;
+    border: 1px solid #796A52;
+    border-radius: 3px;
+    background: var(--marble-panel-variant);
+    color: var(--color-text-dark);
+    box-shadow: var(--shadow-panel-md);
+}
+
+.marble-panel-light {
+    position: relative;
+    border: 1px solid #796A52;
+    border-radius: 3px;
+    background: var(--marble-panel-light);
+    color: var(--color-text-dark);
+    box-shadow: var(--shadow-panel-sm);
+}
+
+.marble-panel-subtle {
+    position: relative;
+    border: 1px solid #796A52;
+    border-radius: 3px;
+    background: var(--marble-panel-subtle);
+    box-shadow: var(--shadow-panel-subtle);
+}
+
+.panel-frame::before {
+    content: "";
+    position: absolute;
+    inset: 10px;
+    border: 1px solid var(--color-carved-frame);
+    pointer-events: none;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.15),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.panel-frame-subtle::before {
+    content: "";
+    position: absolute;
+    inset: 10px;
+    border: 1px solid var(--color-carved-frame-subtle);
+    pointer-events: none;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.14),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.07);
+}
+
+.panel-ornament::after {
+    content: "✦";
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0 12px;
+    color: var(--color-gold-dark);
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    text-shadow: var(--ornament-text-shadow);
+    pointer-events: none;
+}
+
+.panel-ornament-sm::after {
+    content: "✦";
+    position: absolute;
+    top: 9px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0 12px;
+    color: var(--color-gold-dark);
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+    text-shadow: var(--ornament-text-shadow);
+    pointer-events: none;
+}
+
+.panel-ornament-tiny::after {
+    content: "✦";
+    position: absolute;
+    top: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0 8px;
+    color: var(--color-gold-dark);
+    font-family: var(--font-display);
+    font-size: 0.7rem;
+    pointer-events: none;
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.form-field-label {
+    color: var(--color-label);
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+}
+
+.form-field-input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 11px 13px;
+    border: 1px solid var(--color-input-border);
+    border-radius: 2px;
+    background:
+        linear-gradient(180deg,
+            rgba(65, 53, 40, 0.10),
+            rgba(255, 255, 255, 0.06)),
+        rgba(74, 61, 45, 0.08);
+    color: var(--color-input-bg);
+    font-family: var(--font-ui);
+    font-size: 0.9rem;
+    outline: none;
+    box-shadow:
+        inset 0 2px 5px rgba(50, 40, 30, 0.20),
+        inset 0 1px 0 rgba(0, 0, 0, 0.10),
+        0 1px 0 rgba(255, 255, 255, 0.25);
+    transition:
+        border-color var(--transition-fast),
+        box-shadow var(--transition-fast),
+        background var(--transition-fast);
+}
+
+.form-field-input::placeholder {
+    color: var(--color-input-placeholder);
+}
+
+.form-field-input:hover {
+    border-color: var(--color-input-border-hover);
+}
+
+.form-field-input:focus {
+    border-color: var(--color-gold-dark);
+    background:
+        linear-gradient(180deg,
+            rgba(65, 53, 40, 0.08),
+            rgba(255, 255, 255, 0.08)),
+        rgba(74, 61, 45, 0.06);
+    box-shadow:
+        inset 0 2px 5px rgba(50, 40, 30, 0.18),
+        0 0 0 1px rgba(201, 162, 39, 0.25),
+        0 0 8px rgba(201, 162, 39, 0.10);
+}
+
+.button-gold {
+    padding: 11px 16px;
+    border: 1px solid var(--color-button-gold-border);
+    border-radius: 2px;
+    background:
+        linear-gradient(180deg,
+            var(--color-gold-light),
+            var(--color-gold) 55%,
+            #A98218);
+    color: var(--color-button-text);
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    box-shadow:
+        0 3px 6px rgba(55, 42, 25, 0.28),
+        inset 0 1px 0 rgba(255, 255, 255, 0.35);
+    transition:
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast),
+        background var(--transition-fast);
+}
+
+.button-gold:hover:not(:disabled) {
+    background:
+        linear-gradient(180deg,
+            #EBD16C,
+            var(--color-gold-light) 55%,
+            #B68F1E);
+    transform: translateY(-1px);
+    box-shadow:
+        0 5px 10px rgba(55, 42, 25, 0.32),
+        0 0 12px rgba(201, 162, 39, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.button-gold:active:not(:disabled) {
+    transform: translateY(1px);
+    box-shadow:
+        0 2px 4px rgba(55, 42, 25, 0.3),
+        inset 0 2px 4px rgba(60, 45, 25, 0.2);
+}
+
+.button-gold:disabled {
+    cursor: default;
+    opacity: 0.55;
+}
+
+.button-gold-sm {
+    min-height: 36px;
+    padding: 9px 16px;
+    border: 1px solid var(--color-button-gold-border);
+    border-radius: 2px;
+    background:
+        linear-gradient(180deg,
+            var(--color-gold-light),
+            var(--color-gold) 55%,
+            #A98218);
+    color: var(--color-button-text);
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow:
+        0 3px 6px rgba(55, 42, 25, 0.28),
+        inset 0 1px 0 rgba(255, 255, 255, 0.35);
+    transition:
+        background var(--transition-fast),
+        box-shadow var(--transition-fast);
+}
+
+.button-gold-sm:hover:not(:disabled) {
+    background:
+        linear-gradient(180deg,
+            #EBD16C,
+            var(--color-gold-light) 55%,
+            #B68F1E);
+    box-shadow:
+        0 5px 10px rgba(55, 42, 25, 0.32),
+        0 0 12px rgba(201, 162, 39, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.button-gold-sm:active:not(:disabled) {
+    box-shadow:
+        0 2px 4px rgba(55, 42, 25, 0.3),
+        inset 0 2px 4px rgba(60, 45, 25, 0.2);
+}
+
+.button-gold-sm:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.error-message {
+    margin: 0;
+    padding: 9px 12px;
+    border: 1px solid rgba(120, 55, 45, 0.45);
+    background: rgba(120, 55, 45, 0.10);
+    color: #713C32;
+    font-size: 0.8rem;
+    text-align: center;
+    border-radius: 2px;
+}
+
+.title-underline {
+    content: "";
+    display: block;
+    width: 90px;
+    height: 1px;
+    margin: 10px auto 0;
+    background:
+        linear-gradient(90deg,
+            transparent,
+            var(--color-gold-dark),
+            transparent);
 }
 
 
