@@ -1,90 +1,397 @@
+/* =========================
+   CREATE POST PAGE
+   ========================= */
+
 .create-post-page {
-    width: min(700px, 100%);
+    width: min(900px, 100%);
     margin: 0 auto;
-    padding: 32px 20px;
+
+    padding: var(--space-12) 20px var(--space-16);
 }
+
+
+/* =========================
+   FORM PANEL
+   ========================= */
 
 .create-post-form {
+    position: relative;
+
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 24px;
 
-    padding: 24px;
-    border: 1px solid var(--color-border);
-    border-radius: 8px;
-    background: var(--color-surface);
+    padding: 42px 40px 36px;
+
+    border: 1px solid #796A52;
+    border-radius: 3px;
+
+    background:
+        linear-gradient(118deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0.16) 16%,
+            transparent 29%,
+            rgba(70, 59, 45, 0.10) 43%,
+            transparent 56%,
+            rgba(255, 255, 255, 0.10) 73%,
+            transparent 87%),
+        linear-gradient(90deg,
+            #9B9180,
+            #D5CDBD 18%,
+            #B0A696 36%,
+            #DED6C7 53%,
+            #A79D8C 70%,
+            #D0C7B8 86%,
+            #958978);
+
+    color: var(--color-text-dark);
+
+    box-shadow:
+        0 12px 26px rgba(0, 0, 0, 0.34),
+        inset 0 1px 0 rgba(255, 255, 255, 0.32),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.24);
 }
+
+.create-post-form::before {
+    content: "";
+
+    position: absolute;
+    inset: 10px;
+
+    border: 1px solid rgba(92, 77, 57, 0.45);
+
+    pointer-events: none;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.14),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.07);
+}
+
+.create-post-form::after {
+    content: "✦";
+
+    position: absolute;
+    top: 9px;
+    left: 50%;
+
+    padding: 0 12px;
+
+    transform: translateX(-50%);
+
+    color: var(--color-gold-dark);
+
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+
+    text-shadow:
+        0 1px 1px rgba(255, 255, 255, 0.3);
+}
+
+
+/* =========================
+   TITLE
+   ========================= */
 
 .create-post-form h1 {
-    margin: 0;
+    position: relative;
+
+    margin: 0 0 4px;
+
+    color: #514633;
+
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 2.8rem);
+    font-weight: 600;
+    line-height: 1.1;
+
+    letter-spacing: 0.015em;
+
+    text-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.45),
+        0 -1px 0 rgba(70, 55, 40, 0.18);
 }
 
+.create-post-form h1::after {
+    content: "";
+
+    display: block;
+
+    width: 120px;
+    height: 1px;
+
+    margin-top: 14px;
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            var(--color-gold-dark),
+            transparent);
+}
+
+/* =========================
+   FIELDS
+   ========================= */
+
 .create-post-field {
+    position: relative;
+
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 8px;
 }
 
 .create-post-field>label,
 .create-post-field>span {
-    color: var(--color-text-muted);
-    font-size: 13px;
+    position: relative;
+    z-index: 1;
+
+    color: #5E523F;
+
+    font-family: var(--font-display);
+    font-size: 0.82rem;
+    font-weight: 600;
+
+    letter-spacing: 0.03em;
 }
 
 .create-post-field input[type="text"],
 .create-post-field textarea {
+    position: relative;
+    z-index: 1;
+
     width: 100%;
     box-sizing: border-box;
-    padding: 10px;
 
-    border: 1px solid var(--color-border);
-    border-radius: 4px;
-    background: var(--color-background);
+    padding: 13px;
 
-    font: inherit;
+    border: 1px solid #806F54;
+    border-radius: 2px;
+
+    background:
+        linear-gradient(180deg,
+            rgba(65, 53, 40, 0.11),
+            rgba(255, 255, 255, 0.05)),
+        rgba(74, 61, 45, 0.08);
+
+    color: #403729;
+
+    font-family: var(--font-ui);
+    font-size: 0.85rem;
+    line-height: 1.5;
+
+    outline: none;
+
+    box-shadow:
+        inset 0 2px 6px rgba(50, 40, 30, 0.22),
+        inset 0 1px 0 rgba(0, 0, 0, 0.1),
+        0 1px 0 rgba(255, 255, 255, 0.2);
+
+    transition:
+        border-color var(--transition-fast),
+        box-shadow var(--transition-fast);
+}
+
+.create-post-field input[type="text"]::placeholder,
+.create-post-field textarea::placeholder {
+    color: #756956;
+}
+
+.create-post-field input[type="text"]:hover,
+.create-post-field textarea:hover {
+    border-color: #8D7B5F;
+}
+
+.create-post-field input[type="text"]:focus,
+.create-post-field textarea:focus {
+    border-color: var(--color-gold-dark);
+
+    box-shadow:
+        inset 0 2px 6px rgba(50, 40, 30, 0.18),
+        0 0 0 1px rgba(201, 162, 39, 0.22);
 }
 
 .create-post-field textarea {
+    min-height: 240px;
+
     resize: vertical;
 }
+
+
+/* =========================
+   CATEGORIES
+   ========================= */
 
 .create-post-categories {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
+
+    margin-top: 2px;
 }
 
 .create-post-category {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 7px;
 
-    padding: 8px 10px;
-    border: 1px solid var(--color-border);
-    border-radius: 4px;
+    padding: 7px 11px;
+
+    border: 1px solid #806F54;
+    border-radius: 2px;
+
+    background:
+        linear-gradient(180deg,
+            rgba(255, 255, 255, 0.15),
+            rgba(70, 59, 45, 0.08));
+
+    color: #5E523F;
+
+    font-family: var(--font-display);
+    font-size: 0.78rem;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+
+    transition:
+        border-color var(--transition-fast),
+        background var(--transition-fast),
+        color var(--transition-fast);
+}
+
+.create-post-category:hover {
+    border-color: var(--color-gold-dark);
+
+    color: #665018;
+
+    background:
+        linear-gradient(180deg,
+            rgba(255, 255, 255, 0.22),
+            rgba(201, 162, 39, 0.10));
+}
+
+.create-post-category input {
+    accent-color: var(--color-gold-dark);
 
     cursor: pointer;
 }
 
+
+/* =========================
+   ERROR
+   ========================= */
+
 .create-post-error {
+    position: relative;
+
     margin: 0;
-    color: var(--color-error);
+    padding: 10px 12px;
+
+    border: 1px solid rgba(130, 60, 45, 0.6);
+    border-radius: 2px;
+
+    background: rgba(90, 40, 30, 0.16);
+
+    color: #713F35;
+
+    font-family: var(--font-ui);
+    font-size: 0.82rem;
 }
 
+/* =========================
+   ACTIONS
+   ========================= */
+
 .create-post-actions {
+    position: relative;
+    z-index: 1;
+
     display: flex;
     justify-content: flex-end;
-    gap: 8px;
+    gap: 10px;
+
+    padding-top: 4px;
 }
 
 .create-post-actions button {
-    padding: 9px 14px;
-    border: 1px solid var(--color-border);
-    border-radius: 4px;
+    min-height: 36px;
+
+    padding: 9px 16px;
+
+    border: 1px solid #80631B;
+    border-radius: 2px;
+
+    background:
+        linear-gradient(180deg,
+            var(--color-gold-light),
+            var(--color-gold) 55%,
+            #A98218);
+
+    color: #302719;
+
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+    font-weight: 600;
+
     cursor: pointer;
+
+    box-shadow:
+        0 3px 6px rgba(55, 42, 25, 0.28),
+        inset 0 1px 0 rgba(255, 255, 255, 0.35);
+
+    transition:
+        background var(--transition-fast),
+        box-shadow var(--transition-fast);
+}
+
+.create-post-actions button:hover:not(:disabled) {
+    background:
+        linear-gradient(180deg,
+            #EBD16C,
+            var(--color-gold-light) 55%,
+            #B68F1E);
+
+    box-shadow:
+        0 5px 10px rgba(55, 42, 25, 0.32),
+        0 0 12px rgba(201, 162, 39, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.create-post-actions button:active:not(:disabled) {
+    box-shadow:
+        0 2px 4px rgba(55, 42, 25, 0.3),
+        inset 0 2px 4px rgba(60, 45, 25, 0.2);
 }
 
 .create-post-actions button:disabled {
-    cursor: default;
-    opacity: 0.6;
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+
+@media (max-width: 600px) {
+    .create-post-page {
+        padding: var(--space-8) 12px var(--space-12);
+    }
+
+    .create-post-form {
+        padding: 38px 22px 28px;
+    }
+
+    .create-post-form h1 {
+        font-size: 2rem;
+    }
+
+    .create-post-actions {
+        flex-direction: column-reverse;
+    }
+
+    .create-post-actions button {
+        width: 100%;
+    }
 }
