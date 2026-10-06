@@ -8,7 +8,6 @@
     gap: var(--space-6);
 
     width: 100%;
-    margin: var(--space-12) 0 0;
     padding: 18px max(24px, calc((100% - 1400px) / 2)) 20px;
 
     box-sizing: border-box;
