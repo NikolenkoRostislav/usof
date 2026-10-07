@@ -16,8 +16,8 @@
     position: relative;
     z-index: 3;
 
-    width: calc(100% + 156px);
-    margin-left: -78px;
+    width: calc(100% + 356px);
+    margin-left: -178px;
 }
 
 .infinite-scroll-roof-crown,
@@ -159,6 +159,9 @@
     gap: 20px;
 
     min-height: 100%;
+
+    width: calc(100% + 222px);
+    margin-left: -111px;
 }
 
 .roman-column {
@@ -357,6 +360,7 @@
     width: 94px;
 }
 
+
 /* =========================
     POSTS
    ========================= */
@@ -384,8 +388,8 @@
 
     z-index: 3;
 
-    width: calc(100% + 156px);
-    margin-left: -78px;
+    width: calc(100% + 356px);
+    margin-left: -178px;
 }
 
 .infinite-scroll-floor-step {

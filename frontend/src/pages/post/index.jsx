@@ -33,22 +33,27 @@ function Post() {
                 const postData = await getPostById(id);
 
                 const [
-                    authorData,
                     likesData,
                     awardsData,
                     allAwardsData,
                 ] = await Promise.all([
-                    getUserById(postData.authorId),
                     getLikesByPostId(id),
                     getAwardsByPostId(id),
                     getAllAwards(),
                 ]);
 
                 setPost(postData);
-                setAuthor(authorData);
                 setLikes(likesData.likes);
                 setAwards(awardsData.awards);
                 setAllAwardsData(allAwardsData.awards);
+
+                try {
+                    const authorData = await getUserById(postData.authorId);
+                    setAuthor(authorData);
+                } catch (error) {
+                    console.error("Failed to load post author:", error);
+                    setAuthor(null);
+                }
             } catch (error) {
                 setError(error);
             } finally {

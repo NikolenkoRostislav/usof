@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from "react";
+import { getById as getUserById } from "../../api/users";
 import Post from "../post";
 import "./infinite-scroll.css";
 
 function InfiniteScroll({ filters = {}, getPosts }) {
     const [posts, setPosts] = useState([]);
+    const [authors, setAuthors] = useState({});
     const [page, setPage] = useState(0);
     const [hasMore, setHasMore] = useState(true);
     const [loading, setLoading] = useState(false);
@@ -11,8 +13,46 @@ function InfiniteScroll({ filters = {}, getPosts }) {
 
     const loadMoreRef = useRef(null);
     const loadingRef = useRef(false);
+    const authorsRef = useRef({});
 
-    async function loadPosts() {
+    async function loadAuthors(posts) {
+        const authorIds = [
+            ...new Set(
+                posts
+                    .map(post => post.authorId)
+                    .filter(authorId => !authorsRef.current[authorId])
+            )
+        ];
+
+        if (authorIds.length === 0) {
+            return;
+        }
+
+        const results = await Promise.allSettled(
+            authorIds.map(async authorId => {
+                const author = await getUserById(authorId);
+
+                return [authorId, author];
+            })
+        );
+
+        for (const result of results) {
+            if (result.status === "fulfilled") {
+                const [authorId, author] = result.value;
+
+                authorsRef.current[authorId] = author;
+            } else {
+                console.error(
+                    "Failed to load author:",
+                    result.reason
+                );
+            }
+        }
+
+        setAuthors({ ...authorsRef.current });
+    }
+
+    async function loadMore() {
         if (loadingRef.current || !hasMore) {
             return;
         }
@@ -31,6 +71,8 @@ function InfiniteScroll({ filters = {}, getPosts }) {
                 setHasMore(false);
                 return;
             }
+
+            await loadAuthors(response.posts);
 
             setPosts(prev => {
                 const existingIds = new Set(prev.map(post => post.id));
@@ -73,6 +115,12 @@ function InfiniteScroll({ filters = {}, getPosts }) {
                     return;
                 }
 
+                await loadAuthors(response.posts);
+
+                if (cancelled) {
+                    return;
+                }
+
                 setPosts(response.posts);
                 setPage(1);
                 setHasMore(response.posts.length > 0);
@@ -89,6 +137,8 @@ function InfiniteScroll({ filters = {}, getPosts }) {
         }
 
         setPosts([]);
+        setAuthors({});
+        authorsRef.current = {};
         setPage(0);
         setHasMore(true);
         setError(null);
@@ -103,7 +153,7 @@ function InfiniteScroll({ filters = {}, getPosts }) {
     useEffect(() => {
         const observer = new IntersectionObserver(entries => {
             if (entries[0].isIntersecting) {
-                loadPosts();
+                loadMore();
             }
         });
 
@@ -160,6 +210,7 @@ function InfiniteScroll({ filters = {}, getPosts }) {
                             <Post
                                 key={post.id}
                                 post={post}
+                                author={authors[post.authorId]}
                                 onDelete={handlePostDelete}
                             />
                         ))}
@@ -193,6 +244,7 @@ function InfiniteScroll({ filters = {}, getPosts }) {
 
                 <div className="infinite-scroll-floor">
                     <div className="infinite-scroll-floor-step floor-step-top" />
+
                     <div className="infinite-scroll-floor-step floor-step-middle">
                         {!hasMore && (
                             <span className="infinite-scroll-floor-inscription">
@@ -200,6 +252,7 @@ function InfiniteScroll({ filters = {}, getPosts }) {
                             </span>
                         )}
                     </div>
+
                     <div className="infinite-scroll-floor-step floor-step-bottom" />
                 </div>
             </div>
