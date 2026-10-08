@@ -1,4 +1,4 @@
-import { api } from './api.js';
+import { api, API_URL } from './api.js';
 
 export function getById(id) {
     return api.get(`/users/${id}`);

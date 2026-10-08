@@ -654,3 +654,23 @@
         padding: 24px 20px;
     }
 }
+
+.profile-avatar-editable {
+    cursor: pointer;
+}
+
+.profile-avatar-editable::after {
+    content: "";
+    position: absolute;
+    inset: 7px;
+
+    background: rgba(0, 0, 0, 0);
+
+    transition: background var(--transition-fast);
+
+    pointer-events: none;
+}
+
+.profile-avatar-editable:hover::after {
+    background: rgba(0, 0, 0, 0.32);
+}
