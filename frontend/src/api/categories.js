@@ -7,3 +7,7 @@ export function getAll() {
 export function getById(id) {
     return api.get(`/categories/${id}`);
 }
+
+export function post(title, description) {
+    return api.post(`/categories`, { title, description });
+}
