@@ -15,7 +15,7 @@ class EmailSender {
 
     async sendEmail(to, subject, body) {
         await this.transporter.sendMail({
-            from: process.env.SMTP_FROM,
+            from: process.env.SMTP_USER,
             to,
             subject,
             text: body
