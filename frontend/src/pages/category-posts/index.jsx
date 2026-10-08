@@ -40,8 +40,9 @@ function CategoryPosts() {
                     value={sortBy}
                     onChange={handleSortChange}
                 >
-                    <option value="">Likes</option>
-                    <option value="date">Last Added</option>
+                    <option value="likes">Likes</option>
+                    <option value="date">Newest</option>
+                    <option value="date-old">Oldest</option>
                 </select>
             </div>
 

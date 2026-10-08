@@ -73,8 +73,9 @@ async function giveAward(req, res) {
 async function getPostAwards(req, res) {
     const { post_id } = req.params;
     const isAdmin = req.session?.user?.role === 'admin';
+    const userId = req.session?.user?.id;
 
-    const awards = await awardService.getPostAwards(post_id, isAdmin);
+    const awards = await awardService.getPostAwards(post_id, isAdmin, userId);
     const response = new PostAwardsListResponse(awards);
     res.json(response);
 }

@@ -127,8 +127,9 @@ async function create(req, res) {
 async function getById(req, res) {
     const { post_id } = req.params;
     const isAdmin = req.session?.user?.role === 'admin';
+    const userId = req.session?.user?.id;
 
-    const post = await postService.getById(post_id, isAdmin);
+    const post = await postService.getById(post_id, isAdmin, userId);
     const response = new PostResponse(post);
     res.json(response);
 }

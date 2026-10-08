@@ -136,6 +136,8 @@ class PostsRepo {
             query += ` ORDER BY like_count DESC, p.publish_date DESC`;
         } else if (sortBy === 'date') {
             query += ` ORDER BY p.publish_date DESC`;
+        } else if (sortBy === 'date-old') {
+            query += ` ORDER BY p.publish_date ASC`;
         }
 
         const offset = page * limit;
@@ -186,6 +188,8 @@ class PostsRepo {
             query += ` ORDER BY like_count DESC, p.publish_date DESC`;
         } else if (sortBy === 'date') {
             query += ` ORDER BY p.publish_date DESC`;
+        } else if (sortBy === 'date-old') {
+            query += ` ORDER BY p.publish_date ASC`;
         }
 
         const offset = page * limit;

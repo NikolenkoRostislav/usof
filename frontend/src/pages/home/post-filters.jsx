@@ -34,8 +34,9 @@ function PostFilters({
                     value={filters.sortBy || ""}
                     onChange={onFilterChange}
                 >
-                    <option value="date">Last Added</option>
-                    <option value="">Likes</option>
+                    <option value="date">Newest</option>
+                    <option value="likes">Likes</option>
+                    <option value="date-old">Oldest</option>
                 </select>
             </div>
 

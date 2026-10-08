@@ -97,12 +97,12 @@ async function _deleteCommentLike(uow, userId, commentId) {
     await likesRepo.delete(like.id);
 }
 
-async function getPostLikes(postId, isAdmin) {
+async function getPostLikes(postId, isAdmin, userId) {
     const uow = await getReadOnlyUoW();
     const postsRepo = uow.posts();
     const post = await postsRepo.findById(postId);
 
-    if (!post || (post.status === "inactive" && !isAdmin)) {
+    if (!post || (post.status === "inactive" && (!isAdmin && post.authorId !== userId))) {
         throw new AppError(Kind.NotFound, "Post not found");
     }
 

@@ -159,49 +159,47 @@ function EditPost() {
                 )}
 
                 {isAdmin && (
-                    <>
-                        <div className="create-post-field">
-                            <label htmlFor="status">Status</label>
+                    <div className="create-post-field">
+                        <label htmlFor="status">Status</label>
 
-                            <select
-                                id="status"
-                                value={status}
-                                onChange={event => setStatus(event.target.value)}
-                            >
-                                <option value="active">Active</option>
-                                <option value="inactive">Inactive</option>
-                                <option value="locked">Locked</option>
-                            </select>
+                        <select
+                            id="status"
+                            value={status}
+                            onChange={event => setStatus(event.target.value)}
+                        >
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
+                            <option value="locked">Locked</option>
+                        </select>
+                    </div>
+                )}
+
+                {(isAuthor || isAdmin) && (
+                    <div className="create-post-field">
+                        <span>Categories</span>
+
+                        {categories.length === 0 && (
+                            <p>No categories available.</p>
+                        )}
+
+                        <div className="create-post-categories">
+                            {categories.map(category => (
+                                <label
+                                    key={category.id}
+                                    className="create-post-category"
+                                >
+                                    <input
+                                        type="checkbox"
+                                        value={category.id}
+                                        checked={selectedCategories.includes(category.id)}
+                                        onChange={handleCategoryChange}
+                                    />
+
+                                    {category.title}
+                                </label>
+                            ))}
                         </div>
-
-                        <div className="create-post-field">
-                            <span>Categories</span>
-
-                            {categories.length === 0 && (
-                                <p>No categories available.</p>
-                            )}
-
-                            <div className="create-post-categories">
-                                {categories.map(category => (
-                                    <label
-                                        key={category.id}
-                                        className="create-post-category"
-                                    >
-                                        <input
-                                            type="checkbox"
-                                            value={category.id}
-                                            checked={selectedCategories.includes(
-                                                category.id
-                                            )}
-                                            onChange={handleCategoryChange}
-                                        />
-
-                                        {category.title}
-                                    </label>
-                                ))}
-                            </div>
-                        </div>
-                    </>
+                    </div>
                 )}
 
                 {error && (

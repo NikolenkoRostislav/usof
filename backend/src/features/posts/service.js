@@ -34,13 +34,13 @@ async function _create(uow, userId, title, content, categoryIds) {
     return post;
 }
 
-async function getById(postId, isAdmin) {
+async function getById(postId, isAdmin, userId) {
     const uow = await getReadOnlyUoW();
     const postsRepo = uow.posts();
 
     let post = await postsRepo.findById(postId);
 
-    if (!post || (post.status === "inactive" && !isAdmin)) {
+    if (!post || (post.status === "inactive" && (!isAdmin && post.authorId !== userId))) {
         throw new AppError(Kind.NotFound, "Post not found");
     }
 
@@ -83,6 +83,9 @@ async function _update(uow, postId, userId, isAdmin, updates) {
     }
 
     if (updates.categories !== undefined) {
+        if (!isAdmin && post.authorId !== userId) {
+            throw new AppError(Kind.PermissionDenied, "You cannot modify this post");
+        }
         await postsRepo.updateCategories(postId, updates.categories);
         post.categories = updates.categories;
     }

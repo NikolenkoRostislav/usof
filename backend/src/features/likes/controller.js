@@ -176,8 +176,9 @@ async function deleteCommentLike(req, res) {
 async function getPostLikes(req, res) {
     const { post_id } = req.params;
     const isAdmin = req.session?.user?.role === 'admin';
+    const userId = req.session?.user?.id;
 
-    const likes = await likeService.getPostLikes(post_id, isAdmin);
+    const likes = await likeService.getPostLikes(post_id, isAdmin, userId);
     const response = new LikesListResponse(likes);
     res.json(response);
 }

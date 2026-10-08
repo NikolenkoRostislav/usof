@@ -81,7 +81,7 @@ function Post() {
         );
     }
 
-    const canEdit = user?.id === post.authorId || user?.role === "admin";
+    const canEdit = user?.role === "admin" || (user?.id === post.authorId && post.status === "active");
 
     return (
         <div className="post-page">
