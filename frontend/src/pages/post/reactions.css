@@ -20,16 +20,6 @@
         inset 0 -1px 0 rgba(70, 55, 35, 0.2);
 }
 
-.post-reactions::before {
-    content: "";
-    position: absolute;
-    inset: 2px;
-
-    border: 1px solid rgba(90, 70, 35, 0.18);
-
-    pointer-events: none;
-}
-
 .post-reaction {
     position: relative;
 

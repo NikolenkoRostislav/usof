@@ -306,13 +306,9 @@ img {
     min-height: 100vh;
 
     background:
-        radial-gradient(ellipse at 15% 10%,
-            rgba(201, 162, 39, 0.035),
-            transparent 35%),
-        radial-gradient(ellipse at 85% 90%,
-            rgba(255, 255, 255, 0.025),
-            transparent 40%),
-        var(--color-bg);
+        linear-gradient(rgba(21, 18, 15, 0.72),
+            rgba(21, 18, 15, 0.72)),
+        url("./assets/bgplants.png") center / cover fixed no-repeat;
 }
 
 
