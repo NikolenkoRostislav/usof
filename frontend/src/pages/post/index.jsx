@@ -85,7 +85,7 @@ function Post() {
 
     return (
         <div className="post-page">
-            <article className="post">
+            <section className="post-main">
                 <header className="post-header">
                     <h1>{post.title}</h1>
 
@@ -152,11 +152,11 @@ function Post() {
                         onLikesChange={setLikes}
                     />
                 </div>
+            </section>
 
-                <section className="post-comments">
-                    <Comments post={post} />
-                </section>
-            </article>
+            <section className="post-comments">
+                <Comments post={post} />
+            </section>
         </div>
     );
 }
