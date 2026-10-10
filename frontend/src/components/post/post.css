@@ -67,7 +67,7 @@
     z-index: 1;
 
     display: grid;
-    grid-template-columns: 155px minmax(0, 1fr);
+    grid-template-columns: 185px minmax(0, 1fr);
 
     min-height: 205px;
 
@@ -106,8 +106,8 @@
 .post-card-author img {
     display: block;
 
-    width: 108px;
-    height: 108px;
+    width: 150px;
+    height: 150px;
 
     flex-shrink: 0;
 
@@ -135,9 +135,19 @@
 }
 
 .post-card-author-name {
-    max-width: 125px;
+    max-width: 170px;
+
+    padding: 6px 14px 5px;
 
     overflow: hidden;
+
+    border: 1px solid #725b24;
+    border-radius: 2px;
+
+    background:
+        linear-gradient(180deg,
+            rgba(194, 166, 91, 0.42),
+            rgba(105, 81, 29, 0.3));
 
     color: #352c1a;
 
@@ -151,6 +161,10 @@
 
     text-shadow:
         0 1px 0 rgba(218, 199, 140, 0.22);
+
+    box-shadow:
+        inset 0 1px 0 rgba(239, 218, 163, 0.22),
+        0 2px 4px rgba(54, 40, 14, 0.16);
 }
 
 
@@ -251,8 +265,8 @@
 
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-    line-clamp: 2;
+    -webkit-line-clamp: 5;
+    line-clamp: 5;
 
     overflow: hidden;
 }
@@ -274,49 +288,18 @@
 
     color: #5d502f;
 
-    font-family: var(--font-display);
-    font-size: 1.3rem;
-    font-weight: 600;
+    font-family: var(--font-ui);
+    font-size: 0.95rem;
+    font-weight: 400;
 }
 
 
 /* =========================
-   SCORE PLAQUE
+   SCORE
    ========================= */
 
 .post-card-score {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    min-width: 35px;
-    height: 32px;
-
-    padding: 0 6px;
-
-    box-sizing: border-box;
-
-    border: 1px solid var(--color-brass-border);
-    border-radius: 2px;
-
-    background:
-        linear-gradient(145deg,
-            #BBAA78,
-            #A39366 55%,
-            #8A7C56);
-
-    color: #342c1a;
-
-    font-family: var(--font-display);
-    font-size: 1.4rem;
-    font-weight: 700;
-
     font-variant-numeric: tabular-nums;
-
-    box-shadow:
-        0 2px 4px rgba(48, 37, 15, 0.3),
-        inset 0 1px 0 rgba(235, 217, 164, 0.24),
-        inset 0 -1px 0 rgba(50, 38, 15, 0.25);
 }
 
 
@@ -362,7 +345,7 @@
 
 @media (max-width: 600px) {
     .post-card-link {
-        grid-template-columns: 105px minmax(0, 1fr);
+        grid-template-columns: 130px minmax(0, 1fr);
 
         min-height: 165px;
 
@@ -374,14 +357,16 @@
     }
 
     .post-card-author img {
-        width: 78px;
-        height: 78px;
+        width: 104px;
+        height: 104px;
 
         padding: 5px;
     }
 
     .post-card-author-name {
-        max-width: 90px;
+        max-width: 120px;
+
+        padding: 4px 8px 3px;
 
         font-size: 0.9rem;
     }
@@ -402,15 +387,6 @@
         margin-top: 6px;
 
         font-size: 0.82rem;
-    }
-
-    .post-card-score {
-        min-width: 25px;
-        height: 25px;
-
-        padding: 0 5px;
-
-        font-size: 0.75rem;
     }
 
     .post-card-status {

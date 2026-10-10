@@ -106,7 +106,7 @@ function Post({ post, author, onDelete }) {
                         </span>
 
                         <span className="post-card-score">
-                            {score ?? "—"}
+                            Score: {score ?? "—"}
                         </span>
 
                         {canDelete && (
