@@ -78,6 +78,7 @@ function Awards({ postId, awards, allAwardsData, onAwardGiven }) {
                             <button
                                 type="button"
                                 key={award.id}
+                                className={`post-award-${award.rarity ?? "common"}`}
                                 onClick={() => giveAward(award.id)}
                             >
                                 {award.title} ({owned.count})

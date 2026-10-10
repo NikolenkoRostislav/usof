@@ -40,7 +40,10 @@
 .post-award-common {
     border: 1px solid #796A52;
 
-    background: var(--marble-base);
+    background:
+        linear-gradient(180deg,
+            #C8BFAF,
+            #A69B8A);
 
     color: #4E4436;
 }
@@ -65,10 +68,6 @@
             #9D7B25);
 
     color: #382C12;
-
-    box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.35),
-        0 2px 5px rgba(80, 60, 20, 0.25);
 }
 
 .post-award-legendary {
@@ -81,11 +80,6 @@
             #8C6915);
 
     color: #302719;
-
-    box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.45),
-        0 3px 7px rgba(80, 60, 20, 0.3),
-        0 0 10px rgba(201, 162, 39, 0.1);
 }
 
 
@@ -141,29 +135,17 @@
     border-top: 1px solid rgba(92, 77, 57, 0.3);
 }
 
+/* Colors come from the post-award-* tier classes on each option,
+   so the selector shows the rarity of every award */
 .award-selector button {
     padding: 5px 9px;
 
-    border: 1px solid #796A52;
-    border-radius: 2px;
-
-    background: var(--marble-panel-light);
-
-    color: #403729;
-
-    font-family: var(--font-display);
-    font-size: 0.75rem;
-    font-weight: 600;
-
     cursor: pointer;
 
-    box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.25);
-
     transition:
-        background var(--transition-fast);
+        filter var(--transition-fast);
 }
 
 .award-selector button:hover {
-    background: var(--marble-panel);
+    filter: brightness(1.08);
 }
