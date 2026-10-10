@@ -74,12 +74,12 @@ function Post({ post, author, onDelete }) {
                         <>
                             <Avatar user={author} />
 
-                            <span className="post-card-author-name">
+                            <span className="post-card-author-name plaque">
                                 {author.login}
                             </span>
                         </>
                     ) : (
-                        <span className="post-card-author-name">
+                        <span className="post-card-author-name plaque">
                             Unknown author
                         </span>
                     )}
@@ -90,7 +90,7 @@ function Post({ post, author, onDelete }) {
                         <h2 className="post-card-title">{post.title}</h2>
 
                         {post.status !== "active" && (
-                            <span className="post-card-status">
+                            <span className="post-card-status plaque">
                                 {post.status}
                             </span>
                         )}

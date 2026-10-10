@@ -124,7 +124,7 @@ function Registration() {
                 </div>
 
                 {error && (
-                    <p className="registration-error">
+                    <p className="error-message">
                         {error.message}
                     </p>
                 )}

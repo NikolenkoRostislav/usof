@@ -1,7 +1,7 @@
 .login-page {
     width: min(440px, 100%);
     margin: 0 auto;
-    padding: 72px 20px;
+    padding: 72px var(--space-5);
 }
 
 /* =========================
@@ -13,9 +13,9 @@
     display: flex;
     flex-direction: column;
     gap: 18px;
-    padding: 42px 40px 38px;
-    border: 1px solid #796A52;
-    border-radius: 3px;
+    padding: 42px var(--space-10) 38px;
+    border: 1px solid var(--color-frame-border);
+    border-radius: var(--radius-panel);
     background: var(--marble-panel);
     color: var(--color-text-dark);
     box-shadow: var(--shadow-panel-lg);
@@ -38,10 +38,10 @@
     top: 10px;
     left: 50%;
     transform: translateX(-50%);
-    padding: 0 12px;
+    padding: 0 var(--space-3);
     color: var(--color-gold-dark);
     font-family: var(--font-display);
-    font-size: 0.9rem;
+    font-size: var(--text-base);
     text-shadow: var(--ornament-text-shadow);
 }
 
@@ -51,13 +51,13 @@
 
 .login-form h1 {
     position: relative;
-    margin: 4px 0 12px;
+    margin: var(--space-1) 0 var(--space-3);
     color: #514633;
     font-family: var(--font-display);
     font-size: 2.3rem;
-    font-weight: 600;
+    font-weight: var(--weight-semibold);
     text-align: center;
-    letter-spacing: 0.04em;
+    letter-spacing: var(--tracking-wide);
     text-shadow: var(--marble-text-shadow);
 }
 
@@ -92,9 +92,9 @@
     padding-left: 2px;
     color: var(--color-label);
     font-family: var(--font-display);
-    font-size: 0.95rem;
-    font-weight: 600;
-    letter-spacing: 0.04em;
+    font-size: var(--text-base);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-wide);
 }
 
 .login-field input {
@@ -102,7 +102,7 @@
     box-sizing: border-box;
     padding: 11px 13px;
     border: 1px solid var(--color-input-border);
-    border-radius: 2px;
+    border-radius: var(--radius-xs);
     background:
         linear-gradient(180deg,
             rgba(65, 53, 40, 0.10),
@@ -110,7 +110,7 @@
         rgba(74, 61, 45, 0.08);
     color: var(--color-input-bg);
     font-family: var(--font-ui);
-    font-size: 0.9rem;
+    font-size: var(--text-base);
     outline: none;
     box-shadow:
         inset 0 2px 5px rgba(50, 40, 30, 0.20),
@@ -144,41 +144,24 @@
 }
 
 /* =========================
-   ERROR
-   ========================= */
-
-.login-error {
-    margin: 0;
-    padding: 9px 12px;
-    border: 1px solid rgba(120, 55, 45, 0.45);
-    background: rgba(120, 55, 45, 0.10);
-    color: #713C32;
-    font-size: 0.8rem;
-    text-align: center;
-    border-radius: 2px;
-}
-
-/* =========================
    LOGIN BUTTON
    ========================= */
 
 .login-form button {
     position: relative;
-    margin-top: 4px;
-    padding: 11px 16px;
+    margin-top: var(--space-1);
+    padding: 11px var(--space-4);
     border: 1px solid var(--color-button-gold-border);
-    border-radius: 2px;
+    border-radius: var(--radius-xs);
     background:
         var(--button-gold-bg);
     color: var(--color-button-text);
     font-family: var(--font-display);
-    font-size: 1rem;
-    font-weight: 600;
-    letter-spacing: 0.04em;
+    font-size: var(--text-md);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-wide);
     cursor: pointer;
-    box-shadow:
-        0 3px 6px rgba(55, 42, 25, 0.28),
-        inset 0 1px 0 rgba(255, 255, 255, 0.35);
+    box-shadow: var(--shadow-button-gold);
     transition:
         transform var(--transition-fast),
         box-shadow var(--transition-fast),
@@ -218,7 +201,7 @@
     color: #675B49;
 
     font-family: var(--font-ui);
-    font-size: 0.78rem;
+    font-size: var(--text-xs);
 
     text-align: center;
 }
@@ -226,12 +209,12 @@
 .login-link a {
     color: #665018;
 
-    font-weight: 600;
+    font-weight: var(--weight-semibold);
     text-decoration: none;
 }
 
 .login-link a:hover {
-    color: #8D6D16;
+    color: var(--color-gold-dark);
     text-decoration: underline;
 }
 
@@ -241,7 +224,7 @@
 
 @media (max-width: 500px) {
     .login-page {
-        padding: 40px 16px;
+        padding: var(--space-10) var(--space-4);
     }
 
     .login-form {
@@ -249,6 +232,6 @@
     }
 
     .login-form h1 {
-        font-size: 2rem;
+        font-size: var(--text-4xl);
     }
 }

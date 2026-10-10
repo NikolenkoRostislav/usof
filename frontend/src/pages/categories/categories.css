@@ -6,17 +6,17 @@
     width: min(800px, 100%);
     margin: 0 auto;
 
-    padding: 40px 20px;
+    padding: var(--space-10) var(--space-5);
 }
 
 .categories-page h1 {
-    margin: 0 0 24px;
+    margin: 0 0 var(--space-6);
 
     color: var(--color-text);
 
     font-family: var(--font-display);
     font-size: 2.4rem;
-    font-weight: 600;
+    font-weight: var(--weight-semibold);
 }
 
 
@@ -29,10 +29,10 @@
 
     margin-bottom: 28px;
 
-    padding: 32px 34px;
+    padding: var(--space-8) 34px;
 
-    border: 1px solid #796A52;
-    border-radius: 3px;
+    border: 1px solid var(--color-frame-border);
+    border-radius: var(--radius-panel);
 
     background: var(--marble-panel);
     color: var(--color-text-dark);
@@ -64,30 +64,30 @@
 
     transform: translateX(-50%);
 
-    padding: 0 12px;
+    padding: 0 var(--space-3);
 
     color: var(--color-gold-dark);
 
     font-family: var(--font-display);
-    font-size: 0.9rem;
+    font-size: var(--text-base);
 
     text-shadow: var(--ornament-text-shadow);
 }
 
 .category-create h2 {
     position: relative;
-    z-index: 1;
+    z-index: var(--z-base);
 
-    margin: 4px 0 18px;
+    margin: var(--space-1) 0 18px;
 
     color: #514633;
 
     font-family: var(--font-display);
-    font-size: 1.55rem;
-    font-weight: 600;
+    font-size: var(--text-2xl);
+    font-weight: var(--weight-semibold);
 
     text-align: center;
-    letter-spacing: 0.03em;
+    letter-spacing: var(--tracking-wide);
 
     text-shadow: var(--marble-text-shadow);
 }
@@ -100,7 +100,7 @@
     width: 70px;
     height: 1px;
 
-    margin: 8px auto 0;
+    margin: var(--space-2) auto 0;
 
     background:
         linear-gradient(90deg,
@@ -118,7 +118,7 @@
 
     grid-template-columns: 1fr auto;
     column-gap: 18px;
-    row-gap: 12px;
+    row-gap: var(--space-3);
 
     align-items: center;
 }
@@ -153,7 +153,7 @@
 .category-create input,
 .category-create textarea {
     position: relative;
-    z-index: 1;
+    z-index: var(--z-base);
 
     display: block;
 
@@ -163,7 +163,7 @@
     padding: 11px 13px;
 
     border: 1px solid var(--color-input-border);
-    border-radius: 2px;
+    border-radius: var(--radius-xs);
 
     background:
         linear-gradient(180deg,
@@ -174,7 +174,7 @@
     color: var(--color-input-bg);
 
     font-family: var(--font-ui);
-    font-size: 0.9rem;
+    font-size: var(--text-base);
 
     outline: none;
 
@@ -217,12 +217,12 @@
 
 .category-create button {
     position: relative;
-    z-index: 1;
+    z-index: var(--z-base);
 
-    padding: 11px 16px;
+    padding: 11px var(--space-4);
 
     border: 1px solid var(--color-button-gold-border);
-    border-radius: 2px;
+    border-radius: var(--radius-xs);
 
     background:
         var(--button-gold-bg);
@@ -230,16 +230,14 @@
     color: var(--color-button-text);
 
     font-family: var(--font-display);
-    font-size: 0.95rem;
-    font-weight: 600;
+    font-size: var(--text-base);
+    font-weight: var(--weight-semibold);
 
-    letter-spacing: 0.04em;
+    letter-spacing: var(--tracking-wide);
 
     cursor: pointer;
 
-    box-shadow:
-        0 3px 6px rgba(55, 42, 25, 0.28),
-        inset 0 1px 0 rgba(255, 255, 255, 0.35);
+    box-shadow: var(--shadow-button-gold);
 
     transition:
         transform var(--transition-fast),
@@ -295,7 +293,7 @@
     padding: 21px 25px;
 
     border: 1px solid var(--color-brass-border);
-    border-radius: 3px;
+    border-radius: var(--radius-panel);
 
     background: var(--brass-card-bg);
 
@@ -344,18 +342,18 @@
 
 .category h2 {
     position: relative;
-    z-index: 1;
+    z-index: var(--z-base);
 
     margin: 0 0 7px;
 
-    color: #352c1a;
+    color: var(--color-ink);
 
     font-family: var(--font-display);
-    font-size: 1.45rem;
-    font-weight: 700;
+    font-size: var(--text-2xl);
+    font-weight: var(--weight-bold);
     line-height: 1.1;
 
-    letter-spacing: 0.01em;
+    letter-spacing: var(--tracking-tight);
 
     text-shadow:
         0 1px 0 rgba(221, 202, 143, 0.2);
@@ -363,14 +361,14 @@
 
 .category p {
     position: relative;
-    z-index: 1;
+    z-index: var(--z-base);
 
     margin: 0;
 
     color: #4a4028;
 
     font-family: var(--font-ui);
-    font-size: 0.86rem;
+    font-size: var(--text-sm);
     line-height: 1.5;
 }
 
@@ -380,12 +378,12 @@
    ========================= */
 
 .categories-error {
-    margin: 0 0 16px;
+    margin: 0 0 var(--space-4);
 
-    color: var(--color-error);
+    color: var(--color-danger);
 
     font-family: var(--font-ui);
-    font-size: 0.8rem;
+    font-size: var(--text-xs);
 }
 
 
@@ -399,11 +397,11 @@
     }
 
     .categories-page h1 {
-        font-size: 2rem;
+        font-size: var(--text-4xl);
     }
 
     .category-create {
-        padding: 30px 24px;
+        padding: 30px var(--space-6);
     }
 
     .category {
@@ -411,6 +409,6 @@
     }
 
     .category h2 {
-        font-size: 1.3rem;
+        font-size: var(--text-xl);
     }
 }

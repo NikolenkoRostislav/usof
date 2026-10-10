@@ -14,8 +14,8 @@
 
     padding: 18px;
 
-    border: 1px solid #796A52;
-    border-radius: 3px;
+    border: 1px solid var(--color-frame-border);
+    border-radius: var(--radius-panel);
 
     background: var(--marble-panel-subtle);
 
@@ -43,7 +43,7 @@
 
 .create-comment textarea {
     position: relative;
-    z-index: 1;
+    z-index: var(--z-base);
 
     width: 100%;
     min-height: 110px;
@@ -52,7 +52,7 @@
     padding: 13px;
 
     border: 1px solid #806F54;
-    border-radius: 2px;
+    border-radius: var(--radius-xs);
 
     background:
         linear-gradient(180deg,
@@ -63,7 +63,7 @@
     color: #403729;
 
     font-family: var(--font-ui);
-    font-size: 0.85rem;
+    font-size: var(--text-sm);
     line-height: 1.5;
 
     resize: vertical;
@@ -81,7 +81,7 @@
 }
 
 .create-comment textarea::placeholder {
-    color: #756956;
+    color: var(--color-input-placeholder);
 }
 
 .create-comment textarea:focus {
@@ -99,7 +99,7 @@
 
 .create-comment button {
     position: relative;
-    z-index: 1;
+    z-index: var(--z-base);
 
     align-self: center;
 
@@ -107,23 +107,21 @@
 
     padding: 12px 17px;
 
-    border: 1px solid #80631B;
-    border-radius: 2px;
+    border: 1px solid var(--color-button-gold-border);
+    border-radius: var(--radius-xs);
 
     background:
         var(--button-gold-bg);
 
-    color: #302719;
+    color: var(--color-button-text);
 
     font-family: var(--font-display);
-    font-size: 0.9rem;
-    font-weight: 600;
+    font-size: var(--text-base);
+    font-weight: var(--weight-semibold);
 
     cursor: pointer;
 
-    box-shadow:
-        0 3px 6px rgba(55, 42, 25, 0.28),
-        inset 0 1px 0 rgba(255, 255, 255, 0.35);
+    box-shadow: var(--shadow-button-gold);
 
     transition:
         transform var(--transition-fast),
@@ -163,14 +161,14 @@
     grid-column: 1 / -1;
 
     position: relative;
-    z-index: 1;
+    z-index: var(--z-base);
 
     margin: 0;
 
     color: #713C32;
 
     font-family: var(--font-ui);
-    font-size: 0.75rem;
+    font-size: var(--text-xs);
 }
 
 

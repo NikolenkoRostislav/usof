@@ -1,6 +1,6 @@
 .create-post-field select {
     position: relative;
-    z-index: 1;
+    z-index: var(--z-base);
 
     width: 100%;
     box-sizing: border-box;
@@ -8,7 +8,7 @@
     padding: 11px 13px;
 
     border: 1px solid #806F54;
-    border-radius: 2px;
+    border-radius: var(--radius-xs);
 
     background:
         linear-gradient(180deg,
@@ -16,10 +16,10 @@
             rgba(255, 255, 255, 0.05)),
         rgba(74, 61, 45, 0.08);
 
-    color: #403729;
+    color: var(--color-input-bg);
 
     font-family: var(--font-ui);
-    font-size: 0.85rem;
+    font-size: var(--text-sm);
 
     outline: none;
 
@@ -49,5 +49,5 @@
 
 .create-post-field select option {
     background: #D5CDBD;
-    color: #403729;
+    color: var(--color-input-bg);
 }

@@ -7,7 +7,7 @@
     overflow: hidden;
 
     border: 1px solid var(--color-brass-border);
-    border-radius: 3px;
+    border-radius: var(--radius-panel);
 
     background: var(--brass-card-bg);
 
@@ -54,7 +54,7 @@
         inset 0 1px 0 rgba(220, 200, 140, 0.12),
         inset 0 -1px 0 rgba(50, 39, 17, 0.12);
 
-    z-index: 2;
+    z-index: var(--z-raised);
 }
 
 
@@ -64,14 +64,14 @@
 
 .post-card-link {
     position: relative;
-    z-index: 1;
+    z-index: var(--z-base);
 
     display: grid;
     grid-template-columns: 185px minmax(0, 1fr);
 
     min-height: 205px;
 
-    padding: 20px 24px 18px;
+    padding: var(--space-5) var(--space-6) 18px;
 
     color: inherit;
     text-decoration: none;
@@ -90,15 +90,15 @@
 
     gap: 13px;
 
-    padding: 4px 20px 4px 6px;
+    padding: var(--space-1) var(--space-5) var(--space-1) 6px;
 
     border-right: 1px solid rgba(62, 48, 18, 0.38);
 
     color: #3f351f;
 
     font-family: var(--font-display);
-    font-size: 1.05rem;
-    font-weight: 700;
+    font-size: var(--text-lg);
+    font-weight: var(--weight-bold);
 
     text-align: center;
 }
@@ -116,44 +116,28 @@
     box-sizing: border-box;
 
     border: 2px solid var(--color-brass-border);
-    border-radius: 2px;
+    border-radius: var(--radius-xs);
 
-    background:
-        linear-gradient(135deg,
-            #C2B38A,
-            #9C8C5E 35%,
-            #B5A476 55%,
-            #9C8C5E 78%,
-            #C2B38A);
+    background: var(--brass-frame-bg);
 
     object-fit: cover;
 
-    box-shadow:
-        0 5px 12px rgba(50, 38, 20, 0.38),
-        inset 0 1px 0 rgba(255, 255, 255, 0.45),
-        inset 0 -2px 2px rgba(70, 50, 15, 0.3);
+    box-shadow: var(--shadow-brass-frame);
 }
 
-.post-card-author-name {
+/* Plaque styling comes from the shared .plaque class; only the
+   overrides are set here. The compound selector outranks .plaque,
+   which is loaded after this file. */
+.post-card .post-card-author-name {
     max-width: 170px;
 
     padding: 6px 14px 5px;
 
     overflow: hidden;
 
-    border: 1px solid #725b24;
-    border-radius: 2px;
+    color: var(--color-ink);
 
-    background:
-        linear-gradient(180deg,
-            rgba(194, 166, 91, 0.42),
-            rgba(105, 81, 29, 0.3));
-
-    color: #352c1a;
-
-    font-family: var(--font-display);
-    font-size: 1.1rem;
-    font-weight: 700;
+    font-size: var(--text-lg);
     line-height: 1.1;
 
     text-overflow: ellipsis;
@@ -161,10 +145,6 @@
 
     text-shadow:
         0 1px 0 rgba(218, 199, 140, 0.22);
-
-    box-shadow:
-        inset 0 1px 0 rgba(239, 218, 163, 0.22),
-        0 2px 4px rgba(54, 40, 14, 0.16);
 }
 
 
@@ -178,7 +158,7 @@
 
     min-width: 0;
 
-    padding-left: 24px;
+    padding-left: var(--space-6);
 }
 
 
@@ -193,7 +173,7 @@
 
     gap: var(--space-4);
 
-    padding: 2px 0 8px;
+    padding: 2px 0 var(--space-2);
 }
 
 .post-card-title {
@@ -201,14 +181,14 @@
 
     margin: 0;
 
-    color: #352c1a;
+    color: var(--color-ink);
 
     font-family: var(--font-display);
-    font-size: 1.65rem;
-    font-weight: 700;
+    font-size: var(--text-3xl);
+    font-weight: var(--weight-bold);
     line-height: 1.1;
 
-    letter-spacing: 0.01em;
+    letter-spacing: var(--tracking-tight);
 
     text-shadow:
         0 1px 0 rgba(221, 202, 143, 0.2);
@@ -219,34 +199,17 @@
    STATUS
    ========================= */
 
-.post-card-status {
+/* Plaque styling comes from the shared .plaque class; only the
+   overrides are set here. */
+.post-card .post-card-status {
     flex-shrink: 0;
 
     min-width: 58px;
 
-    padding: 5px 10px;
-
-    border: 1px solid #725b24;
-    border-radius: 2px;
-
-    background:
-        linear-gradient(180deg,
-            rgba(194, 166, 91, 0.42),
-            rgba(105, 81, 29, 0.3));
-
     color: #3e3219;
 
-    font-family: var(--font-display);
-    font-size: 0.78rem;
-    font-weight: 700;
-
-    text-align: center;
     text-transform: capitalize;
-    letter-spacing: 0.05em;
-
-    box-shadow:
-        inset 0 1px 0 rgba(239, 218, 163, 0.22),
-        0 2px 4px rgba(54, 40, 14, 0.16);
+    letter-spacing: var(--tracking-wide);
 }
 
 
@@ -255,12 +218,12 @@
    ========================= */
 
 .post-card-content {
-    margin: 8px 0 14px;
+    margin: var(--space-2) 0 14px;
 
     color: #4a4028;
 
     font-family: var(--font-ui);
-    font-size: 0.86rem;
+    font-size: var(--text-sm);
     line-height: 1.55;
 
     display: -webkit-box;
@@ -286,11 +249,11 @@
 
     padding-top: 9px;
 
-    color: #5d502f;
+    color: var(--color-ink-muted);
 
     font-family: var(--font-ui);
-    font-size: 0.95rem;
-    font-weight: 400;
+    font-size: var(--text-base);
+    font-weight: var(--weight-regular);
 }
 
 
@@ -313,15 +276,15 @@
     padding: 5px 11px;
 
     border: 1px solid var(--color-button-danger-border);
-    border-radius: 2px;
+    border-radius: var(--radius-xs);
 
     background: var(--button-danger-bg);
 
     color: var(--color-button-danger-text);
 
     font-family: var(--font-display);
-    font-size: 0.78rem;
-    font-weight: 700;
+    font-size: var(--text-xs);
+    font-weight: var(--weight-bold);
 
     cursor: pointer;
 
@@ -349,11 +312,11 @@
 
         min-height: 165px;
 
-        padding: 20px 18px 18px;
+        padding: var(--space-5) 18px 18px;
     }
 
     .post-card-author {
-        padding-right: 12px;
+        padding-right: var(--space-3);
     }
 
     .post-card-author img {
@@ -363,16 +326,16 @@
         padding: 5px;
     }
 
-    .post-card-author-name {
+    .post-card .post-card-author-name {
         max-width: 120px;
 
         padding: 4px 8px 3px;
 
-        font-size: 0.9rem;
+        font-size: var(--text-base);
     }
 
     .post-card-details {
-        padding-left: 16px;
+        padding-left: var(--space-4);
     }
 
     .post-card-title-row {
@@ -380,26 +343,26 @@
     }
 
     .post-card-title {
-        font-size: 1.35rem;
+        font-size: var(--text-xl);
     }
 
     .post-card-content {
         margin-top: 6px;
 
-        font-size: 0.82rem;
+        font-size: var(--text-xs);
     }
 
-    .post-card-status {
+    .post-card .post-card-status {
         min-width: 48px;
 
-        padding: 4px 7px;
+        padding: var(--space-1) 7px;
 
-        font-size: 0.7rem;
+        font-size: var(--text-2xs);
     }
 
     .post-card-delete {
-        padding: 4px 8px;
+        padding: var(--space-1) var(--space-2);
 
-        font-size: 0.7rem;
+        font-size: var(--text-2xs);
     }
 }

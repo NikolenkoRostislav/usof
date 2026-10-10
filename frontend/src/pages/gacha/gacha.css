@@ -118,7 +118,7 @@
 
 .gacha-content {
     position: relative;
-    z-index: 2;
+    z-index: var(--z-raised);
 
     min-height: calc(100vh - 70px);
 
@@ -131,7 +131,7 @@
 /* ===== Header ===== */
 
 .gacha-header {
-    padding: 80px 24px 45px;
+    padding: 80px var(--space-6) 45px;
 
     text-align: center;
 }
@@ -143,7 +143,7 @@
 
     font-family: var(--font-display);
     font-size: clamp(3rem, 6vw, 5.5rem);
-    font-weight: 500;
+    font-weight: var(--weight-medium);
     line-height: 0.95;
 
     text-shadow:
@@ -225,9 +225,9 @@
 }
 
 .gacha-roll-button strong {
-    font-size: 0.85rem;
-    font-weight: 700;
-    letter-spacing: 0.18em;
+    font-size: var(--text-sm);
+    font-weight: var(--weight-bold);
+    letter-spacing: var(--tracking-caps);
 }
 
 .gacha-roll-button.rolling .gacha-coin {
@@ -253,8 +253,8 @@
     color: rgba(238, 228, 208, 0.65);
 
     font-family: var(--font-ui);
-    font-size: 0.75rem;
-    letter-spacing: 0.12em;
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-caps);
     text-transform: uppercase;
 }
 
@@ -290,9 +290,9 @@
     color: #c9ad72;
 
     font-family: var(--font-ui);
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.2em;
+    font-size: var(--text-2xs);
+    font-weight: var(--weight-bold);
+    letter-spacing: var(--tracking-caps);
 }
 
 .gacha-result-coin {
@@ -318,8 +318,8 @@
     margin: 0 0 10px;
 
     font-family: var(--font-display);
-    font-size: 2rem;
-    font-weight: 500;
+    font-size: var(--text-4xl);
+    font-weight: var(--weight-medium);
 }
 
 .gacha-rarity {
@@ -330,9 +330,9 @@
     color: #c9ad72;
 
     font-family: var(--font-ui);
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.16em;
+    font-size: var(--text-2xs);
+    font-weight: var(--weight-bold);
+    letter-spacing: var(--tracking-caps);
     text-transform: uppercase;
 }
 
@@ -366,7 +366,7 @@
 .gacha-error {
     flex-direction: column;
 
-    gap: 12px;
+    gap: var(--space-3);
 
     text-align: center;
 }
@@ -377,14 +377,14 @@
     color: #c9ad72;
 
     font-family: var(--font-display);
-    font-weight: 500;
+    font-weight: var(--weight-medium);
 }
 
 .gacha-water-coins {
     position: absolute;
     inset: 0;
 
-    z-index: 1;
+    z-index: var(--z-base);
 
     pointer-events: none;
 
@@ -411,7 +411,7 @@
     color: rgba(91, 72, 38, 0.55);
 
     font-family: var(--font-display);
-    font-size: 0.7rem;
+    font-size: var(--text-2xs);
 
     opacity: 0.45;
 

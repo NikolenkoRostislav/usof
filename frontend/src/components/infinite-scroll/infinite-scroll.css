@@ -76,7 +76,7 @@
 .infinite-scroll-roof-frieze>span:last-child {
     color: var(--color-gold-dark);
 
-    font-size: 1.1rem;
+    font-size: var(--text-lg);
 
     text-shadow:
         0 1px 1px rgba(255, 255, 255, 0.3);
@@ -99,17 +99,17 @@
 
     box-sizing: border-box;
 
-    border: 1px solid #796A52;
+    border: 1px solid var(--color-frame-border);
 
     background: var(--marble-light);
 
     color: #514633;
 
     font-family: var(--font-display);
-    font-size: 1.15rem;
-    font-weight: 600;
+    font-size: var(--text-lg);
+    font-weight: var(--weight-semibold);
 
-    letter-spacing: 0.18em;
+    letter-spacing: var(--tracking-caps);
 
     text-shadow:
         0 1px 0 rgba(255, 255, 255, 0.45),
@@ -156,7 +156,7 @@
 
     display: grid;
     grid-template-columns: 72px minmax(0, 1fr) 72px;
-    gap: 20px;
+    gap: var(--space-5);
 
     min-height: 100%;
 
@@ -173,7 +173,7 @@
 
     min-height: 100%;
 
-    z-index: 2;
+    z-index: var(--z-raised);
 }
 
 
@@ -367,7 +367,7 @@
 
 .infinite-scroll-content {
     position: relative;
-    z-index: 1;
+    z-index: var(--z-base);
 
     display: flex;
     flex-direction: column;
@@ -375,7 +375,7 @@
 
     min-width: 0;
 
-    padding: 28px 12px 0;
+    padding: 28px var(--space-3) 0;
 }
 
 
@@ -442,10 +442,10 @@
     color: rgba(72, 59, 43, 0.62);
 
     font-family: var(--font-display);
-    font-size: 1.05rem;
-    font-weight: 600;
+    font-size: var(--text-lg);
+    font-weight: var(--weight-semibold);
 
-    letter-spacing: 0.22em;
+    letter-spacing: var(--tracking-caps);
 
     white-space: nowrap;
 

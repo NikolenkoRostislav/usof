@@ -56,7 +56,7 @@ function Login() {
                 </div>
 
                 {error && (
-                    <p className="login-error">
+                    <p className="error-message">
                         Login failed.
                     </p>
                 )}

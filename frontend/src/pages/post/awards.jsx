@@ -50,7 +50,7 @@ function Awards({ postId, awards, allAwardsData, onAwardGiven }) {
 
                 return (
                     <span
-                        className={`post-award-${data?.rarity ?? "common"}`}
+                        className={`award-tier award-tier-${data?.rarity ?? "common"}`}
                         key={award.awardId}
                         title={data?.description ?? "Unknown award"}
                     >
@@ -61,6 +61,7 @@ function Awards({ postId, awards, allAwardsData, onAwardGiven }) {
 
             <button
                 type="button"
+                className="button-gold-sm"
                 onClick={() => setGiving((current) => !current)}
                 disabled={availableAwards.length === 0}
             >
@@ -78,7 +79,7 @@ function Awards({ postId, awards, allAwardsData, onAwardGiven }) {
                             <button
                                 type="button"
                                 key={award.id}
-                                className={`post-award-${award.rarity ?? "common"}`}
+                                className={`award-tier award-tier-${award.rarity ?? "common"}`}
                                 onClick={() => giveAward(award.id)}
                             >
                                 {award.title} ({owned.count})

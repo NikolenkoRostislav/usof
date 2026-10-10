@@ -114,7 +114,7 @@ function ProfileData({ user, isOwnProfile }) {
                             {ownedAwards.map((owned) => (
                                 <div
                                     key={owned.awardId}
-                                    className={`profile-award-${owned.award?.rarity ?? "common"}`}
+                                    className={`award-tier award-tier-${owned.award?.rarity ?? "common"}`}
                                     title={owned.award?.description}
                                 >
                                     <strong>

@@ -4,7 +4,7 @@
 
 .post-filters {
     position: relative;
-    z-index: 1;
+    z-index: var(--z-base);
 
     display: flex;
     flex-direction: column;
@@ -12,8 +12,8 @@
 
     padding: 30px 18px 18px;
 
-    border: 1px solid #796A52;
-    border-radius: 2px;
+    border: 1px solid var(--color-frame-border);
+    border-radius: var(--radius-xs);
 
     background: var(--marble-panel);
 
@@ -58,7 +58,7 @@
     color: var(--color-gold-dark);
 
     font-family: var(--font-display);
-    font-size: 0.65rem;
+    font-size: var(--text-2xs);
 
     text-shadow:
         0 1px 1px rgba(255, 255, 255, 0.3);
@@ -72,22 +72,22 @@
 .post-filter {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: var(--space-2);
 }
 
 .post-filter label {
     position: relative;
-    z-index: 1;
+    z-index: var(--z-base);
 
     padding-left: 2px;
 
-    color: #5E523F;
+    color: var(--color-label);
 
     font-family: var(--font-display);
-    font-size: 0.9rem;
-    font-weight: 600;
+    font-size: var(--text-base);
+    font-weight: var(--weight-semibold);
 
-    letter-spacing: 0.04em;
+    letter-spacing: var(--tracking-wide);
 }
 
 
@@ -98,7 +98,7 @@
 .post-filters form {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: var(--space-2);
 }
 
 
@@ -109,7 +109,7 @@
 .post-filter input,
 .post-filter select {
     position: relative;
-    z-index: 1;
+    z-index: var(--z-base);
 
     width: 100%;
     box-sizing: border-box;
@@ -117,8 +117,8 @@
     min-height: 40px;
     padding: 9px 11px;
 
-    border: 1px solid #8B7D65;
-    border-radius: 2px;
+    border: 1px solid var(--color-input-border);
+    border-radius: var(--radius-xs);
 
     background:
         linear-gradient(180deg,
@@ -129,7 +129,7 @@
     color: #403729;
 
     font-family: var(--font-ui);
-    font-size: 0.8rem;
+    font-size: var(--text-xs);
 
     outline: none;
 
@@ -145,13 +145,13 @@
 }
 
 .post-filter input::placeholder {
-    color: #756956;
+    color: var(--color-input-placeholder);
     opacity: 1;
 }
 
 .post-filter input:hover,
 .post-filter select:hover {
-    border-color: #74634A;
+    border-color: var(--color-input-border-hover);
 }
 
 .post-filter input:focus,
@@ -185,25 +185,25 @@
 
 .post-filters form button {
     position: relative;
-    z-index: 1;
+    z-index: var(--z-base);
 
     min-height: 38px;
-    margin-top: 4px;
-    padding: 8px 14px;
+    margin-top: var(--space-1);
+    padding: var(--space-2) 14px;
 
-    border: 1px solid #80631B;
-    border-radius: 2px;
+    border: 1px solid var(--color-button-gold-border);
+    border-radius: var(--radius-xs);
 
     background:
         var(--button-gold-bg);
 
-    color: #302719;
+    color: var(--color-button-text);
 
     font-family: var(--font-display);
-    font-size: 0.9rem;
-    font-weight: 600;
+    font-size: var(--text-base);
+    font-weight: var(--weight-semibold);
 
-    letter-spacing: 0.03em;
+    letter-spacing: var(--tracking-wide);
 
     cursor: pointer;
 
@@ -242,7 +242,7 @@
 }
 
 .post-filter select option {
-    background: #D0C7B8;
+    background: var(--marble-column-shaft);
     color: #403729;
 }
 
@@ -253,6 +253,6 @@
 
 @media (max-width: 500px) {
     .post-filters {
-        padding: 26px 12px 12px;
+        padding: 26px var(--space-3) var(--space-3);
     }
 }
