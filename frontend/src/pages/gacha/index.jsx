@@ -96,28 +96,25 @@ function Gacha() {
     return (
         <main className="gacha-page">
             <div className="gacha-water-coins" aria-hidden="true">
-                <span>✦</span>
-                <span>●</span>
-                <span>✦</span>
-                <span>●</span>
-                <span>✦</span>
-                <span>●</span>
-                <span>✦</span>
-                <span>●</span>
-                <span>✦</span>
-                <span>●</span>
-                <span>✦</span>
-                <span>●</span>
-                <span>✦</span>
-                <span>●</span>
+                <span />
+                <span />
+                <span />
+                <span />
+                <span />
+                <span />
+                <span />
+                <span />
+                <span />
+                <span />
+                <span />
+                <span />
+                <span />
+                <span />
             </div>
 
             <section className="gacha-content">
                 <header className="gacha-header">
-                    <h1>
-                        The Fountain
-                        <span>of Fortune</span>
-                    </h1>
+                    <h1>The Fountain of Fortune</h1>
                 </header>
 
                 <section className="gacha-controls">
@@ -128,9 +125,7 @@ function Gacha() {
                             onClick={handleRoll}
                             disabled={rolling}
                         >
-                            <span className="gacha-coin">
-                                ✦
-                            </span>
+                            <span className="gacha-coin" aria-hidden="true" />
 
                             <strong>
                                 {rolling ? "TAKING YOUR COIN" : "TAKE A COIN"}
@@ -148,12 +143,10 @@ function Gacha() {
                         className={`gacha-result gacha-result-${rarity}`}
                     >
                         <p className="gacha-result-label">
-                            YOU FOUND A BLESSING
+                            YOU FOUND AN AWARD
                         </p>
 
-                        <div className="gacha-result-coin">
-                            ✦
-                        </div>
+                        <div className="gacha-result-coin" aria-hidden="true" />
 
                         <h2>{result.title}</h2>
 
