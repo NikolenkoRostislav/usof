@@ -33,23 +33,7 @@
     border: 1px solid #796A52;
     border-radius: 3px;
 
-    background:
-        linear-gradient(118deg,
-            transparent 0%,
-            rgba(255, 255, 255, 0.16) 17%,
-            transparent 29%,
-            rgba(70, 59, 45, 0.10) 43%,
-            transparent 55%,
-            rgba(255, 255, 255, 0.10) 72%,
-            transparent 86%),
-        linear-gradient(90deg,
-            #9B9180,
-            #D5CDBD 18%,
-            #B0A696 36%,
-            #DED6C7 53%,
-            #A79D8C 70%,
-            #D0C7B8 86%,
-            #958978);
+    background: var(--marble-panel);
 
     color: #514633;
 
@@ -371,10 +355,7 @@
     border: 1px solid #80631B;
     border-radius: 2px;
 
-    background:
-        linear-gradient(180deg,
-            var(--color-gold-light),
-            var(--color-gold));
+    background: var(--button-gold-bg);
 
     color: #302719;
 

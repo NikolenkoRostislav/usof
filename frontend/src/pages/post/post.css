@@ -36,23 +36,7 @@
     border: 1px solid #796A52;
     border-radius: 3px;
 
-    background:
-        linear-gradient(118deg,
-            transparent 0%,
-            rgba(255, 255, 255, 0.16) 16%,
-            transparent 29%,
-            rgba(70, 59, 45, 0.10) 43%,
-            transparent 56%,
-            rgba(255, 255, 255, 0.10) 73%,
-            transparent 87%),
-        linear-gradient(90deg,
-            #9B9180,
-            #D5CDBD 18%,
-            #B0A696 36%,
-            #DED6C7 53%,
-            #A79D8C 70%,
-            #D0C7B8 86%,
-            #958978);
+    background: var(--marble-panel);
 
     color: var(--color-text-dark);
 
@@ -179,10 +163,7 @@
     border-radius: 2px;
 
     background:
-        linear-gradient(180deg,
-            var(--color-gold-light),
-            var(--color-gold) 55%,
-            #A98218);
+        var(--button-gold-bg);
 
     color: #302719;
 
@@ -197,19 +178,13 @@
         inset 0 1px 0 rgba(255, 255, 255, 0.35);
 
     transition:
-        transform var(--transition-fast),
         background var(--transition-fast),
         box-shadow var(--transition-fast);
 }
 
 .post-header>button:hover {
     background:
-        linear-gradient(180deg,
-            #EBD16C,
-            var(--color-gold-light) 55%,
-            #B68F1E);
-
-    transform: translateY(-1px);
+        var(--button-gold-bg-hover);
 
     box-shadow:
         0 5px 10px rgba(55, 42, 25, 0.3),

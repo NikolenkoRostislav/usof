@@ -173,10 +173,7 @@
     border: 1px solid var(--color-button-gold-border);
     border-radius: 2px;
     background:
-        linear-gradient(180deg,
-            var(--color-gold-light),
-            var(--color-gold) 55%,
-            #A98218);
+        var(--button-gold-bg);
     color: var(--color-button-text);
     font-family: var(--font-display);
     font-size: 1rem;
@@ -194,11 +191,7 @@
 
 .registration-form button:hover:not(:disabled) {
     background:
-        linear-gradient(180deg,
-            #EBD16C,
-            var(--color-gold-light) 55%,
-            #B68F1E);
-    transform: translateY(-1px);
+        var(--button-gold-bg-hover);
     box-shadow:
         0 5px 10px rgba(55, 42, 25, 0.32),
         0 0 12px rgba(201, 162, 39, 0.18),

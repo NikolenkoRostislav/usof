@@ -15,23 +15,7 @@
     border: 1px solid #796A52;
     border-radius: 2px;
 
-    background:
-        linear-gradient(118deg,
-            transparent 0%,
-            rgba(255, 255, 255, 0.08) 20%,
-            transparent 33%,
-            rgba(70, 59, 45, 0.07) 48%,
-            transparent 61%,
-            rgba(255, 255, 255, 0.06) 78%,
-            transparent 90%),
-        linear-gradient(90deg,
-            #9B9180,
-            #D5CDBD 18%,
-            #B0A696 36%,
-            #DED6C7 53%,
-            #A79D8C 70%,
-            #D0C7B8 86%,
-            #958978);
+    background: var(--marble-panel);
 
     box-shadow:
         inset 0 1px 0 rgba(255, 255, 255, 0.28),
@@ -211,10 +195,7 @@
     border-radius: 2px;
 
     background:
-        linear-gradient(180deg,
-            var(--color-gold-light),
-            var(--color-gold) 55%,
-            #A98218);
+        var(--button-gold-bg);
 
     color: #302719;
 
@@ -231,17 +212,13 @@
         inset 0 1px 0 rgba(255, 255, 255, 0.35);
 
     transition:
-        transform var(--transition-fast),
         background var(--transition-fast),
         box-shadow var(--transition-fast);
 }
 
 .post-filters form button:hover {
     background:
-        linear-gradient(180deg,
-            #EBD16C,
-            var(--color-gold-light) 55%,
-            #B68F1E);
+        var(--button-gold-bg-hover);
 
     box-shadow:
         0 5px 8px rgba(55, 42, 25, 0.3),

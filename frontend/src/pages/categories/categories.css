@@ -225,10 +225,7 @@
     border-radius: 2px;
 
     background:
-        linear-gradient(180deg,
-            var(--color-gold-light),
-            var(--color-gold) 55%,
-            #A98218);
+        var(--button-gold-bg);
 
     color: var(--color-button-text);
 
@@ -252,12 +249,7 @@
 
 .category-create button:hover:not(:disabled) {
     background:
-        linear-gradient(180deg,
-            #EBD16C,
-            var(--color-gold-light) 55%,
-            #B68F1E);
-
-    transform: translateY(-1px);
+        var(--button-gold-bg-hover);
 
     box-shadow:
         0 5px 10px rgba(55, 42, 25, 0.32),
@@ -302,15 +294,10 @@
 
     padding: 21px 25px;
 
-    border: 1px solid #66521f;
+    border: 1px solid var(--color-brass-border);
     border-radius: 3px;
 
-    background:
-        linear-gradient(135deg,
-            #806b32 0%,
-            #927b3d 35%,
-            #887238 65%,
-            #76602d 100%);
+    background: var(--brass-card-bg);
 
     color: #352d1d;
 
@@ -345,14 +332,9 @@
 .category:hover {
     transform: translateY(-2px);
 
-    border-color: #806b2d;
+    border-color: var(--color-brass-border-hover);
 
-    background:
-        linear-gradient(135deg,
-            #877338 0%,
-            #9a8243 35%,
-            #90793d 65%,
-            #7d6632 100%);
+    background: var(--brass-card-bg-hover);
 
     box-shadow:
         0 11px 22px rgba(0, 0, 0, 0.38),

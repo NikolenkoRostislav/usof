@@ -40,10 +40,7 @@
 .post-award-common {
     border: 1px solid #796A52;
 
-    background:
-        linear-gradient(180deg,
-            #C8BFAF,
-            #A69B8A);
+    background: var(--marble-base);
 
     color: #4E4436;
 }
@@ -104,10 +101,7 @@
     border: 1px solid #80631B;
     border-radius: 2px;
 
-    background:
-        linear-gradient(180deg,
-            var(--color-gold-light),
-            var(--color-gold));
+    background: var(--button-gold-bg);
 
     color: #302719;
 
@@ -118,13 +112,11 @@
     cursor: pointer;
 
     transition:
-        transform var(--transition-fast),
         background var(--transition-fast);
 }
 
 .post-awards>button:hover:not(:disabled) {
-    background: var(--color-gold-light);
-    transform: translateY(-1px);
+    background: var(--button-gold-bg-hover);
 }
 
 .post-awards>button:disabled {
@@ -155,10 +147,7 @@
     border: 1px solid #796A52;
     border-radius: 2px;
 
-    background:
-        linear-gradient(180deg,
-            #CFC6B6,
-            #A79C8B);
+    background: var(--marble-panel-light);
 
     color: #403729;
 
@@ -172,15 +161,9 @@
         inset 0 1px 0 rgba(255, 255, 255, 0.25);
 
     transition:
-        background var(--transition-fast),
-        transform var(--transition-fast);
+        background var(--transition-fast);
 }
 
 .award-selector button:hover {
-    background:
-        linear-gradient(180deg,
-            #DED6C7,
-            #B7AC9B);
-
-    transform: translateY(-1px);
+    background: var(--marble-panel);
 }

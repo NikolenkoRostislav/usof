@@ -83,121 +83,43 @@
 
     --marble-base:
         linear-gradient(105deg,
-            transparent 0%,
-            rgba(255, 255, 255, 0.10) 18%,
-            transparent 31%,
-            rgba(0, 0, 0, 0.07) 47%,
-            transparent 61%,
-            rgba(255, 255, 255, 0.07) 78%,
-            transparent 91%),
-        linear-gradient(90deg,
-            #9C9282,
-            #D8D0C0 18%,
-            #B6AC9B 37%,
-            #E0D8C9 55%,
-            #AAA090 73%,
-            #D1C8B7 88%,
-            #968A79);
+            rgba(255, 255, 255, 0.06),
+            transparent 60%),
+        #D8D0C0;
 
     --marble-light:
         linear-gradient(105deg,
-            transparent 0%,
-            rgba(255, 255, 255, 0.14) 18%,
-            transparent 31%,
-            rgba(0, 0, 0, 0.05) 47%,
-            transparent 61%,
-            rgba(255, 255, 255, 0.10) 78%,
-            transparent 91%),
-        linear-gradient(90deg,
-            #A09786,
-            #D8D0C0 18%,
-            #B2A797 38%,
-            #E0D8C9 56%,
-            #A79C8B 78%,
-            #D1C8B8);
+            rgba(255, 255, 255, 0.08),
+            transparent 60%),
+        #E0D8C9;
 
-    --marble-column-shaft:
-        linear-gradient(90deg,
-            #8E8271 0%,
-            #B7AD9C 18%,
-            #D8D0C0 35%,
-            #E0D8C9 50%,
-            #D8D0C0 65%,
-            #B7AD9C 82%,
-            #8E8271 100%);
+    --marble-column-shaft: #D0C7B8;
 
     /* ===== Form Panels ===== */
 
     --marble-panel:
         linear-gradient(118deg,
-            transparent 0%,
-            rgba(255, 255, 255, 0.16) 17%,
-            transparent 29%,
-            rgba(70, 59, 45, 0.10) 43%,
-            transparent 55%,
-            rgba(255, 255, 255, 0.10) 72%,
-            transparent 86%),
-        linear-gradient(90deg,
-            #9B9180,
-            #D9D1C1 17%,
-            #B4AA99 34%,
-            #E0D8C9 51%,
-            #AAA090 68%,
-            #D3CABB 84%,
-            #958978);
+            rgba(255, 255, 255, 0.08),
+            transparent 60%),
+        #D5CDBD;
 
     --marble-panel-variant:
         linear-gradient(118deg,
-            transparent 0%,
-            rgba(255, 255, 255, 0.16) 16%,
-            transparent 29%,
-            rgba(70, 59, 45, 0.10) 43%,
-            transparent 56%,
-            rgba(255, 255, 255, 0.10) 73%,
-            transparent 87%),
-        linear-gradient(90deg,
-            #9B9180,
-            #D5CDBD 18%,
-            #B0A696 36%,
-            #DED6C7 53%,
-            #A79D8C 70%,
-            #D0C7B8 86%,
-            #958978);
+            rgba(255, 255, 255, 0.07),
+            transparent 60%),
+        #D0C7B8;
 
     --marble-panel-light:
         linear-gradient(118deg,
-            transparent 0%,
-            rgba(255, 255, 255, 0.12) 14%,
-            transparent 26%,
-            rgba(70, 59, 45, 0.08) 40%,
-            transparent 53%,
-            rgba(255, 255, 255, 0.09) 69%,
-            transparent 83%),
-        linear-gradient(90deg,
-            #918675,
-            #CFC6B6 16%,
-            #AFA494 33%,
-            #DCD4C5 50%,
-            #A59A89 68%,
-            #CEC5B5 84%,
-            #918574);
+            rgba(255, 255, 255, 0.06),
+            transparent 60%),
+        #CFC6B6;
 
     --marble-panel-subtle:
         linear-gradient(118deg,
-            transparent 0%,
-            rgba(255, 255, 255, 0.12) 18%,
-            transparent 31%,
-            rgba(70, 59, 45, 0.08) 46%,
-            transparent 61%,
-            rgba(255, 255, 255, 0.08) 78%,
-            transparent 90%),
-        linear-gradient(90deg,
-            #958A79,
-            #C9C0B0 20%,
-            #A69B8A 39%,
-            #D5CDBD 57%,
-            #9F9483 76%,
-            #C7BEAE);
+            rgba(255, 255, 255, 0.05),
+            transparent 60%),
+        #C9C0B0;
 
     /* ===== Panel Shadows ===== */
 
@@ -244,6 +166,42 @@
 
     --color-button-gold-border: #80631B;
     --color-button-text: #302719;
+    --button-gold-bg:
+        linear-gradient(180deg,
+            #D6C68E,
+            #C4AE6E 55%,
+            #AE9856);
+    --button-gold-bg-hover:
+        linear-gradient(180deg,
+            #E0D29C,
+            #CDB97C 55%,
+            #B8A364);
+
+    --brass-card-bg:
+        linear-gradient(135deg,
+            #A89A6E 0%,
+            #B4A578 35%,
+            #AC9D70 65%,
+            #9C8E63 100%);
+    --brass-card-bg-hover:
+        linear-gradient(135deg,
+            #B1A374 0%,
+            #BCAE81 35%,
+            #B5A67A 65%,
+            #A59668 100%);
+    --color-brass-border: #6E6246;
+    --color-brass-border-hover: #7E7254;
+
+    --color-button-danger-border: #6E3B30;
+    --color-button-danger-text: #F6E6E1;
+    --button-danger-bg:
+        linear-gradient(180deg,
+            #A65F52,
+            #8F4A3E);
+    --button-danger-bg-hover:
+        linear-gradient(180deg,
+            #B56D60,
+            #9E5649);
 }
 
 
@@ -306,8 +264,6 @@ img {
     min-height: 100vh;
 
     background:
-        linear-gradient(rgba(21, 18, 15, 0.72),
-            rgba(21, 18, 15, 0.72)),
         url("./assets/bgplants.png") center / cover fixed no-repeat;
 }
 
@@ -591,11 +547,7 @@ p {
     padding: 11px 16px;
     border: 1px solid var(--color-button-gold-border);
     border-radius: 2px;
-    background:
-        linear-gradient(180deg,
-            var(--color-gold-light),
-            var(--color-gold) 55%,
-            #A98218);
+    background: var(--button-gold-bg);
     color: var(--color-button-text);
     font-family: var(--font-display);
     font-size: 1rem;
@@ -612,15 +564,9 @@ p {
 }
 
 .button-gold:hover:not(:disabled) {
-    background:
-        linear-gradient(180deg,
-            #EBD16C,
-            var(--color-gold-light) 55%,
-            #B68F1E);
-    transform: translateY(-1px);
+    background: var(--button-gold-bg-hover);
     box-shadow:
-        0 5px 10px rgba(55, 42, 25, 0.32),
-        0 0 12px rgba(201, 162, 39, 0.18),
+        0 5px 10px rgba(55, 42, 25, 0.28),
         inset 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 
@@ -641,11 +587,7 @@ p {
     padding: 9px 16px;
     border: 1px solid var(--color-button-gold-border);
     border-radius: 2px;
-    background:
-        linear-gradient(180deg,
-            var(--color-gold-light),
-            var(--color-gold) 55%,
-            #A98218);
+    background: var(--button-gold-bg);
     color: var(--color-button-text);
     font-family: var(--font-display);
     font-size: 0.8rem;
@@ -660,14 +602,9 @@ p {
 }
 
 .button-gold-sm:hover:not(:disabled) {
-    background:
-        linear-gradient(180deg,
-            #EBD16C,
-            var(--color-gold-light) 55%,
-            #B68F1E);
+    background: var(--button-gold-bg-hover);
     box-shadow:
-        0 5px 10px rgba(55, 42, 25, 0.32),
-        0 0 12px rgba(201, 162, 39, 0.15),
+        0 5px 10px rgba(55, 42, 25, 0.28),
         inset 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 

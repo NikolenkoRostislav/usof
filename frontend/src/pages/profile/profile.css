@@ -363,10 +363,7 @@
     border: 1px solid var(--color-button-gold-border);
     border-radius: 2px;
     background:
-        linear-gradient(180deg,
-            var(--color-gold-light),
-            var(--color-gold) 55%,
-            #A98218);
+        var(--button-gold-bg);
     color: var(--color-button-text);
     font-family: var(--font-display);
     font-size: 0.76rem;
@@ -383,11 +380,7 @@
 
 .profile-actions button:hover:not(:disabled) {
     background:
-        linear-gradient(180deg,
-            #EBD16C,
-            var(--color-gold-light) 55%,
-            #B68F1E);
-    transform: translateY(-1px);
+        var(--button-gold-bg-hover);
     box-shadow:
         0 5px 9px rgba(55, 42, 25, 0.3),
         0 0 10px rgba(201, 162, 39, 0.12);
@@ -403,21 +396,15 @@
 }
 
 .profile-actions .profile-delete {
-    border-color: #713C32;
+    border-color: var(--color-button-danger-border);
 
-    background:
-        linear-gradient(180deg,
-            #B86A5D,
-            #913F35);
+    background: var(--button-danger-bg);
 
-    color: #F2DDD8;
+    color: var(--color-button-danger-text);
 }
 
 .profile-actions .profile-delete:hover:not(:disabled) {
-    background:
-        linear-gradient(180deg,
-            #C37A6D,
-            #A3483C);
+    background: var(--button-danger-bg-hover);
 }
 
 

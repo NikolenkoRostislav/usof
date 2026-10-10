@@ -17,22 +17,7 @@
     border: 1px solid #796A52;
     border-radius: 3px;
 
-    background:
-        linear-gradient(118deg,
-            transparent 0%,
-            rgba(255, 255, 255, 0.08) 18%,
-            transparent 31%,
-            rgba(70, 59, 45, 0.06) 46%,
-            transparent 60%,
-            rgba(255, 255, 255, 0.06) 78%,
-            transparent 90%),
-        linear-gradient(90deg,
-            #958A79,
-            #C9C0B0 20%,
-            #A69B8A 39%,
-            #D5CDBD 57%,
-            #9F9483 76%,
-            #C7BEAE);
+    background: var(--marble-panel-subtle);
 
     box-shadow:
         0 7px 16px rgba(0, 0, 0, 0.28),
@@ -126,10 +111,7 @@
     border-radius: 2px;
 
     background:
-        linear-gradient(180deg,
-            var(--color-gold-light),
-            var(--color-gold) 55%,
-            #A98218);
+        var(--button-gold-bg);
 
     color: #302719;
 
@@ -151,12 +133,7 @@
 
 .create-comment button:hover:not(:disabled) {
     background:
-        linear-gradient(180deg,
-            #EBD16C,
-            var(--color-gold-light) 55%,
-            #B68F1E);
-
-    transform: translateY(-1px);
+        var(--button-gold-bg-hover);
 
     box-shadow:
         0 5px 10px rgba(55, 42, 25, 0.32),
