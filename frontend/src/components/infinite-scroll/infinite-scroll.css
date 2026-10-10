@@ -1,8 +1,20 @@
+/* Horizontal measurements are relative to the component's own width (cqi),
+   with clamps so the decorations keep their proportions on small screens
+   and stop growing past the original design size on large ones */
+.infinite-scroll {
+    container-type: inline-size;
+}
+
 .infinite-scroll-architecture {
+    --scroll-gutter: clamp(40px, 8.86cqi, 78px);
+    --scroll-roof-bleed: clamp(48px, 11.36cqi, 100px);
+    --scroll-column-bleed: clamp(16px, 3.75cqi, 33px);
+    --scroll-column-track: clamp(66px, 8.18cqi, 72px);
+
     position: relative;
 
     width: 100%;
-    padding: 0 78px;
+    padding: 0 var(--scroll-gutter);
 
     box-sizing: border-box;
 }
@@ -16,8 +28,8 @@
     position: relative;
     z-index: 3;
 
-    width: calc(100% + 356px);
-    margin-left: -178px;
+    width: calc(100% + 2 * (var(--scroll-gutter) + var(--scroll-roof-bleed)));
+    margin-left: calc(-1 * (var(--scroll-gutter) + var(--scroll-roof-bleed)));
 }
 
 .infinite-scroll-roof-crown,
@@ -155,13 +167,13 @@
     position: relative;
 
     display: grid;
-    grid-template-columns: 72px minmax(0, 1fr) 72px;
+    grid-template-columns: var(--scroll-column-track) minmax(0, 1fr) var(--scroll-column-track);
     gap: var(--space-5);
 
     min-height: 100%;
 
-    width: calc(100% + 222px);
-    margin-left: -111px;
+    width: calc(100% + 2 * (var(--scroll-gutter) + var(--scroll-column-bleed)));
+    margin-left: calc(-1 * (var(--scroll-gutter) + var(--scroll-column-bleed)));
 }
 
 .roman-column {
@@ -388,8 +400,8 @@
 
     z-index: 3;
 
-    width: calc(100% + 356px);
-    margin-left: -178px;
+    width: calc(100% + 2 * (var(--scroll-gutter) + var(--scroll-roof-bleed)));
+    margin-left: calc(-1 * (var(--scroll-gutter) + var(--scroll-roof-bleed)));
 }
 
 .infinite-scroll-floor-step {
@@ -452,4 +464,32 @@
     text-shadow:
         0 1px 0 rgba(255, 255, 255, 0.22),
         0 -1px 0 rgba(45, 35, 25, 0.18);
+}
+
+
+/* =========================
+    MOBILE
+   ========================= */
+
+@media (max-width: 700px) {
+    .infinite-scroll-architecture {
+        padding: 0;
+    }
+
+    .infinite-scroll-roof,
+    .infinite-scroll-floor {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .infinite-scroll-columns {
+        grid-template-columns: minmax(0, 1fr);
+
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .roman-column {
+        display: none;
+    }
 }

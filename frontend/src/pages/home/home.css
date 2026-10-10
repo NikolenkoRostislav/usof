@@ -3,6 +3,8 @@
    ========================= */
 
 .home-page {
+    --home-sidebar-width: clamp(260px, 24vw, 300px);
+
     width: min(1240px, calc(100% - 80px));
     margin: 0 auto;
 
@@ -21,13 +23,16 @@
     top: 175px;
     left: max(32px, calc((100vw - 1560px) / 2));
 
-    width: 360px;
+    width: var(--home-sidebar-width);
+    max-height: calc(100vh - 175px - 24px);
 
     display: flex;
     flex-direction: column;
     gap: var(--space-6);
 
     box-sizing: border-box;
+
+    overflow-y: auto;
 
     z-index: 30;
 }
@@ -37,8 +42,8 @@
    ========================= */
 
 .home-page>.infinite-scroll {
-    width: min(880px, 100%);
-    margin-left: 400px;
+    width: min(880px, calc(100% - var(--home-sidebar-width) - 40px));
+    margin-left: calc(var(--home-sidebar-width) + 40px);
 }
 
 
@@ -121,23 +126,6 @@
 
 @media (max-width: 1000px) {
     .home-page {
-        width: calc(100% - 48px);
-    }
-
-    .home-sidebar {
-        width: 280px;
-        left: 24px;
-    }
-
-    .home-page>.infinite-scroll {
-        margin-left: 320px;
-        width: calc(100% - 320px);
-    }
-}
-
-
-@media (max-width: 700px) {
-    .home-page {
         width: 100%;
 
         display: block;
@@ -158,8 +146,11 @@
         position: static;
 
         width: 100%;
+        max-width: 560px;
+        max-height: none;
+        overflow-y: visible;
 
-        margin-bottom: var(--space-6);
+        margin: 0 auto var(--space-6);
 
         padding: var(--space-8) var(--space-6) var(--space-6);
     }
