@@ -4,10 +4,6 @@
     padding: 72px var(--space-5);
 }
 
-/* =========================
-   MARBLE TABLET
-   ========================= */
-
 .login-form {
     position: relative;
     display: flex;
@@ -45,10 +41,6 @@
     text-shadow: var(--ornament-text-shadow);
 }
 
-/* =========================
-   TITLE
-   ========================= */
-
 .login-form h1 {
     position: relative;
     margin: var(--space-1) 0 var(--space-3);
@@ -77,10 +69,6 @@
             var(--color-gold-dark),
             transparent);
 }
-
-/* =========================
-   FIELDS
-   ========================= */
 
 .login-field {
     display: flex;
@@ -143,10 +131,6 @@
         0 0 8px rgba(201, 162, 39, 0.10);
 }
 
-/* =========================
-   LOGIN BUTTON
-   ========================= */
-
 .login-form button {
     position: relative;
     margin-top: var(--space-1);
@@ -189,10 +173,6 @@
     opacity: 0.55;
 }
 
-/* =========================
-   LINKS
-   ========================= */
-
 .login-link {
     position: relative;
 
@@ -217,10 +197,6 @@
     color: var(--color-gold-dark);
     text-decoration: underline;
 }
-
-/* =========================
-   MOBILE
-   ========================= */
 
 @media (max-width: 500px) {
     .login-page {

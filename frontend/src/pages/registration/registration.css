@@ -4,10 +4,6 @@
     padding: var(--space-16) var(--space-5);
 }
 
-/* =========================
-   MARBLE TABLET
-   ========================= */
-
 .registration-form,
 .registration-success {
     position: relative;
@@ -43,10 +39,6 @@
     font-size: var(--text-base);
     text-shadow: var(--ornament-text-shadow);
 }
-
-/* =========================
-   FORM
-   ========================= */
 
 .registration-form {
     display: flex;
@@ -86,10 +78,6 @@
             var(--color-gold-dark),
             transparent);
 }
-
-/* =========================
-   FIELDS
-   ========================= */
 
 .registration-field {
     display: flex;
@@ -193,10 +181,6 @@
     opacity: 0.55;
 }
 
-/* =========================
-   LINK
-   ========================= */
-
 .registration-link {
     margin: 2px 0 0;
 
@@ -219,10 +203,6 @@
     color: var(--color-gold-dark);
     text-decoration: underline;
 }
-
-/* =========================
-   SUCCESS
-   ========================= */
 
 .registration-success {
     padding: 42px var(--space-10) 40px;
@@ -249,10 +229,6 @@
 .registration-success p:last-child {
     margin-bottom: 0;
 }
-
-/* =========================
-   MOBILE
-   ========================= */
 
 @media (max-width: 500px) {
     .registration-page {

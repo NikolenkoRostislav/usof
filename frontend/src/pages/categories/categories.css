@@ -1,7 +1,3 @@
-/* =========================
-   CATEGORIES PAGE
-   ========================= */
-
 .categories-page {
     width: min(800px, 100%);
     margin: 0 auto;
@@ -19,10 +15,6 @@
     font-weight: var(--weight-semibold);
 }
 
-
-/* =========================
-   MARBLE PLAQUE
-   ========================= */
 
 .category-create {
     position: relative;
@@ -108,10 +100,6 @@
             var(--color-gold-dark),
             transparent);
 }
-
-/* =========================
-   CREATION FIELDS
-   ========================= */
 
 .category-create {
     display: grid;
@@ -268,10 +256,6 @@
     opacity: 0.55;
 }
 
-/* =========================
-   CATEGORY LIST
-   ========================= */
-
 .categories-list {
     display: flex;
     flex-direction: column;
@@ -279,10 +263,6 @@
     gap: 14px;
 }
 
-
-/* =========================
-   BRONZE CATEGORY PANEL
-   ========================= */
 
 .category {
     position: relative;
@@ -373,10 +353,6 @@
 }
 
 
-/* =========================
-   ERROR
-   ========================= */
-
 .categories-error {
     margin: 0 0 var(--space-4);
 
@@ -386,10 +362,6 @@
     font-size: var(--text-xs);
 }
 
-
-/* =========================
-   MOBILE
-   ========================= */
 
 @media (max-width: 600px) {
     .categories-page {

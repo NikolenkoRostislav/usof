@@ -1,7 +1,3 @@
-/* =========================
-   POST FILTERS
-   ========================= */
-
 .post-filters {
     position: relative;
     z-index: var(--z-base);
@@ -22,11 +18,6 @@
         inset 0 -1px 0 rgba(0, 0, 0, 0.2),
         0 5px 10px rgba(0, 0, 0, 0.22);
 }
-
-
-/* =========================
-   FILTER INNER FRAME
-   ========================= */
 
 .post-filters::before {
     content: "";
@@ -64,11 +55,6 @@
         0 1px 1px rgba(255, 255, 255, 0.3);
 }
 
-
-/* =========================
-   INDIVIDUAL FILTER
-   ========================= */
-
 .post-filter {
     display: flex;
     flex-direction: column;
@@ -90,21 +76,11 @@
     letter-spacing: var(--tracking-wide);
 }
 
-
-/* =========================
-   SEARCH FORM
-   ========================= */
-
 .post-filters form {
     display: flex;
     flex-direction: column;
     gap: var(--space-2);
 }
-
-
-/* =========================
-   FILTER INPUTS
-   ========================= */
 
 .post-filter input,
 .post-filter select {
@@ -169,19 +145,9 @@
         0 0 0 1px rgba(201, 162, 39, 0.22);
 }
 
-
-/* =========================
-   DATE INPUTS
-   ========================= */
-
 .post-filter input[type="date"] {
     color-scheme: light;
 }
-
-
-/* =========================
-   SEARCH BUTTON
-   ========================= */
 
 .post-filters form button {
     position: relative;
@@ -232,11 +198,6 @@
         inset 0 2px 4px rgba(60, 45, 25, 0.18);
 }
 
-
-/* =========================
-   SELECT
-   ========================= */
-
 .post-filter select {
     cursor: pointer;
 }
@@ -245,11 +206,6 @@
     background: var(--marble-column-shaft);
     color: #403729;
 }
-
-
-/* =========================
-   RESPONSIVE
-   ========================= */
 
 @media (max-width: 500px) {
     .post-filters {

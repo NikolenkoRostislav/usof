@@ -16,8 +16,6 @@
 }
 
 
-/* ===== Roof Details ===== */
-
 .header::before,
 .header::after {
     content: "";
@@ -55,8 +53,6 @@
 }
 
 
-/* ===== Main Header ===== */
-
 .header-main {
     position: relative;
     z-index: var(--z-base);
@@ -72,8 +68,6 @@
     padding: 10px 0;
 }
 
-
-/* ===== Logo ===== */
 
 .header-logo {
     flex-shrink: 0;
@@ -104,8 +98,6 @@
         0 0 12px rgba(201, 162, 39, 0.2);
 }
 
-
-/* ===== Search ===== */
 
 .header-search {
     display: flex;
@@ -184,8 +176,6 @@
 }
 
 
-/* ===== User Area ===== */
-
 .header-user {
     display: flex;
     align-items: center;
@@ -257,8 +247,6 @@
 }
 
 
-/* ===== Auth Buttons ===== */
-
 .header-logout,
 .header-login,
 .header-register {
@@ -319,8 +307,6 @@
     color: var(--color-text-dark);
 }
 
-
-/* ===== Navigation Frieze ===== */
 
 .header-menu {
     display: flex;
@@ -402,8 +388,6 @@
     transform: scaleX(1);
 }
 
-
-/* ===== Responsive ===== */
 
 @media (max-width: 800px) {
     .header-main {

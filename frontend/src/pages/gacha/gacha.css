@@ -13,13 +13,11 @@
     background: var(--marble-base);
 }
 
-/* Let the page fill the space between header and footer so the footer stays in view */
 .app-content:has(> .gacha-page) {
     display: flex;
     flex-direction: column;
 }
 
-/* Water overlay sits above the background coins and below the content */
 .gacha-page::before {
     content: "";
 
@@ -37,7 +35,6 @@
     animation: waterDrift 14s ease-in-out infinite alternate;
 }
 
-/* Inset is widened so the drift never reveals the page edges */
 @keyframes waterDrift {
     0% {
         transform: translate(-1.5%, -1%) scale(1.02);
@@ -54,9 +51,6 @@
     }
 }
 
-
-/* ===== Content ===== */
-
 .gacha-content {
     position: relative;
     z-index: var(--z-raised);
@@ -67,9 +61,6 @@
     flex-direction: column;
     align-items: center;
 }
-
-
-/* ===== Header ===== */
 
 .gacha-header {
     position: relative;
@@ -142,9 +133,6 @@
     text-shadow: var(--marble-text-shadow);
 }
 
-
-/* ===== Coin / Button ===== */
-
 .gacha-controls {
     display: flex;
     flex-direction: column;
@@ -211,9 +199,6 @@
     }
 }
 
-
-/* ===== Cooldown ===== */
-
 .gacha-cooldown {
     margin: 0;
 
@@ -224,9 +209,6 @@
     letter-spacing: var(--tracking-caps);
     text-transform: uppercase;
 }
-
-
-/* ===== Result ===== */
 
 .gacha-result {
     position: relative;
@@ -325,9 +307,6 @@
     line-height: 1.6;
 }
 
-
-/* ===== Loading / Error ===== */
-
 .gacha-loading,
 .gacha-error {
     display: flex;
@@ -380,9 +359,6 @@
 
     background: var(--gacha-coin-texture) center / contain no-repeat;
 }
-
-
-/* Individual positions */
 
 .gacha-water-coins span:nth-child(1) {
     left: 8%;

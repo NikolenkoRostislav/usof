@@ -1,10 +1,6 @@
-/* App.css */
-
 @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap");
 
 :root {
-    /* ===== Colors ===== */
-
     --color-bg: #15120f;
     --color-surface: #211c17;
     --color-surface-light: #2b241d;
@@ -29,13 +25,10 @@
     --color-danger: #a83d32;
     --color-info: #6c8491;
 
-    /* ===== Typography ===== */
-
     --font-ui: "Inter", sans-serif;
 
     --font-display: "Cormorant Garamond", serif;
 
-    /* Type scale (rem) */
     --text-2xs: 0.7rem;
     --text-xs: 0.8rem;
     --text-sm: 0.85rem;
@@ -47,18 +40,15 @@
     --text-3xl: 1.75rem;
     --text-4xl: 2rem;
 
-    /* Font weights */
     --weight-regular: 400;
     --weight-medium: 500;
     --weight-semibold: 600;
     --weight-bold: 700;
 
-    /* Letter spacing */
     --tracking-tight: 0.01em;
     --tracking-wide: 0.04em;
     --tracking-caps: 0.18em;
 
-    /* ===== Spacing ===== */
 
     --space-1: 4px;
     --space-2: 8px;
@@ -71,7 +61,6 @@
     --space-12: 48px;
     --space-16: 64px;
 
-    /* ===== Radius ===== */
 
     --radius-xs: 2px;
     --radius-panel: 3px;
@@ -81,14 +70,12 @@
     --radius-xl: 18px;
     --radius-full: 9999px;
 
-    /* ===== Z-index ===== */
 
     --z-base: 1;
     --z-raised: 2;
     --z-overlay: 10;
     --z-modal: 100;
 
-    /* ===== Effects ===== */
 
     --shadow-floating:
         0 12px 32px rgba(0, 0, 0, 0.35);
@@ -119,7 +106,6 @@
     --transition-normal:
         250ms ease;
 
-    /* ===== Textures ===== */
 
     --marble-base:
         linear-gradient(105deg,
@@ -135,7 +121,6 @@
 
     --marble-column-shaft: #D0C7B8;
 
-    /* ===== Form Panels ===== */
 
     --marble-panel:
         linear-gradient(118deg,
@@ -161,7 +146,6 @@
             transparent 60%),
         #C9C0B0;
 
-    /* ===== Panel Shadows ===== */
 
     --shadow-panel-md:
         0 12px 26px rgba(0, 0, 0, 0.34),
@@ -183,7 +167,6 @@
         inset 0 1px 0 rgba(255, 255, 255, 0.28),
         inset 0 -1px 0 rgba(0, 0, 0, 0.2);
 
-    /* ===== Form Elements ===== */
 
     --color-input-bg: #403729;
     --color-input-border: #8B7D65;
@@ -193,7 +176,6 @@
     --color-carved-frame: rgba(92, 77, 57, 0.55);
     --color-carved-frame-subtle: rgba(92, 77, 57, 0.45);
 
-    /* ===== Text Styling ===== */
 
     --marble-text-shadow:
         0 1px 0 rgba(255, 255, 255, 0.45),
@@ -202,7 +184,6 @@
     --ornament-text-shadow:
         0 1px 1px rgba(255, 255, 255, 0.3);
 
-    /* ===== Button Colors ===== */
 
     --color-button-gold-border: #80631B;
     --color-button-text: #302719;
@@ -259,7 +240,6 @@
 }
 
 
-/* ===== Reset ===== */
 
 *,
 *::before,
@@ -308,7 +288,6 @@ img {
 }
 
 
-/* ===== App ===== */
 
 #root {
     min-height: 100vh;
@@ -322,7 +301,6 @@ img {
 }
 
 
-/* ===== Typography ===== */
 
 h1,
 h2,
@@ -365,7 +343,6 @@ p {
 }
 
 
-/* ===== Ornamental Elements ===== */
 
 .ornament {
     display: flex;
@@ -400,7 +377,6 @@ p {
 }
 
 
-/* ===== Selection ===== */
 
 ::selection {
     background: var(--color-gold);
@@ -408,7 +384,6 @@ p {
 }
 
 
-/* ===== Scrollbar ===== */
 
 ::-webkit-scrollbar {
     width: 10px;
@@ -429,7 +404,6 @@ p {
 }
 
 
-/* ===== Focus ===== */
 
 :focus-visible {
     outline: 2px solid var(--color-gold);
@@ -437,7 +411,6 @@ p {
 }
 
 
-/* ===== Utility Classes ===== */
 
 .marble-panel {
     position: relative;
@@ -698,7 +671,6 @@ p {
 }
 
 
-/* ===== Award Tiers ===== */
 
 .award-tier {
     display: inline-flex;
@@ -764,7 +736,6 @@ p {
 }
 
 
-/* ===== Plaques ===== */
 
 .plaque {
     padding: 5px 10px;
@@ -789,7 +760,6 @@ p {
 }
 
 
-/* ===== Responsive ===== */
 
 @media (max-width: 768px) {
     h1 {
@@ -820,7 +790,6 @@ p {
     flex: 1;
 }
 
-/* ===== Page Columns ===== */
 
 @media (min-width: 1000px) {
 
