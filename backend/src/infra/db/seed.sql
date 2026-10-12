@@ -1,10 +1,10 @@
 USE usof;
 
 INSERT INTO users (id, login, full_name, password_hash, email, role) VALUES
-('550e8400-e29b-41d4-a716-446655440001', 'admin_user', 'Admin User', '$2b$10$abcdefghijklmnopqrstuvwxyz', 'admin@example.com', 'admin'),
-('550e8400-e29b-41d4-a716-446655440002', 'john_doe', 'John Doe', '$2b$10$abcdefghijklmnopqrstuvwxyz', 'john@example.com', 'user'),
-('550e8400-e29b-41d4-a716-446655440003', 'jane_smith', 'Jane Smith', '$2b$10$abcdefghijklmnopqrstuvwxyz', 'jane@example.com', 'user'),
-('550e8400-e29b-41d4-a716-446655440004', 'heisenberg', 'Walter White', '$2b$10$abcdefghijklmnopqrstuvwxyz', 'walterwhite@email.com', 'user');
+('550e8400-e29b-41d4-a716-446655440001', 'admin_user', 'Admin User', '$2b$10$JgeVLNyA3ispaWfzpr2rJ..mWuCbqxXIRmuzb83Hf5KpxPB1jo5RW', 'admin@example.com', 'admin'),
+('550e8400-e29b-41d4-a716-446655440002', 'john_doe', 'John Doe', '$2b$10$JgeVLNyA3ispaWfzpr2rJ..mWuCbqxXIRmuzb83Hf5KpxPB1jo5RW', 'john@example.com', 'user'),
+('550e8400-e29b-41d4-a716-446655440003', 'jane_smith', 'Jane Smith', '$2b$10$JgeVLNyA3ispaWfzpr2rJ..mWuCbqxXIRmuzb83Hf5KpxPB1jo5RW', 'jane@example.com', 'user'),
+('550e8400-e29b-41d4-a716-446655440004', 'heisenberg', 'Walter White', '$2b$10$JgeVLNyA3ispaWfzpr2rJ..mWuCbqxXIRmuzb83Hf5KpxPB1jo5RW', 'walterwhite@email.com', 'user');
 
 INSERT INTO categories (id, title, description) VALUES
 ('550e8400-e29b-41d4-a716-446655440101', 'Technology', 'Technology and software development'),
