@@ -3,7 +3,9 @@ import { getById as getUserById } from "../../api/users";
 import Post from "../post";
 import "./infinite-scroll.css";
 
-function InfiniteScroll({ filters = {}, getPosts }) {
+const EMPTY_FILTERS = {};
+
+function InfiniteScroll({ filters = EMPTY_FILTERS, getPosts }) {
     const [posts, setPosts] = useState([]);
     const [authors, setAuthors] = useState({});
     const [page, setPage] = useState(0);

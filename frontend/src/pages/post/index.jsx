@@ -5,6 +5,7 @@ import { getById as getPostById } from "../../api/posts";
 import { getById as getUserById } from "../../api/users";
 import { getByPostId as getLikesByPostId } from "../../api/likes";
 import { getByPostId as getAwardsByPostId, getAwards as getAllAwards } from "../../api/awards";
+import { checkByPostId, deleteByPostId, postByPostId } from "../../api/favorites";
 import Reactions from "./reactions";
 import Comments from "./comments";
 import Awards from "./awards";
@@ -21,6 +22,8 @@ function Post() {
     const [likes, setLikes] = useState([]);
     const [awards, setAwards] = useState([]);
     const [allAwardsData, setAllAwardsData] = useState([]);
+    const [isFavorited, setIsFavorited] = useState(false);
+    const [favoriteLoading, setFavoriteLoading] = useState(false);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -36,16 +39,21 @@ function Post() {
                     likesData,
                     awardsData,
                     allAwardsData,
+                    favoriteData,
                 ] = await Promise.all([
                     getLikesByPostId(id),
                     getAwardsByPostId(id),
                     getAllAwards(),
+                    user
+                        ? checkByPostId(id)
+                        : Promise.resolve({ isFavorited: false }),
                 ]);
 
                 setPost(postData);
                 setLikes(likesData.likes);
                 setAwards(awardsData.awards);
                 setAllAwardsData(allAwardsData.awards);
+                setIsFavorited(favoriteData.isFavorited);
 
                 try {
                     const authorData = await getUserById(postData.authorId);
@@ -62,11 +70,31 @@ function Post() {
         }
 
         loadPost();
-    }, [id]);
+    }, [id, user]);
 
     async function reloadAwards() {
         const awardsData = await getAwardsByPostId(id);
         setAwards(awardsData.awards);
+    }
+
+    async function toggleFavorite() {
+        if (!user || favoriteLoading) return;
+
+        setFavoriteLoading(true);
+
+        try {
+            if (isFavorited) {
+                await deleteByPostId(id);
+                setIsFavorited(false);
+            } else {
+                await postByPostId(id);
+                setIsFavorited(true);
+            }
+        } catch (error) {
+            console.error("Failed to update favorite:", error);
+        } finally {
+            setFavoriteLoading(false);
+        }
     }
 
     if (loading) {
@@ -126,9 +154,21 @@ function Post() {
                     {canEdit && (
                         <button
                             type="button"
-                            onClick={() => navigate(`/posts/edit/${id}`)}
+                            onClick={() => navigate(`/posts/edit/${id} `)}
                         >
                             Edit
+                        </button>
+                    )}
+
+                    {user && (
+                        <button
+                            type="button"
+                            onClick={toggleFavorite}
+                            disabled={favoriteLoading}
+                            aria-pressed={isFavorited}
+                        >
+                            {favoriteLoading ? "Updating..."
+                                : isFavorited ? "unfavorite" : "favorite"}
                         </button>
                     )}
 

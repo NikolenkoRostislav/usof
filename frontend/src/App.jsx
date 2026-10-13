@@ -16,6 +16,7 @@ import CreatePost from "./pages/create-post";
 import "./App.css";
 import Header from "./components/header";
 import Footer from "./components/footer";
+import Favorites from "./pages/favorites";
 
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
           <Route path="/posts/category/:id" element={<CategoryPosts />} />
           <Route path="/login" element={<Login />} />
           <Route path="/gacha" element={<Gacha />} />
+          <Route path="/favorites" element={<Favorites />} />
           <Route path="/register" element={<Registration />} />
           <Route path="/confirm-registration/:token/:email" element={<ConfirmRegistration />} />
           <Route path="/request-password-reset" element={<RequestPasswordReset />} />
