@@ -8,7 +8,29 @@ USOF is a Stack Overflow-inspired question and answer forum. Users can publish p
 
 ## Screenshots
 
-I havent added any yet
+### Home page
+![Home page](screenshots/home.png)
+
+### Post page
+![Post page](screenshots/post.png)
+
+### Comments
+![Comments](screenshots/comments.png)
+
+### Categories
+![Categories](screenshots/categories.png)
+
+### Create post
+![Create post](screenshots/createpost.png)
+
+### Edit post
+![Edit post](screenshots/editpost.png)
+
+### Profile
+![Profile](screenshots/profile.png)
+
+### Gacha awards
+![Gacha awards](screenshots/gacha.png)
 
 ## Requirements and Dependencies
 
