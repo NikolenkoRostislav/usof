@@ -82,9 +82,10 @@ function EditPost() {
                 data.content = content;
             }
 
+            data.categories = selectedCategories;
+
             if (isAdmin) {
                 data.status = status;
-                data.categories = selectedCategories;
             }
 
             await patchById(id, data);

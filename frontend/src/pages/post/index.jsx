@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams, Link } from "react-router";
 import { useAuth } from "../../context/auth";
-import { getById as getPostById } from "../../api/posts";
+import { getById as getPostById, deleteById as deletePostById } from "../../api/posts";
 import { getById as getUserById } from "../../api/users";
 import { getByPostId as getLikesByPostId } from "../../api/likes";
 import { getByPostId as getAwardsByPostId, getAwards as getAllAwards } from "../../api/awards";
@@ -97,6 +97,19 @@ function Post() {
         }
     }
 
+    async function handleDelete() {
+        if (!window.confirm("Are you sure you want to delete this post?")) {
+            return;
+        }
+
+        try {
+            await deletePostById(id);
+            navigate("/");
+        } catch (error) {
+            console.error("Failed to delete post:", error);
+        }
+    }
+
     if (loading) {
         return <div className="post-page">Loading...</div>;
     }
@@ -109,7 +122,10 @@ function Post() {
         );
     }
 
-    const canEdit = user?.role === "admin" || (user?.id === post.authorId && post.status === "active");
+    const isAdmin = user?.role === "admin";
+    const isAuthor = user?.id === post.authorId;
+    const canEdit = isAdmin || (isAuthor && post.status !== "locked");
+    const canDelete = isAdmin || isAuthor;
 
     return (
         <div className="post-page">
@@ -151,26 +167,37 @@ function Post() {
                         ))}
                     </div>
 
-                    {canEdit && (
-                        <button
-                            type="button"
-                            onClick={() => navigate(`/posts/edit/${id} `)}
-                        >
-                            Edit
-                        </button>
-                    )}
+                    <div className="post-actions">
+                        {canEdit && (
+                            <button
+                                type="button"
+                                onClick={() => navigate(`/posts/edit/${id}`)}
+                            >
+                                Edit
+                            </button>
+                        )}
 
-                    {user && (
-                        <button
-                            type="button"
-                            onClick={toggleFavorite}
-                            disabled={favoriteLoading}
-                            aria-pressed={isFavorited}
-                        >
-                            {favoriteLoading ? "Updating..."
-                                : isFavorited ? "unfavorite" : "favorite"}
-                        </button>
-                    )}
+                        {canDelete && (
+                            <button
+                                type="button"
+                                onClick={handleDelete}
+                            >
+                                Delete
+                            </button>
+                        )}
+
+                        {user && (
+                            <button
+                                type="button"
+                                onClick={toggleFavorite}
+                                disabled={favoriteLoading}
+                                aria-pressed={isFavorited}
+                            >
+                                {favoriteLoading ? "Updating..."
+                                    : isFavorited ? "unfavorite" : "favorite"}
+                            </button>
+                        )}
+                    </div>
 
                     <Awards
                         postId={post.id}
