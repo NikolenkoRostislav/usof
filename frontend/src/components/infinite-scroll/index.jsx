@@ -208,14 +208,20 @@ function InfiniteScroll({ filters = EMPTY_FILTERS, getPosts }) {
                             </p>
                         )}
 
-                        {posts.map(post => (
-                            <Post
-                                key={post.id}
-                                post={post}
-                                author={authors[post.authorId]}
-                                onDelete={handlePostDelete}
-                            />
-                        ))}
+                        {posts.length === 0 && !loading && !error ? (
+                            <div className="infinite-scroll-empty">
+                                <h3>No Posts Yet</h3>
+                            </div>
+                        ) : (
+                            posts.map(post => (
+                                <Post
+                                    key={post.id}
+                                    post={post}
+                                    author={authors[post.authorId]}
+                                    onDelete={handlePostDelete}
+                                />
+                            ))
+                        )}
 
                         <div
                             ref={loadMoreRef}

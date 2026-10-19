@@ -252,6 +252,71 @@
 }
 
 
+.infinite-scroll-empty {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: var(--space-3);
+
+    min-height: 205px;
+    padding: var(--space-6);
+
+    box-sizing: border-box;
+    overflow: hidden;
+
+    border: 1px solid var(--color-brass-border);
+    border-radius: var(--radius-panel);
+
+    background: var(--brass-card-bg);
+
+    color: #352d1d;
+    text-align: center;
+
+    box-shadow:
+        0 8px 18px rgba(0, 0, 0, 0.34),
+        inset 0 1px 0 rgba(224, 204, 142, 0.16),
+        inset 0 -2px 0 rgba(49, 39, 18, 0.28);
+}
+
+.infinite-scroll-empty::before {
+    content: "";
+
+    position: absolute;
+    inset: 7px;
+
+    border: 1px solid rgba(57, 45, 20, 0.48);
+
+    pointer-events: none;
+
+    box-shadow:
+        inset 0 1px 0 rgba(220, 200, 140, 0.12),
+        inset 0 -1px 0 rgba(50, 39, 17, 0.12);
+}
+
+.infinite-scroll-empty h3 {
+    position: relative;
+    z-index: var(--z-base);
+
+    margin: 0;
+
+    color: var(--color-ink);
+
+    font-family: var(--font-display);
+    font-size: var(--text-3xl);
+    font-weight: var(--weight-bold);
+    line-height: 1.1;
+
+    letter-spacing: var(--tracking-tight);
+
+    text-shadow:
+        0 1px 0 rgba(221, 202, 143, 0.2);
+}
+
+
 @media (max-width: 600px) {
     .post-card-link {
         grid-template-columns: 130px minmax(0, 1fr);
@@ -310,5 +375,14 @@
         padding: var(--space-1) var(--space-2);
 
         font-size: var(--text-2xs);
+    }
+
+    .infinite-scroll-empty {
+        min-height: 165px;
+        padding: var(--space-5) 18px;
+    }
+
+    .infinite-scroll-empty h3 {
+        font-size: var(--text-xl);
     }
 }
